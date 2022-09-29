@@ -10,6 +10,10 @@ function App() {
     <div className="App">
       <header className="main-page-header">
         <h1>React components</h1>
+        <nav>
+          <Link to="/">Main page</Link>
+          <Link to="/about">About us</Link>
+        </nav>
       </header>
       <Routes>
         <Route path="/" element={<MainPage />} />
