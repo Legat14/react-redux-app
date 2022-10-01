@@ -1,5 +1,5 @@
 import React from 'react';
-import { IGameCard } from './types';
+import { IGameCard } from '../types';
 
 function GameCard(props: IGameCard) {
   return (
