@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MainPage from 'components/pages/Main-page';
 import Header from 'components/Header';
 import SearchResult from 'components/Search-result';
-import GameCard from 'components/Game-card';
 
 describe ('Components', () => {
   it('renders React components text in App component', (): void => {
@@ -13,7 +12,6 @@ describe ('Components', () => {
         <Header />
       </BrowserRouter>
     );
-    screen.debug();
     const reactCompText = screen.getByText(/React components/i);
     expect(reactCompText).toBeInTheDocument();
   });
@@ -23,7 +21,6 @@ describe ('Components', () => {
         <MainPage />
       </BrowserRouter>
     );
-    screen.debug();
     const searchInput = screen.getByRole('searchbox');
     expect(searchInput).toBeInTheDocument();
   });
@@ -33,7 +30,6 @@ describe ('Components', () => {
         <MainPage />
       </BrowserRouter>
     );
-    screen.debug();
     const searchBtn = screen.getByRole('button');
     expect(searchBtn).toBeInTheDocument();
   });
@@ -91,6 +87,3 @@ describe ('Card content', () => {
     expect(isTruthy).toBeTruthy();
   });
 });
-
-// Для проверки LocalStorage попробовать сэмитировать события введения строки
-// и переключения на другой роут
