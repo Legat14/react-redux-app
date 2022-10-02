@@ -4,7 +4,6 @@ import MainPage from 'components/pages/Main-page';
 import AboutUsPage from 'components/pages/About-page';
 import DoesntExist from 'components/pages/404';
 import Layout from 'components/Layout';
-import './App.css';
 
 function App() {
   return (

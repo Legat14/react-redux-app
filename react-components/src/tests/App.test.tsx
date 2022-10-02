@@ -49,7 +49,7 @@ describe ('Card content', () => {
     let isTruthy = true;
     const headings = screen.getAllByRole('heading');
     headings.forEach(heading => {
-      if (!heading.innerHTML.replace(' р.', '')) {
+      if (!heading.innerHTML.replace(' ₽', '')) {
         isTruthy = false;
       }
     });

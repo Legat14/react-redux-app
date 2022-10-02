@@ -1,0 +1,8 @@
+@import "../general/vars";
+
+.game-card {
+  display: flex;
+  font-family: $common-text-font;
+  font-weight: 400;
+  font-size: 20px;
+}
