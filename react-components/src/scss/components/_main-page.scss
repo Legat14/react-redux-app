@@ -3,4 +3,64 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  
+  h2 {
+    font-family: $heading-font;
+    font-weight: 600;
+    font-size: 30px;
+  }
+}
+
+.search-tool {
+  display: flex;
+  gap: 30px;
+}
+
+.main-page__bar {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: $common-text-font;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: $bar-bg;
+
+  .input-search,
+  .search-btn {
+    font-family: inherit;
+    font-size: inherit;
+  }
+  
+  .input-search {
+    padding-left: 10px;
+    font-weight: inherit;
+    border-radius: 12px;
+  }
+  
+  .search-btn {
+    padding: 3px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(70deg, $search-button-bg1, $search-button-bg2 30%, $search-button-bg1);
+    box-shadow: 2px 5px 8px #000000;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+
+  .search-btn:hover {
+    transform: scale(103%);
+    background: linear-gradient(55deg, $search-button-bg1, $search-button-bg2 60%, $search-button-bg1);
+  }
+  
+  .search-btn:active {
+    color: $search-button-active-color;
+    transform: scale(97%);
+    background: linear-gradient(35deg, $search-button-bg1, $search-button-bg2 40%, $search-button-bg1);
+    box-shadow: 1px 3px 8px #000000;
+  }
 }

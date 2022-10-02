@@ -5,8 +5,10 @@ import React from 'react';
 function MainPage() {
   return (
     <section className="main-page__section">
-      <h2>Main page</h2>
-      <SearchTool />
+      <div className="main-page__bar">
+        <h2>Main page</h2>
+        <SearchTool />
+      </div>
       <SearchResult />
     </section>
   );

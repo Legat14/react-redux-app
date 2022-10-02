@@ -52,8 +52,8 @@ class SearchTool extends React.Component {
   render(): React.ReactNode {
     return (
       <form className='search-tool'>
-        <input type='search' placeholder='Enter request here' ref={this.inputRef as LegacyRef<HTMLInputElement>}></input>
-        <button type='button' onClick={this.search}>Search</button>
+        <input className="input-search" type='search' placeholder='Enter request here' ref={this.inputRef as LegacyRef<HTMLInputElement>}></input>
+        <button className="search-btn" type='button' onClick={this.search}>Search</button>
       </form>
     );
   }
