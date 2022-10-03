@@ -1,8 +1,8 @@
 import React, { LegacyRef } from 'react';
 
 class SearchTool extends React.Component {
-  constructor() {
-    super({}); // TODO: Из-за этого TS выдает ошибку. Нужно разобраться с типизацией.
+  constructor(props: {}) {
+    super(props);
     this.getValue = this.getValue.bind(this);
     this.search = this.search.bind(this);
   }
@@ -13,7 +13,6 @@ class SearchTool extends React.Component {
     const input = this.inputRef.current;
     let searchInput = null;
     if (input) {
-      console.log(input.value);
       searchInput = input.value
     }
     return searchInput;
@@ -28,7 +27,6 @@ class SearchTool extends React.Component {
 
   componentDidMount(): void {
     const searchInput = localStorage.getItem('searchInput');
-    console.log('Did mount: ', searchInput);
     if (searchInput || searchInput === '') {
       this.setValue(searchInput);
     }
@@ -36,7 +34,6 @@ class SearchTool extends React.Component {
 
   componentWillUnmount(): void {
     const searchInput = this.getValue();
-    console.log('Will unmount: ', searchInput);
     if (searchInput || searchInput === '') {
       localStorage.setItem('searchInput', searchInput);
     }
