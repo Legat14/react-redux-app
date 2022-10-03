@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AboutUsPage() {
+function AboutUsPage(): JSX.Element {
   return (
     <section className="about-page__section">
       <h2>About us</h2>

@@ -2,7 +2,7 @@ import SearchResult from 'components/Search-result';
 import SearchTool from 'components/Search-tool';
 import React from 'react';
 
-function MainPage() {
+function MainPage(): JSX.Element {
   return (
     <section className="main-page__section">
       <div className="main-page__bar">

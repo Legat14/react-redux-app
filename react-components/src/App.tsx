@@ -5,7 +5,7 @@ import AboutUsPage from 'components/pages/About-page';
 import DoesntExist from 'components/pages/404';
 import Layout from 'components/Layout';
 
-function App() {
+function App(): JSX.Element {
   return (
     <div className="App">
       <Routes>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header(): JSX.Element {
   return (
     <header className="header">
       <h1>React components</h1>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IGameCard } from '../types';
 
-function GameCard(props: IGameCard) {
+function GameCard(props: IGameCard): JSX.Element {
   return (
     <div className="game-card">
       <img src={`${props.img}`} alt={`${props.title}`} />

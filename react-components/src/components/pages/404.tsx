@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DoesntExist() {
+function DoesntExist(): JSX.Element {
   return (
     <section className="nothing-found-page__section">
       <h2>404</h2>

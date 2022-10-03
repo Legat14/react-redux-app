@@ -5,7 +5,7 @@ import MainPage from 'components/pages/Main-page';
 import Header from 'components/Header';
 import SearchResult from 'components/Search-result';
 
-describe ('Components', () => {
+describe ('Components', (): void => {
   it('renders React components text in App component', (): void => {
     render(
       <BrowserRouter>
@@ -35,7 +35,7 @@ describe ('Components', () => {
   });
 });
 
-describe ('Cards quantity', () => {
+describe ('Cards quantity', (): void => {
   it('renders all cards', (): void => {
     render(<SearchResult />)
     const cards = screen.getAllByText(/Platform:/i);
@@ -43,7 +43,7 @@ describe ('Cards quantity', () => {
   });
 });
 
-describe ('Card content', () => {
+describe ('Card content', (): void => {
   it('renders all card content', (): void => {
     render(<SearchResult />)
     let isTruthy = true;

@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
-describe ('LocalStorage', () => {
+describe ('LocalStorage', (): void => {
   it('gets data from Local Storage', (): void => {
     render(
       <BrowserRouter>
