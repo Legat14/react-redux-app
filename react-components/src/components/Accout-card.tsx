@@ -18,6 +18,10 @@ class AccountCard extends React.Component<IAccountCard> {
           <strong>Country:</strong>
           <span>{(this.props as IAccountCard).select}</span>
         </p>
+        <p>
+          <strong>Gaming devices:</strong>
+          <span>{(this.props as IAccountCard).devices}</span>
+        </p>
       </div>
     );
   }

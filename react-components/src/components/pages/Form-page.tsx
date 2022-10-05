@@ -21,19 +21,33 @@ class FormPage extends React.Component {
     const key = this.state.cards.length;
 
     let inputValue = '';
-    if (this.form.current && this.form.current.inputComp.current && this.form.current.inputComp.current.inputInput.current) {
+    if (this.form.current && this.form.current.inputComp.current &&
+      this.form.current.inputComp.current.inputInput.current) {
       inputValue = this.form.current.inputComp.current.inputInput.current.value;
       console.log('inputValue', inputValue);
     }
     let dateValue = '';
-    if (this.form.current && this.form.current.dateComp.current && this.form.current.dateComp.current.dateInput.current) {
+    if (this.form.current && this.form.current.dateComp.current &&
+      this.form.current.dateComp.current.dateInput.current) {
       dateValue = this.form.current.dateComp.current.dateInput.current.value;
       console.log('dateValue', dateValue);
     }
     let selectValue = '';
-    if (this.form.current && this.form.current.selectComp.current && this.form.current.selectComp.current.selectInput.current) {
+    if (this.form.current && this.form.current.selectComp.current &&
+      this.form.current.selectComp.current.selectInput.current) {
       selectValue = this.form.current.selectComp.current.selectInput.current.value;
       console.log('selectValue', selectValue);
+    }
+    let devices = ['none'];
+    let pcCheckboxValue = false;
+    if (this.form.current && this.form.current.checkboxComp.current &&
+      this.form.current.checkboxComp.current.pcCheckbox.current) {
+      pcCheckboxValue = this.form.current.checkboxComp.current.pcCheckbox.current.checked;
+      console.log('pcCheckboxValue', pcCheckboxValue);
+    }
+    if (pcCheckboxValue) {
+      devices = [];
+      devices.push('PC');
     }
 
     const newAccoutData = {
@@ -41,6 +55,7 @@ class FormPage extends React.Component {
       name: inputValue,
       date: dateValue,
       select: selectValue,
+      devices: devices,
     }
 
     let newState = {};
