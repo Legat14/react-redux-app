@@ -14,25 +14,33 @@ class FormPage extends React.Component {
   }
 
   getInputData(event: React.SyntheticEvent): void {
-    const target = event.target;
-    console.log(target);
+    console.log('Ref: ', this.form.current?.submitComp.current);
+    console.log('Target', event.target);
+
+    const target = event.currentTarget;
     let newObj = {};
     this.setState((previous: { cards: number[] }) => {
       const cards = [...previous.cards];
       cards.push(1);
       newObj = { cards: cards };
-      console.log('Previous:', previous);
-      console.log('NewObject: ', newObj);
       return newObj;
     });
-    console.log('NewObject: ', newObj);
+
+    if (this.form.current && this.form.current.inputComp.current && this.form.current.inputComp.current.inputInput.current) {
+      const inputValue = this.form.current.inputComp.current.inputInput.current.value;
+      console.log('inputValue', inputValue);
+    }
+    if (this.form.current && this.form.current.dateComp.current && this.form.current.dateComp.current.dateInput.current) {
+      const dateValue = this.form.current.dateComp.current.dateInput.current.value;
+      console.log('dateValue', dateValue);
+    }
   }
 
   render(): JSX.Element {
     return (
-      <section className="form-page__section" onClick={this.getInputData}>
+      <section className="form-page__section" onSubmit={this.getInputData}>
         <h2>React Forms</h2>
-        <Form />
+        <Form ref={this.form} />
         <AccountCardsDiv
         number={ this.state.cards }
       />

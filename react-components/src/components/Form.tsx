@@ -1,17 +1,19 @@
 import React, { FormEvent } from 'react';
 import DateInput from './inputs/Date-input';
 import Input from './inputs/Input-input';
-import Submit from './inputs/Submit';
+import SubmitInput from './inputs/Submit-input';
 
 class Form extends React.Component {
   public inputComp: React.RefObject<Input>;
   public dateComp: React.RefObject<DateInput>;
+  public submitComp: React.RefObject<SubmitInput>;
 
   constructor(props: {}) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.inputComp = React.createRef();
     this.dateComp = React.createRef();
+    this.submitComp = React.createRef();
   }
 
   handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -35,7 +37,7 @@ class Form extends React.Component {
       <h3>Create your account</h3>
       <Input ref={this.inputComp} />
       <DateInput ref={this.dateComp} />
-      <Submit />
+      <SubmitInput ref={this.submitComp} />
     </form>
     )
   }
