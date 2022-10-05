@@ -38,24 +38,54 @@ class FormPage extends React.Component {
       selectValue = this.form.current.selectComp.current.selectInput.current.value;
       console.log('selectValue', selectValue);
     }
-    let devices = ['none'];
+    let devices = ['none :-('];
     let pcCheckboxValue = false;
     if (this.form.current && this.form.current.checkboxComp.current &&
       this.form.current.checkboxComp.current.pcCheckbox.current) {
       pcCheckboxValue = this.form.current.checkboxComp.current.pcCheckbox.current.checked;
       console.log('pcCheckboxValue', pcCheckboxValue);
     }
-    if (pcCheckboxValue) {
+    let ps5CheckboxValue = false;
+    if (this.form.current && this.form.current.checkboxComp.current &&
+      this.form.current.checkboxComp.current.ps5Checkbox.current) {
+      ps5CheckboxValue = this.form.current.checkboxComp.current.ps5Checkbox.current.checked;
+      console.log('ps5CheckboxValue', ps5CheckboxValue);
+    }
+    let xBoxCheckboxValue = false;
+    if (this.form.current && this.form.current.checkboxComp.current &&
+      this.form.current.checkboxComp.current.xBoxCheckbox.current) {
+      xBoxCheckboxValue = this.form.current.checkboxComp.current.xBoxCheckbox.current.checked;
+      console.log('xBoxCheckboxValue', xBoxCheckboxValue);
+    }
+    let switchCheckboxValue = false;
+    if (this.form.current && this.form.current.checkboxComp.current &&
+      this.form.current.checkboxComp.current.switchCheckbox.current) {
+      switchCheckboxValue = this.form.current.checkboxComp.current.switchCheckbox.current.checked;
+      console.log('switchCheckboxValue', switchCheckboxValue);
+    }
+    if (pcCheckboxValue || ps5CheckboxValue || xBoxCheckboxValue || switchCheckboxValue) {
       devices = [];
+    }
+    if (pcCheckboxValue) {
       devices.push('PC');
     }
+    if (ps5CheckboxValue) {
+      devices.push('PS5');
+    }
+    if (xBoxCheckboxValue) {
+      devices.push('Xbox series X');
+    }
+    if (switchCheckboxValue) {
+      devices.push('Switch');
+    }
+    const devicesStr = devices.join(', ');
 
     const newAccoutData = {
       key: key,
       name: inputValue,
       date: dateValue,
       select: selectValue,
-      devices: devices,
+      devices: devicesStr,
     }
 
     let newState = {};

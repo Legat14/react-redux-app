@@ -12,5 +12,5 @@ export interface IAccountCard {
   name: string,
   date: string,
   select: string,
-  devices: string[],
+  devices: string,
 }
