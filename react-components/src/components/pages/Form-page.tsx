@@ -1,10 +1,11 @@
 import AccountCardsDiv from 'components/Account-cards-div';
-import React from 'react';
+import React, { FormEvent } from 'react';
+import { IAccountCard } from 'types';
 import Form from '../Form';
 
 class FormPage extends React.Component {
   form: React.RefObject<Form>;
-  state: { cards: number[] };
+  state: { cards: IAccountCard[] };
 
   constructor(props: {}) {
     super(props);
@@ -13,27 +14,36 @@ class FormPage extends React.Component {
     this.state = { cards: [] };
   }
 
-  getInputData(event: React.SyntheticEvent): void {
-    console.log('Ref: ', this.form.current?.submitComp.current);
-    console.log('Target', event.target);
+  getInputData(event: FormEvent<HTMLFormElement>): void {
+    
+    event.preventDefault();
 
-    const target = event.currentTarget;
-    let newObj = {};
-    this.setState((previous: { cards: number[] }) => {
-      const cards = [...previous.cards];
-      cards.push(1);
-      newObj = { cards: cards };
-      return newObj;
-    });
+    const key = this.state.cards.length;
 
+    let inputValue = '';
     if (this.form.current && this.form.current.inputComp.current && this.form.current.inputComp.current.inputInput.current) {
-      const inputValue = this.form.current.inputComp.current.inputInput.current.value;
+      inputValue = this.form.current.inputComp.current.inputInput.current.value;
       console.log('inputValue', inputValue);
     }
+    let dateValue = '';
     if (this.form.current && this.form.current.dateComp.current && this.form.current.dateComp.current.dateInput.current) {
-      const dateValue = this.form.current.dateComp.current.dateInput.current.value;
+      dateValue = this.form.current.dateComp.current.dateInput.current.value;
       console.log('dateValue', dateValue);
     }
+
+    const newAccoutData = {
+      key: key,
+      name: inputValue,
+      date: dateValue,
+    }
+
+    let newState = {};
+    this.setState((previousState: { cards: IAccountCard[] }) => {
+      const cards = [...previousState.cards];
+      cards.push(newAccoutData);
+      newState = { cards: cards };
+      return newState;
+    });
   }
 
   render(): JSX.Element {
@@ -42,7 +52,7 @@ class FormPage extends React.Component {
         <h2>React Forms</h2>
         <Form ref={this.form} />
         <AccountCardsDiv
-        number={ this.state.cards }
+        cardData={ this.state.cards }
       />
       </section>
     );

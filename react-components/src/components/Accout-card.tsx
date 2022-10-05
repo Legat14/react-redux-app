@@ -1,7 +1,7 @@
 import React from "react";
 import { IAccountCard } from "types";
 
-class AccountCard extends React.Component {
+class AccountCard extends React.Component<IAccountCard> {
   constructor(props: IAccountCard) {
     super(props);
   }

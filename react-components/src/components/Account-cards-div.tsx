@@ -1,19 +1,21 @@
 import React from 'react';
-import TestCard from './Text-card';
+import { IAccountCard } from 'types';
+import AccountCard from './Accout-card';
 
-class AccountCardsDiv extends React.Component<{number: Array<number>}> {
+class AccountCardsDiv extends React.Component<{ cardData: IAccountCard[] }> {
 
-  constructor(props: {number: Array<number>}) {
+  constructor(props: { cardData: IAccountCard[] }) {
     super(props);
   }
   
   render(): JSX.Element {
 
-    const newArr = this.props.number.map((element) => {
+    const cardsArr = this.props.cardData.map((element): JSX.Element => {
       return (
-        <TestCard
-        key={element}
-        name={element}
+        <AccountCard
+        key={element.key}
+        name={element.name}
+        date={element.date}
         />
       )
     });
@@ -21,9 +23,9 @@ class AccountCardsDiv extends React.Component<{number: Array<number>}> {
     return (
       <div>
         <h4>
-          Cards number: {this.props.number.length}
+          Accounts registered: {this.props.cardData.length}
         </h4>
-        {newArr}
+        {cardsArr}
       </div>
     )
   }
