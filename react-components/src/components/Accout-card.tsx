@@ -14,6 +14,10 @@ class AccountCard extends React.Component<IAccountCard> {
           <strong>Birth date:</strong>
           <span>{(this.props as IAccountCard).date}</span>
         </p>
+        <p>
+          <strong>Country:</strong>
+          <span>{(this.props as IAccountCard).select}</span>
+        </p>
       </div>
     );
   }

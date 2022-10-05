@@ -11,9 +11,5 @@ export interface IAccountCard {
   key: number,
   name: string,
   date: string,
-}
-
-export interface ITestCard {
-  key: number,
-  name: number,
+  select: string,
 }

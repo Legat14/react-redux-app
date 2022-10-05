@@ -1,17 +1,20 @@
 import React, { FormEvent } from 'react';
+import InputInput from './inputs/Input-input';
 import DateInput from './inputs/Date-input';
-import Input from './inputs/Input-input';
+import SelectInput from './inputs/Select-input';
 import SubmitInput from './inputs/Submit-input';
 
 class Form extends React.Component {
-  public inputComp: React.RefObject<Input>;
+  public inputComp: React.RefObject<InputInput>;
   public dateComp: React.RefObject<DateInput>;
+  public selectComp: React.RefObject<SelectInput>;
   public submitComp: React.RefObject<SubmitInput>;
 
   constructor(props: {}) {
     super(props);
     this.inputComp = React.createRef();
     this.dateComp = React.createRef();
+    this.selectComp = React.createRef();
     this.submitComp = React.createRef();
   }
 
@@ -19,8 +22,9 @@ class Form extends React.Component {
     return (
     <form>
       <h3>Create your account</h3>
-      <Input ref={this.inputComp} />
+      <InputInput ref={this.inputComp} />
       <DateInput ref={this.dateComp} />
+      <SelectInput ref={this.selectComp} />
       <SubmitInput ref={this.submitComp} />
     </form>
     )

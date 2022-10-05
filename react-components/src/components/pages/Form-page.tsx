@@ -15,7 +15,7 @@ class FormPage extends React.Component {
   }
 
   getInputData(event: FormEvent<HTMLFormElement>): void {
-    
+
     event.preventDefault();
 
     const key = this.state.cards.length;
@@ -30,11 +30,17 @@ class FormPage extends React.Component {
       dateValue = this.form.current.dateComp.current.dateInput.current.value;
       console.log('dateValue', dateValue);
     }
+    let selectValue = '';
+    if (this.form.current && this.form.current.selectComp.current && this.form.current.selectComp.current.selectInput.current) {
+      selectValue = this.form.current.selectComp.current.selectInput.current.value;
+      console.log('selectValue', selectValue);
+    }
 
     const newAccoutData = {
       key: key,
       name: inputValue,
       date: dateValue,
+      select: selectValue,
     }
 
     let newState = {};
