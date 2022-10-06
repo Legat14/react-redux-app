@@ -12,6 +12,7 @@ export interface IAccountCard {
   name: string,
   date: string,
   gender: string,
+  img: string,
   select: string,
   devices: string,
 }

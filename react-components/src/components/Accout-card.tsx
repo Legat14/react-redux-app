@@ -9,22 +9,27 @@ class AccountCard extends React.Component<IAccountCard> {
   render(): JSX.Element {
     return (
       <div className="account-card">
-        <h4>{(this.props as IAccountCard).name}</h4>
+        <h4>{this.props.name}</h4>
         <p>
           <strong>Birth date:</strong>
-          <span>{(this.props as IAccountCard).date}</span>
+          <span>{this.props.date}</span>
         </p>
         <p>
           <strong>Gender:</strong>
-          <span>{(this.props as IAccountCard).gender}</span>
+          <span>{this.props.gender}</span>
+        </p>
+        <p>
+          {/* TODO: Заменить вывод адреса на загрузку картинки */}
+          <strong>Avatar:</strong>
+          <span>{this.props.img}</span>
         </p>
         <p>
           <strong>Country:</strong>
-          <span>{(this.props as IAccountCard).select}</span>
+          <span>{this.props.select}</span>
         </p>
         <p>
           <strong>Gaming devices:</strong>
-          <span>{(this.props as IAccountCard).devices}</span>
+          <span>{this.props.devices}</span>
         </p>
       </div>
     );

@@ -17,6 +17,7 @@ class AccountCardsDiv extends React.Component<{ cardData: IAccountCard[] }> {
         name={element.name}
         date={element.date}
         gender={element.gender}
+        img={element.img}
         select={element.select}
         devices={element.devices}
         />

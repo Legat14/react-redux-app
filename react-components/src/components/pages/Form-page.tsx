@@ -86,16 +86,24 @@ class FormPage extends React.Component {
       genderSwitcherValue = this.form.current.switcherComp.current.switcher.current.checked;
       console.log('genderSwitcherValue', genderSwitcherValue);
     }
-
+    
     let gender = 'Female';
     if (genderSwitcherValue) {
       gender = 'Male';
+    }
+
+    let imgSrc = '';
+    if (this.form.current && this.form.current.fileComp.current &&
+      this.form.current.fileComp.current.fileInput.current) {
+      imgSrc = this.form.current.fileComp.current.fileInput.current.value;
+      console.log('imgSrc', imgSrc);
     }
 
     const newAccoutData = {
       key: key,
       name: inputValue,
       date: dateValue,
+      img: imgSrc,
       gender: gender,
       select: selectValue,
       devices: devicesStr,
