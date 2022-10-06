@@ -1,5 +1,5 @@
 import AccountCardsDiv from 'components/Account-cards-div';
-import { validateName } from 'components/Data-validation';
+import { validateDate, validateName } from 'components/Data-validation';
 import React, { FormEvent } from 'react';
 import { IAccountCard } from 'types';
 import Form from '../Form';
@@ -21,8 +21,7 @@ class FormPage extends React.Component {
 
   getNameInput(): HTMLInputElement | null {
     let nameInput = null;
-    if (this.form.current && this.form.current.nameInputComp.current &&
-      this.form.current.nameInputComp.current.nameInput.current) {
+    if (this.form.current && this.form.current.nameInputComp.current) {
       nameInput = this.form.current.nameInputComp.current.nameInput.current;
     }
     return nameInput;
@@ -36,14 +35,22 @@ class FormPage extends React.Component {
     return inputValue;
   }
 
-  getBirthDate(): string {
-    let dateValue = '';
-    if (this.form.current && this.form.current.dateComp.current &&
-      this.form.current.dateComp.current.dateInput.current) {
-      dateValue = this.form.current.dateComp.current.dateInput.current.value;
+  getBirthDateInput(): HTMLInputElement | null {
+    let birthDateInput = null;
+    if (this.form.current && this.form.current.birthDateComp.current) {
+      birthDateInput = this.form.current.birthDateComp.current.birthDateInput.current;
     }
-    return dateValue;
+    return birthDateInput;
   }
+
+  // getBirthDate(): string {
+  //   let dateValue = '';
+  //   if (this.form.current && this.form.current.dateComp.current &&
+  //     this.form.current.dateComp.current.dateInput.current) {
+  //     dateValue = this.form.current.dateComp.current.dateInput.current.value;
+  //   }
+  //   return dateValue;
+  // }
 
   getGender(): string {
     let genderSwitcherValue = false;
@@ -132,6 +139,14 @@ class FormPage extends React.Component {
     return nameMistakeMessage;
   }
 
+  getDateMistakeMessage(): HTMLParagraphElement | null {
+    let dateMistakeMessage = null;
+    if (this.form.current) {
+      dateMistakeMessage = this.form.current.dateMistakeMessage.current;
+    }
+    return dateMistakeMessage;
+  }
+
   cleanInput(input: HTMLInputElement | null): void {
     if (input) {
       input.value = '';
@@ -171,18 +186,21 @@ class FormPage extends React.Component {
     event.preventDefault();
 
     const nameInput = this.getNameInput();
+    const birthDateInput = this.getBirthDateInput();
 
     const key = this.getKey();
     const name = this.getInputValue(nameInput);
-    const birthDate = this.getBirthDate();
+    const birthDate = this.getInputValue(birthDateInput);
     const gender = this.getGender();
     const avatar = this.getAvatar();
     const country = this.getCountry();
     const devices = this.getDevices();
 
     const nameIsValid = validateName(name);
+    const dateIsValid = validateDate(birthDate);
 
     const nameMistakeMessage = this.getNameMistakeMessage();
+    const dateMistakeMessage = this.getDateMistakeMessage();
 
     let isValid = true;
 
@@ -192,8 +210,20 @@ class FormPage extends React.Component {
       if (nameMistakeMessage) {
         nameMistakeMessage.classList.remove('form__mistake-message_disabled');
       }
+    } else {
+      if (nameMistakeMessage) {
+        nameMistakeMessage.classList.add('form__mistake-message_disabled');
+      }
     }
-    
+
+    if (!dateIsValid) {
+      isValid = false;
+      this.cleanInput(birthDateInput);
+      if (dateMistakeMessage) {
+        dateMistakeMessage.classList.remove('form__mistake-message_disabled');
+      }
+    }
+
     if (isValid) {
       this.createAccountCard({
         key: key,
@@ -205,8 +235,12 @@ class FormPage extends React.Component {
         devices: devices,
       });
       this.cleanInput(nameInput);
+      this.cleanInput(birthDateInput);
       if (nameMistakeMessage) {
         nameMistakeMessage.classList.add('form__mistake-message_disabled');
+      }
+      if (dateMistakeMessage) {
+        dateMistakeMessage.classList.add('form__mistake-message_disabled');
       }
     }
   }

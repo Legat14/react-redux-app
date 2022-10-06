@@ -1,0 +1,21 @@
+import React from "react";
+
+class BirthDateInput extends React.Component {
+  public birthDateInput: React.RefObject<HTMLInputElement>;
+
+  constructor(props: {}) {
+    super(props);
+    this.birthDateInput = React.createRef();
+  }
+
+  render(): JSX.Element {
+    return (
+      <label className="date-label">
+        <h4>Insert your birthday:</h4>
+        <input className="date" name="date" type="date" ref={this.birthDateInput} />
+      </label>
+    )
+  }
+}
+
+export default BirthDateInput;
