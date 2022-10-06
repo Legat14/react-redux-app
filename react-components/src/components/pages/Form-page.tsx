@@ -1,4 +1,5 @@
 import AccountCardsDiv from 'components/Account-cards-div';
+import { validateName } from 'components/Data-validation';
 import React, { FormEvent } from 'react';
 import { IAccountCard } from 'types';
 import Form from '../Form';
@@ -115,11 +116,8 @@ class FormPage extends React.Component {
     return devicesStr;
   }
 
-  handleSubmit(event: FormEvent<HTMLFormElement>): void {
-
-    event.preventDefault();
-
-    const key = this.getKey();
+  createAccountCard(): void {
+    const key = this.getKey(); // TODO: сделать получение переменных в метод
     const name = this.getName();
     const birthDate = this.getBirthDate();
     const gender = this.getGender();
@@ -136,7 +134,7 @@ class FormPage extends React.Component {
       country,
       devices,
     }
-
+    
     let newState = {};
     this.setState((previousState: { cards: IAccountCard[] }) => {
       const cards = [...previousState.cards];
@@ -144,6 +142,25 @@ class FormPage extends React.Component {
       newState = { cards: cards };
       return newState;
     });
+  }
+  
+  handleSubmit(event: FormEvent<HTMLFormElement>): void {
+
+    event.preventDefault();
+
+    const key = this.getKey();
+    const name = this.getName();
+    const birthDate = this.getBirthDate();
+    const gender = this.getGender();
+    const avatar = this.getAvatar();
+    const country = this.getCountry();
+    const devices = this.getDevices();
+
+    const nameIsValid = validateName(name);
+
+    if (nameIsValid) {
+      this.createAccountCard();
+    }
   }
 
   render(): JSX.Element {
