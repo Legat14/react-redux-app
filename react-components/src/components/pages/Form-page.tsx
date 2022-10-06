@@ -80,10 +80,23 @@ class FormPage extends React.Component {
     }
     const devicesStr = devices.join(', ');
 
+    let genderSwitcherValue = false;
+    if (this.form.current && this.form.current.switcherComp.current &&
+      this.form.current.switcherComp.current.switcher.current) {
+      genderSwitcherValue = this.form.current.switcherComp.current.switcher.current.checked;
+      console.log('genderSwitcherValue', genderSwitcherValue);
+    }
+
+    let gender = 'Female';
+    if (genderSwitcherValue) {
+      gender = 'Male';
+    }
+
     const newAccoutData = {
       key: key,
       name: inputValue,
       date: dateValue,
+      gender: gender,
       select: selectValue,
       devices: devicesStr,
     }

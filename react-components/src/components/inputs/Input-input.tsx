@@ -11,7 +11,7 @@ class InputInput extends React.Component {
   render(): JSX.Element {
     return (
       <label className="input-label">
-        Type your name:
+        <h4>Type your name:</h4>
         <input className="input" name="input" type="input" ref={this.inputInput} />
       </label>
     )

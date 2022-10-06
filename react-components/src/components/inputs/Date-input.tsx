@@ -11,9 +11,9 @@ class DateInput extends React.Component {
   render(): JSX.Element {
     return (
       <label className="date-label">
-      Insert your birthday:
-      <input className="date" name="date" type="date" ref={this.dateInput} />
-    </label>
+        <h4>Insert your birthday:</h4>
+        <input className="date" name="date" type="date" ref={this.dateInput} />
+      </label>
     )
   }
 }

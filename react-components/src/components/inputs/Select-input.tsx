@@ -11,7 +11,7 @@ class SelectInput extends React.Component {
   render(): JSX.Element {
     return (
       <label className="select-label">
-        Choose your country:
+        <h4>Choose your country:</h4>
         <select className="select" name="select" ref={this.selectInput}>
           <option value={'Russia'}>Russia</option>
           <option value={'Ukraine'}>Ukraine</option>
