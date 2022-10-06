@@ -12,7 +12,7 @@ class AccountCard extends React.Component<IAccountCard> {
         <h4>{this.props.name}</h4>
         <p>
           <strong>Birth date:</strong>
-          <span>{this.props.date}</span>
+          <span>{this.props.birthDate}</span>
         </p>
         <p>
           <strong>Gender:</strong>
@@ -21,11 +21,11 @@ class AccountCard extends React.Component<IAccountCard> {
         <p>
           {/* TODO: Заменить вывод адреса на загрузку картинки */}
           <strong>Avatar:</strong>
-          <span>{this.props.img}</span>
+          <span>{this.props.avatar}</span>
         </p>
         <p>
           <strong>Country:</strong>
-          <span>{this.props.select}</span>
+          <span>{this.props.country}</span>
         </p>
         <p>
           <strong>Gaming devices:</strong>

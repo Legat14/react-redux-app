@@ -15,10 +15,10 @@ class AccountCardsDiv extends React.Component<{ cardData: IAccountCard[] }> {
         <AccountCard
         key={element.key}
         name={element.name}
-        date={element.date}
+        birthDate={element.birthDate}
         gender={element.gender}
-        img={element.img}
-        select={element.select}
+        avatar={element.avatar}
+        country={element.country}
         devices={element.devices}
         />
       )

@@ -10,34 +10,67 @@ class FormPage extends React.Component {
   constructor(props: {}) {
     super(props);
     this.form = React.createRef();
-    this.getInputData = this.getInputData.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = { cards: [] };
   }
 
-  getInputData(event: FormEvent<HTMLFormElement>): void {
+  getKey(): number {
+    return this.state.cards.length;
+  }
 
-    event.preventDefault();
-
-    const key = this.state.cards.length;
-
+  getName(): string {
     let inputValue = '';
     if (this.form.current && this.form.current.inputComp.current &&
       this.form.current.inputComp.current.inputInput.current) {
       inputValue = this.form.current.inputComp.current.inputInput.current.value;
-      console.log('inputValue', inputValue);
     }
+    return inputValue;
+  }
+
+  getBirthDate(): string {
     let dateValue = '';
     if (this.form.current && this.form.current.dateComp.current &&
       this.form.current.dateComp.current.dateInput.current) {
       dateValue = this.form.current.dateComp.current.dateInput.current.value;
-      console.log('dateValue', dateValue);
     }
+    return dateValue;
+  }
+
+  getGender(): string {
+    let genderSwitcherValue = false;
+    if (this.form.current && this.form.current.switcherComp.current &&
+      this.form.current.switcherComp.current.switcher.current) {
+      genderSwitcherValue = this.form.current.switcherComp.current.switcher.current.checked;
+      console.log('genderSwitcherValue', genderSwitcherValue);
+    }
+    
+    let gender = 'Female';
+    if (genderSwitcherValue) {
+      gender = 'Male';
+    }
+    return gender;
+  }
+
+  getAvatar(): string {
+    let imgSrc = '';
+    if (this.form.current && this.form.current.fileComp.current &&
+      this.form.current.fileComp.current.fileInput.current) {
+      imgSrc = this.form.current.fileComp.current.fileInput.current.value;
+      console.log('imgSrc', imgSrc);
+    }
+    return imgSrc;
+  }
+
+  getCountry(): string {
     let selectValue = '';
     if (this.form.current && this.form.current.selectComp.current &&
       this.form.current.selectComp.current.selectInput.current) {
       selectValue = this.form.current.selectComp.current.selectInput.current.value;
-      console.log('selectValue', selectValue);
     }
+    return selectValue;
+  }
+
+  getDevices(): string {
     let devices = ['none :-('];
     let pcCheckboxValue = false;
     if (this.form.current && this.form.current.checkboxComp.current &&
@@ -79,34 +112,29 @@ class FormPage extends React.Component {
       devices.push('Switch');
     }
     const devicesStr = devices.join(', ');
+    return devicesStr;
+  }
 
-    let genderSwitcherValue = false;
-    if (this.form.current && this.form.current.switcherComp.current &&
-      this.form.current.switcherComp.current.switcher.current) {
-      genderSwitcherValue = this.form.current.switcherComp.current.switcher.current.checked;
-      console.log('genderSwitcherValue', genderSwitcherValue);
-    }
-    
-    let gender = 'Female';
-    if (genderSwitcherValue) {
-      gender = 'Male';
-    }
+  handleSubmit(event: FormEvent<HTMLFormElement>): void {
 
-    let imgSrc = '';
-    if (this.form.current && this.form.current.fileComp.current &&
-      this.form.current.fileComp.current.fileInput.current) {
-      imgSrc = this.form.current.fileComp.current.fileInput.current.value;
-      console.log('imgSrc', imgSrc);
-    }
+    event.preventDefault();
+
+    const key = this.getKey();
+    const name = this.getName();
+    const birthDate = this.getBirthDate();
+    const gender = this.getGender();
+    const avatar = this.getAvatar();
+    const country = this.getCountry();
+    const devices = this.getDevices();
 
     const newAccoutData = {
-      key: key,
-      name: inputValue,
-      date: dateValue,
-      img: imgSrc,
-      gender: gender,
-      select: selectValue,
-      devices: devicesStr,
+      key,
+      name,
+      birthDate,
+      avatar,
+      gender,
+      country,
+      devices,
     }
 
     let newState = {};
@@ -120,7 +148,7 @@ class FormPage extends React.Component {
 
   render(): JSX.Element {
     return (
-      <section className="form-page__section" onSubmit={this.getInputData}>
+      <section className="form-page__section" onSubmit={this.handleSubmit}>
         <h2>React Forms</h2>
         <Form ref={this.form} />
         <AccountCardsDiv

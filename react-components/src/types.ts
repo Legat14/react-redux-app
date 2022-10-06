@@ -10,9 +10,9 @@ export interface IGameCard {
 export interface IAccountCard {
   key: number,
   name: string,
-  date: string,
+  birthDate: string,
   gender: string,
-  img: string,
-  select: string,
+  avatar: string,
+  country: string,
   devices: string,
 }
