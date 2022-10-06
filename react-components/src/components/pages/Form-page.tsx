@@ -19,11 +19,19 @@ class FormPage extends React.Component {
     return this.state.cards.length;
   }
 
-  getName(): string {
+  getNameInput(): HTMLInputElement | null {
+    let nameInput = null;
+    if (this.form.current && this.form.current.nameInputComp.current &&
+      this.form.current.nameInputComp.current.nameInput.current) {
+      nameInput = this.form.current.nameInputComp.current.nameInput.current;
+    }
+    return nameInput;
+  }
+
+  getInputValue(nameInput: HTMLInputElement | null): string {
     let inputValue = '';
-    if (this.form.current && this.form.current.inputComp.current &&
-      this.form.current.inputComp.current.inputInput.current) {
-      inputValue = this.form.current.inputComp.current.inputInput.current.value;
+    if (nameInput) {
+      inputValue = nameInput.value;
     }
     return inputValue;
   }
@@ -116,15 +124,29 @@ class FormPage extends React.Component {
     return devicesStr;
   }
 
-  createAccountCard(): void {
-    const key = this.getKey(); // TODO: сделать получение переменных в метод
-    const name = this.getName();
-    const birthDate = this.getBirthDate();
-    const gender = this.getGender();
-    const avatar = this.getAvatar();
-    const country = this.getCountry();
-    const devices = this.getDevices();
+  getNameMistakeMessage(): HTMLParagraphElement | null {
+    let nameMistakeMessage = null;
+    if (this.form.current) {
+      nameMistakeMessage = this.form.current.nameMistakeMessage.current;
+    }
+    return nameMistakeMessage;
+  }
 
+  cleanInput(input: HTMLInputElement | null): void {
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  createAccountCard({
+    key: key,
+    name: name,
+    birthDate: birthDate,
+    gender: gender,
+    avatar: avatar,
+    country: country,
+    devices: devices,
+  }: IAccountCard): void {
     const newAccoutData = {
       key,
       name,
@@ -134,7 +156,7 @@ class FormPage extends React.Component {
       country,
       devices,
     }
-    
+
     let newState = {};
     this.setState((previousState: { cards: IAccountCard[] }) => {
       const cards = [...previousState.cards];
@@ -143,13 +165,15 @@ class FormPage extends React.Component {
       return newState;
     });
   }
-  
+
   handleSubmit(event: FormEvent<HTMLFormElement>): void {
 
     event.preventDefault();
 
+    const nameInput = this.getNameInput();
+
     const key = this.getKey();
-    const name = this.getName();
+    const name = this.getInputValue(nameInput);
     const birthDate = this.getBirthDate();
     const gender = this.getGender();
     const avatar = this.getAvatar();
@@ -158,8 +182,32 @@ class FormPage extends React.Component {
 
     const nameIsValid = validateName(name);
 
-    if (nameIsValid) {
-      this.createAccountCard();
+    const nameMistakeMessage = this.getNameMistakeMessage();
+
+    let isValid = true;
+
+    if (!nameIsValid) {
+      isValid = false;
+      this.cleanInput(nameInput);
+      if (nameMistakeMessage) {
+        nameMistakeMessage.classList.remove('form__mistake-message_disabled');
+      }
+    }
+    
+    if (isValid) {
+      this.createAccountCard({
+        key: key,
+        name: name,
+        birthDate: birthDate,
+        gender: gender,
+        avatar: avatar,
+        country: country,
+        devices: devices,
+      });
+      this.cleanInput(nameInput);
+      if (nameMistakeMessage) {
+        nameMistakeMessage.classList.add('form__mistake-message_disabled');
+      }
     }
   }
 

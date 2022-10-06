@@ -1,5 +1,5 @@
-import React, { FormEvent } from 'react';
-import InputInput from './inputs/Input-input';
+import React from 'react';
+import NameInput from './inputs/Name-input';
 import DateInput from './inputs/Date-input';
 import SwitcherInput from './inputs/Switcher-input';
 import SelectInput from './inputs/Select-input';
@@ -8,30 +8,35 @@ import CheckboxInput from './inputs/Checkboks-input';
 import FileInput from './inputs/File-input';
 
 class Form extends React.Component {
-  public inputComp: React.RefObject<InputInput>;
+  public nameInputComp: React.RefObject<NameInput>;
   public dateComp: React.RefObject<DateInput>;
   public switcherComp: React.RefObject<SwitcherInput>;
   public fileComp: React.RefObject<FileInput>;
   public selectComp: React.RefObject<SelectInput>;
   public checkboxComp: React.RefObject<CheckboxInput>;
   public submitComp: React.RefObject<SubmitInput>;
+  public nameMistakeMessage: React.RefObject<HTMLParagraphElement>;
 
   constructor(props: {}) {
     super(props);
-    this.inputComp = React.createRef();
+    this.nameInputComp = React.createRef();
     this.dateComp = React.createRef();
     this.switcherComp = React.createRef();
     this.fileComp = React.createRef();
     this.selectComp = React.createRef();
     this.checkboxComp = React.createRef();
     this.submitComp = React.createRef();
+    this.nameMistakeMessage = React.createRef();
   }
 
   render(): JSX.Element {
     return (
-    <form>
+    <form className='form'>
       <h3>Create your account</h3>
-      <InputInput ref={this.inputComp} />
+      <NameInput ref={this.nameInputComp} />
+      <p className='form__mistake-message form__mistake-message_disabled' ref={this.nameMistakeMessage}>
+        Name must be longer than one symbol and include at least one letter
+      </p>
       <DateInput ref={this.dateComp} />
       <SwitcherInput ref={this.switcherComp} />
       <FileInput ref={this.fileComp} />
@@ -43,4 +48,4 @@ class Form extends React.Component {
   }
 }
 
-  export default Form;
+export default Form;
