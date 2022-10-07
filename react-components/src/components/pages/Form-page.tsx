@@ -1,16 +1,20 @@
 import AccountCardsDiv from 'components/Account-cards-div';
-import { validateAvatar, validateDate, validateName } from 'components/Data-validation';
+import ConfirmationWindow from 'components/Confirmation-window';
+import { validateAvatar, validateDate, validateName } from 'data-validation';
 import React, { FormEvent } from 'react';
+import showCreateCardConfirmation from 'show-create-card-confirmation';
 import { IAccountCard } from 'types';
 import Form from '../Form';
 
 class FormPage extends React.Component {
   form: React.RefObject<Form>;
+  confirmation: React.RefObject<ConfirmationWindow>;
   state: { cards: IAccountCard[] };
 
   constructor(props: {}) {
     super(props);
     this.form = React.createRef();
+    this.confirmation = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = { cards: [] };
   }
@@ -180,6 +184,14 @@ class FormPage extends React.Component {
     return avatarMistakeMessage;
   }
 
+  getConfirmationDiv(): HTMLDivElement | null {
+    let confirmationDiv = null;
+    if (this.confirmation.current) {
+      confirmationDiv = this.confirmation.current.confirmationDiv.current
+    }
+    return confirmationDiv;
+  }
+
   cleanInput(input: HTMLInputElement | null): void {
     if (input) {
       input.value = '';
@@ -232,6 +244,7 @@ class FormPage extends React.Component {
     const ps5Checkbox = this.getPs5Checkbox();
     const xBoxCheckbox = this.getXboxCheckbox();
     const switchCheckbox = this.getSwitchCheckbox();
+    const confirmationDiv = this.getConfirmationDiv();
 
     const key = this.getKey();
     const name = this.getInputValue(nameInput);
@@ -314,6 +327,9 @@ class FormPage extends React.Component {
       if (dateMistakeMessage) {
         dateMistakeMessage.classList.add('form__mistake-message_disabled');
       }
+      if (confirmationDiv) {
+        showCreateCardConfirmation(confirmationDiv);
+      }
     }
   }
 
@@ -323,8 +339,9 @@ class FormPage extends React.Component {
         <h2>React Forms</h2>
         <Form ref={this.form} />
         <AccountCardsDiv
-        cardData={ this.state.cards }
-      />
+          cardData={this.state.cards}
+        />
+        <ConfirmationWindow ref={this.confirmation} />
       </section>
     );
   }
@@ -333,6 +350,5 @@ class FormPage extends React.Component {
 export default FormPage;
 
 // TODO: Disable submit button
-// TODO: Add conformation message
 // TODO: Tests
 // TODO: Look

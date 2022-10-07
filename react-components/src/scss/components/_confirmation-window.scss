@@ -1,0 +1,17 @@
+.confirmation__div {
+  position: absolute;
+  top: 400px;
+  font-family: $common-text-font;
+  font-weight: 400;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+
+  h3 {
+    font-family: $heading-font;
+    font-weight: 700;
+  }
+}
+
+.confirmation__div_disabled {
+  display: none;
+}
