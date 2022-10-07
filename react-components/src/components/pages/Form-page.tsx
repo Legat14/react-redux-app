@@ -1,5 +1,5 @@
 import AccountCardsDiv from 'components/Account-cards-div';
-import { validateDate, validateName } from 'components/Data-validation';
+import { validateAvatar, validateDate, validateName } from 'components/Data-validation';
 import React, { FormEvent } from 'react';
 import { IAccountCard } from 'types';
 import Form from '../Form';
@@ -135,6 +135,14 @@ class FormPage extends React.Component {
     return dateMistakeMessage;
   }
 
+  getAvatarMistakeMessage(): HTMLParagraphElement | null {
+    let avatarMistakeMessage = null;
+    if (this.form.current) {
+      avatarMistakeMessage = this.form.current.avatarMistakeMessage.current;
+    }
+    return avatarMistakeMessage;
+  }
+
   cleanInput(input: HTMLInputElement | null): void {
     if (input) {
       input.value = '';
@@ -188,9 +196,11 @@ class FormPage extends React.Component {
 
     const nameIsValid = validateName(name);
     const dateIsValid = validateDate(birthDate);
+    const avatarIsValid = validateAvatar(avatar);
 
     const nameMistakeMessage = this.getNameMistakeMessage();
     const dateMistakeMessage = this.getDateMistakeMessage();
+    const avatarMistakeMessage = this.getAvatarMistakeMessage();
 
     let isValid = true;
 
@@ -212,6 +222,21 @@ class FormPage extends React.Component {
       if (dateMistakeMessage) {
         dateMistakeMessage.classList.remove('form__mistake-message_disabled');
       }
+    } else {
+      if (dateMistakeMessage) {
+        dateMistakeMessage.classList.add('form__mistake-message_disabled');
+      }
+    }
+    
+    if (!avatarIsValid) {
+      isValid = false;
+      if (avatarMistakeMessage) {
+        avatarMistakeMessage.classList.remove('form__mistake-message_disabled');
+      }
+    } else {
+      if (avatarMistakeMessage) {
+        avatarMistakeMessage.classList.add('form__mistake-message_disabled');
+      }
     }
 
     if (isValid) {
@@ -226,6 +251,7 @@ class FormPage extends React.Component {
       });
       this.cleanInput(nameInput);
       this.cleanInput(birthDateInput);
+      this.cleanInput(avatarInput);
       if (nameMistakeMessage) {
         nameMistakeMessage.classList.add('form__mistake-message_disabled');
       }

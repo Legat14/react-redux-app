@@ -40,3 +40,11 @@ export function  validateDate(date: string): boolean {
   }
   return dateIsChosen && noNewerThan18Years && noElderThan100Years;
 }
+
+export function validateAvatar(avatar: string): boolean {
+  let hasSrc = false;
+  if (avatar) {
+    hasSrc = true;
+  }
+  return hasSrc;
+}

@@ -17,6 +17,7 @@ class Form extends React.Component {
   public submitComp: React.RefObject<SubmitInput>;
   public nameMistakeMessage: React.RefObject<HTMLParagraphElement>;
   public dateMistakeMessage: React.RefObject<HTMLParagraphElement>;
+  public avatarMistakeMessage: React.RefObject<HTMLParagraphElement>;
 
   constructor(props: {}) {
     super(props);
@@ -29,6 +30,7 @@ class Form extends React.Component {
     this.submitComp = React.createRef();
     this.nameMistakeMessage = React.createRef();
     this.dateMistakeMessage = React.createRef();
+    this.avatarMistakeMessage = React.createRef();
   }
 
   render(): JSX.Element {
@@ -41,10 +43,13 @@ class Form extends React.Component {
       </p>
       <DateInput ref={this.birthDateInputComp} />
       <p className='form__mistake-message form__mistake-message_disabled' ref={this.dateMistakeMessage}>
-        Date must be no newer than 18 years and no elder than 100 years ago
+        Date must be no newer than 18 years and no elder than 100 years
       </p>
       <SwitcherInput ref={this.switcherComp} />
       <AvatarInput ref={this.avatarInputComp} />
+      <p className='form__mistake-message form__mistake-message_disabled' ref={this.avatarMistakeMessage}>
+        You must choose picture for your avatar
+      </p>
       <SelectInput ref={this.selectComp} />
       <CheckboxInput ref={this.checkboxComp} />
       <SubmitInput ref={this.submitComp} />
