@@ -1,11 +1,11 @@
 import React from "react";
 
-class FileInput extends React.Component {
-  public fileInput: React.RefObject<HTMLInputElement>;
+class AvatarInput extends React.Component {
+  public avatarInput: React.RefObject<HTMLInputElement>;
 
   constructor(props: {}) {
     super(props);
-    this.fileInput = React.createRef();
+    this.avatarInput = React.createRef();
   }
 
   render(): JSX.Element {
@@ -13,10 +13,10 @@ class FileInput extends React.Component {
       <label className="input-label">
         <h4>Load your avatar:</h4>
         <input className="file" name="file" type="file"
-        accept="image/*" ref={this.fileInput} />
+        accept="image/*" ref={this.avatarInput} />
       </label>
     )
   }
 }
 
-export default FileInput;
+export default AvatarInput;

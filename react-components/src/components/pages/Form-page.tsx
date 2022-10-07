@@ -27,7 +27,7 @@ class FormPage extends React.Component {
     return nameInput;
   }
 
-  getInputValue(nameInput: HTMLInputElement | null): string {
+  getInputValue(nameInput: HTMLInputElement | HTMLSelectElement | null): string {
     let inputValue = '';
     if (nameInput) {
       inputValue = nameInput.value;
@@ -37,20 +37,11 @@ class FormPage extends React.Component {
 
   getBirthDateInput(): HTMLInputElement | null {
     let birthDateInput = null;
-    if (this.form.current && this.form.current.birthDateComp.current) {
-      birthDateInput = this.form.current.birthDateComp.current.birthDateInput.current;
+    if (this.form.current && this.form.current.birthDateInputComp.current) {
+      birthDateInput = this.form.current.birthDateInputComp.current.birthDateInput.current;
     }
     return birthDateInput;
   }
-
-  // getBirthDate(): string {
-  //   let dateValue = '';
-  //   if (this.form.current && this.form.current.dateComp.current &&
-  //     this.form.current.dateComp.current.dateInput.current) {
-  //     dateValue = this.form.current.dateComp.current.dateInput.current.value;
-  //   }
-  //   return dateValue;
-  // }
 
   getGender(): string {
     let genderSwitcherValue = false;
@@ -59,7 +50,7 @@ class FormPage extends React.Component {
       genderSwitcherValue = this.form.current.switcherComp.current.switcher.current.checked;
       console.log('genderSwitcherValue', genderSwitcherValue);
     }
-    
+
     let gender = 'Female';
     if (genderSwitcherValue) {
       gender = 'Male';
@@ -67,23 +58,20 @@ class FormPage extends React.Component {
     return gender;
   }
 
-  getAvatar(): string {
-    let imgSrc = '';
-    if (this.form.current && this.form.current.fileComp.current &&
-      this.form.current.fileComp.current.fileInput.current) {
-      imgSrc = this.form.current.fileComp.current.fileInput.current.value;
-      console.log('imgSrc', imgSrc);
+  getAvatarInput(): HTMLInputElement | null {
+    let avatarInput = null;
+    if (this.form.current && this.form.current.avatarInputComp.current) {
+      avatarInput = this.form.current.avatarInputComp.current.avatarInput.current;
     }
-    return imgSrc;
+    return avatarInput;
   }
 
-  getCountry(): string {
-    let selectValue = '';
-    if (this.form.current && this.form.current.selectComp.current &&
-      this.form.current.selectComp.current.selectInput.current) {
-      selectValue = this.form.current.selectComp.current.selectInput.current.value;
+  getCountryInput(): HTMLSelectElement | null {
+    let countryInput = null;
+    if (this.form.current && this.form.current.selectComp.current) {
+      countryInput = this.form.current.selectComp.current.selectInput.current;
     }
-    return selectValue;
+    return countryInput;
   }
 
   getDevices(): string {
@@ -187,13 +175,15 @@ class FormPage extends React.Component {
 
     const nameInput = this.getNameInput();
     const birthDateInput = this.getBirthDateInput();
+    const avatarInput = this.getAvatarInput();
+    const countryInput = this.getCountryInput();
 
     const key = this.getKey();
     const name = this.getInputValue(nameInput);
     const birthDate = this.getInputValue(birthDateInput);
     const gender = this.getGender();
-    const avatar = this.getAvatar();
-    const country = this.getCountry();
+    const avatar = this.getInputValue(avatarInput);
+    const country = this.getInputValue(countryInput);
     const devices = this.getDevices();
 
     const nameIsValid = validateName(name);
