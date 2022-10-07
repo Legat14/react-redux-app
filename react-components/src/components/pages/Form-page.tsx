@@ -331,3 +331,8 @@ class FormPage extends React.Component {
 }
 
 export default FormPage;
+
+// TODO: Disable submit button
+// TODO: Add conformation message
+// TODO: Tests
+// TODO: Look
