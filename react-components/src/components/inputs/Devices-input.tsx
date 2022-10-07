@@ -1,6 +1,6 @@
 import React from "react";
 
-class CheckboxInput extends React.Component {
+class DevicesInput extends React.Component {
   public pcCheckbox: React.RefObject<HTMLInputElement>;
   public ps5Checkbox: React.RefObject<HTMLInputElement>;
   public xBoxCheckbox: React.RefObject<HTMLInputElement>;
@@ -39,4 +39,4 @@ class CheckboxInput extends React.Component {
   }
 }
 
-export default CheckboxInput;
+export default DevicesInput;

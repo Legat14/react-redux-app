@@ -45,9 +45,9 @@ class FormPage extends React.Component {
 
   getGender(): string {
     let genderSwitcherValue = false;
-    if (this.form.current && this.form.current.switcherComp.current &&
-      this.form.current.switcherComp.current.switcher.current) {
-      genderSwitcherValue = this.form.current.switcherComp.current.switcher.current.checked;
+    if (this.form.current && this.form.current.genderInputComp.current &&
+      this.form.current.genderInputComp.current.switcher.current) {
+      genderSwitcherValue = this.form.current.genderInputComp.current.switcher.current.checked;
       console.log('genderSwitcherValue', genderSwitcherValue);
     }
 
@@ -68,40 +68,40 @@ class FormPage extends React.Component {
 
   getCountryInput(): HTMLSelectElement | null {
     let countryInput = null;
-    if (this.form.current && this.form.current.selectComp.current) {
-      countryInput = this.form.current.selectComp.current.selectInput.current;
+    if (this.form.current && this.form.current.countryInputComp.current) {
+      countryInput = this.form.current.countryInputComp.current.countryInput.current;
     }
     return countryInput;
   }
 
   getPcCheckbox(): HTMLInputElement | null {
     let pcCheckbox = null;
-    if (this.form.current && this.form.current.checkboxComp.current) {
-      pcCheckbox = this.form.current.checkboxComp.current.pcCheckbox.current;
+    if (this.form.current && this.form.current.devicesInputComp.current) {
+      pcCheckbox = this.form.current.devicesInputComp.current.pcCheckbox.current;
     }
     return pcCheckbox;
   }
 
   getPs5Checkbox(): HTMLInputElement | null {
     let pS5Checkbox = null;
-    if (this.form.current && this.form.current.checkboxComp.current) {
-      pS5Checkbox = this.form.current.checkboxComp.current.ps5Checkbox.current;
+    if (this.form.current && this.form.current.devicesInputComp.current) {
+      pS5Checkbox = this.form.current.devicesInputComp.current.ps5Checkbox.current;
     }
     return pS5Checkbox;
   }
 
   getXboxCheckbox(): HTMLInputElement | null {
     let xBoxCheckbox = null;
-    if (this.form.current && this.form.current.checkboxComp.current) {
-      xBoxCheckbox = this.form.current.checkboxComp.current.xBoxCheckbox.current;
+    if (this.form.current && this.form.current.devicesInputComp.current) {
+      xBoxCheckbox = this.form.current.devicesInputComp.current.xBoxCheckbox.current;
     }
     return xBoxCheckbox;
   }
 
   getSwitchCheckbox(): HTMLInputElement | null {
     let switchCheckbox = null;
-    if (this.form.current && this.form.current.checkboxComp.current) {
-      switchCheckbox = this.form.current.checkboxComp.current.switchCheckbox.current;
+    if (this.form.current && this.form.current.devicesInputComp.current) {
+      switchCheckbox = this.form.current.devicesInputComp.current.switchCheckbox.current;
     }
     return switchCheckbox;
   }

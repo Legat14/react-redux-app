@@ -1,19 +1,19 @@
 import React from 'react';
 import NameInput from './inputs/Name-input';
 import DateInput from './inputs/Birth-date-input';
-import SwitcherInput from './inputs/Switcher-input';
-import SelectInput from './inputs/Select-input';
-import SubmitInput from './inputs/Submit-input';
-import CheckboxInput from './inputs/Checkboks-input';
+import GenderInput from './inputs/Gender-input';
+import CountryInput from './inputs/Country-input';
+import DevicesInput from './inputs/Devices-input';
 import AvatarInput from './inputs/Avatar-input';
+import SubmitInput from './inputs/Submit-input';
 
 class Form extends React.Component {
   public nameInputComp: React.RefObject<NameInput>;
   public birthDateInputComp: React.RefObject<DateInput>;
-  public switcherComp: React.RefObject<SwitcherInput>;
+  public genderInputComp: React.RefObject<GenderInput>;
   public avatarInputComp: React.RefObject<AvatarInput>;
-  public selectComp: React.RefObject<SelectInput>;
-  public checkboxComp: React.RefObject<CheckboxInput>;
+  public countryInputComp: React.RefObject<CountryInput>;
+  public devicesInputComp: React.RefObject<DevicesInput>;
   public submitComp: React.RefObject<SubmitInput>;
   public nameMistakeMessage: React.RefObject<HTMLParagraphElement>;
   public dateMistakeMessage: React.RefObject<HTMLParagraphElement>;
@@ -23,10 +23,10 @@ class Form extends React.Component {
     super(props);
     this.nameInputComp = React.createRef();
     this.birthDateInputComp = React.createRef();
-    this.switcherComp = React.createRef();
+    this.genderInputComp = React.createRef();
     this.avatarInputComp = React.createRef();
-    this.selectComp = React.createRef();
-    this.checkboxComp = React.createRef();
+    this.countryInputComp = React.createRef();
+    this.devicesInputComp = React.createRef();
     this.submitComp = React.createRef();
     this.nameMistakeMessage = React.createRef();
     this.dateMistakeMessage = React.createRef();
@@ -45,13 +45,13 @@ class Form extends React.Component {
       <p className='form__mistake-message form__mistake-message_disabled' ref={this.dateMistakeMessage}>
         Date must be no newer than 18 years and no elder than 100 years
       </p>
-      <SwitcherInput ref={this.switcherComp} />
+      <GenderInput ref={this.genderInputComp} />
       <AvatarInput ref={this.avatarInputComp} />
       <p className='form__mistake-message form__mistake-message_disabled' ref={this.avatarMistakeMessage}>
         You must choose picture for your avatar
       </p>
-      <SelectInput ref={this.selectComp} />
-      <CheckboxInput ref={this.checkboxComp} />
+      <CountryInput ref={this.countryInputComp} />
+      <DevicesInput ref={this.devicesInputComp} />
       <SubmitInput ref={this.submitComp} />
     </form>
     )

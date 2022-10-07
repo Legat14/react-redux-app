@@ -1,18 +1,18 @@
 import React from "react";
 
-class SelectInput extends React.Component {
-  public selectInput: React.RefObject<HTMLSelectElement>;
+class CountryInput extends React.Component {
+  public countryInput: React.RefObject<HTMLSelectElement>;
 
   constructor(props: {}) {
     super(props);
-    this.selectInput = React.createRef();
+    this.countryInput = React.createRef();
   }
 
   render(): JSX.Element {
     return (
       <label className="select-label">
         <h4>Choose your country:</h4>
-        <select className="select" name="select" ref={this.selectInput}>
+        <select className="select" name="select" ref={this.countryInput}>
           <option value={'Russia'}>Russia</option>
           <option value={'Ukraine'}>Ukraine</option>
           <option value={'Belarus'}>Belarus</option>
@@ -24,4 +24,4 @@ class SelectInput extends React.Component {
   }
 }
 
-export default SelectInput;
+export default CountryInput;
