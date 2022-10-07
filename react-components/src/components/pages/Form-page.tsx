@@ -74,30 +74,67 @@ class FormPage extends React.Component {
     return countryInput;
   }
 
-  getDevices(): string {
+  getPcCheckbox(): HTMLInputElement | null {
+    let pcCheckbox = null;
+    if (this.form.current && this.form.current.checkboxComp.current) {
+      pcCheckbox = this.form.current.checkboxComp.current.pcCheckbox.current;
+    }
+    return pcCheckbox;
+  }
+
+  getPs5Checkbox(): HTMLInputElement | null {
+    let pS5Checkbox = null;
+    if (this.form.current && this.form.current.checkboxComp.current) {
+      pS5Checkbox = this.form.current.checkboxComp.current.ps5Checkbox.current;
+    }
+    return pS5Checkbox;
+  }
+
+  getXboxCheckbox(): HTMLInputElement | null {
+    let xBoxCheckbox = null;
+    if (this.form.current && this.form.current.checkboxComp.current) {
+      xBoxCheckbox = this.form.current.checkboxComp.current.xBoxCheckbox.current;
+    }
+    return xBoxCheckbox;
+  }
+
+  getSwitchCheckbox(): HTMLInputElement | null {
+    let switchCheckbox = null;
+    if (this.form.current && this.form.current.checkboxComp.current) {
+      switchCheckbox = this.form.current.checkboxComp.current.switchCheckbox.current;
+    }
+    return switchCheckbox;
+  }
+
+  getDevices({
+    pcCheckbox,
+    ps5Checkbox,
+    xBoxCheckbox,
+    switchCheckbox,
+  }: {
+    pcCheckbox: HTMLInputElement | null
+    ps5Checkbox: HTMLInputElement | null
+    xBoxCheckbox: HTMLInputElement | null
+    switchCheckbox: HTMLInputElement | null
+  }): string {
     let devices = ['none :-('];
     let pcCheckboxValue = false;
-    if (this.form.current && this.form.current.checkboxComp.current &&
-      this.form.current.checkboxComp.current.pcCheckbox.current) {
-      pcCheckboxValue = this.form.current.checkboxComp.current.pcCheckbox.current.checked;
-      console.log('pcCheckboxValue', pcCheckboxValue);
+    if (pcCheckbox) {
+      pcCheckboxValue = pcCheckbox.checked;
     }
     let ps5CheckboxValue = false;
-    if (this.form.current && this.form.current.checkboxComp.current &&
-      this.form.current.checkboxComp.current.ps5Checkbox.current) {
-      ps5CheckboxValue = this.form.current.checkboxComp.current.ps5Checkbox.current.checked;
+    if (ps5Checkbox) {
+      ps5CheckboxValue = ps5Checkbox.checked;
       console.log('ps5CheckboxValue', ps5CheckboxValue);
     }
     let xBoxCheckboxValue = false;
-    if (this.form.current && this.form.current.checkboxComp.current &&
-      this.form.current.checkboxComp.current.xBoxCheckbox.current) {
-      xBoxCheckboxValue = this.form.current.checkboxComp.current.xBoxCheckbox.current.checked;
+    if (xBoxCheckbox) {
+      xBoxCheckboxValue = xBoxCheckbox.checked;
       console.log('xBoxCheckboxValue', xBoxCheckboxValue);
     }
     let switchCheckboxValue = false;
-    if (this.form.current && this.form.current.checkboxComp.current &&
-      this.form.current.checkboxComp.current.switchCheckbox.current) {
-      switchCheckboxValue = this.form.current.checkboxComp.current.switchCheckbox.current.checked;
+    if (switchCheckbox) {
+      switchCheckboxValue = switchCheckbox.checked;
       console.log('switchCheckboxValue', switchCheckboxValue);
     }
     if (pcCheckboxValue || ps5CheckboxValue || xBoxCheckboxValue || switchCheckboxValue) {
@@ -149,6 +186,12 @@ class FormPage extends React.Component {
     }
   }
 
+  uncheckCheckbox(checkbox: HTMLInputElement | null): void {
+    if (checkbox) {
+      checkbox.checked = false;
+    }
+  }
+
   createAccountCard({
     key: key,
     name: name,
@@ -185,6 +228,10 @@ class FormPage extends React.Component {
     const birthDateInput = this.getBirthDateInput();
     const avatarInput = this.getAvatarInput();
     const countryInput = this.getCountryInput();
+    const pcCheckbox = this.getPcCheckbox();
+    const ps5Checkbox = this.getPs5Checkbox();
+    const xBoxCheckbox = this.getXboxCheckbox();
+    const switchCheckbox = this.getSwitchCheckbox();
 
     const key = this.getKey();
     const name = this.getInputValue(nameInput);
@@ -192,7 +239,12 @@ class FormPage extends React.Component {
     const gender = this.getGender();
     const avatar = this.getInputValue(avatarInput);
     const country = this.getInputValue(countryInput);
-    const devices = this.getDevices();
+    const devices = this.getDevices({
+      pcCheckbox,
+      ps5Checkbox,
+      xBoxCheckbox,
+      switchCheckbox,
+    });
 
     const nameIsValid = validateName(name);
     const dateIsValid = validateDate(birthDate);
@@ -252,6 +304,10 @@ class FormPage extends React.Component {
       this.cleanInput(nameInput);
       this.cleanInput(birthDateInput);
       this.cleanInput(avatarInput);
+      this.uncheckCheckbox(pcCheckbox);
+      this.uncheckCheckbox(ps5Checkbox);
+      this.uncheckCheckbox(xBoxCheckbox);
+      this.uncheckCheckbox(switchCheckbox);
       if (nameMistakeMessage) {
         nameMistakeMessage.classList.add('form__mistake-message_disabled');
       }
