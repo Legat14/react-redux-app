@@ -21,18 +21,22 @@ class DevicesInput extends React.Component {
         <div className="devices__div">
           <label className="devices__label">
             <input className="devices__checkbox" name="pc" type="checkbox" ref={this.pcCheckbox} data-testid="pc-input" />
+            <div className="devices__mark"></div>
             PC
           </label>
           <label className="devices__label">
             <input className="devices__checkbox" name="ps5" type="checkbox" ref={this.ps5Checkbox} data-testid="ps5-input" />
+            <div className="devices__mark"></div>
             PS5
           </label>
           <label className="devices__label">
             <input className="devices__checkbox" name="Xbox" type="checkbox" ref={this.xBoxCheckbox} data-testid="xbox-input" />
+            <div className="devices__mark"></div>
             Xbox series X
           </label>
           <label className="devices__label">
             <input className="devices__checkbox" name="switch" type="checkbox" ref={this.switchCheckbox} data-testid="switch-input" />
+            <div className="devices__mark"></div>
             Switch
           </label>
         </div>
