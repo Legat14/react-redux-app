@@ -10,9 +10,9 @@ class AvatarInput extends React.Component {
 
   render(): JSX.Element {
     return (
-      <label className="input-label">
+      <label className="avatar__label">
         <h4>Load your avatar:</h4>
-        <input className="file" name="file" type="file"
+        <input className="avatar_input" name="avatar" type="file"
         accept="image/*" ref={this.avatarInput} data-testid="avatar-input" />
       </label>
     )

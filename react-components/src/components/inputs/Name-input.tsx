@@ -10,9 +10,9 @@ class NameInput extends React.Component {
 
   render(): JSX.Element {
     return (
-      <label className="input-label">
+      <label className="name__label">
         <h4>Type your name:</h4>
-        <input className="input" name="input" type="input" ref={this.nameInput} data-testid="name-input" />
+        <input className="name__input" name="name-input" type="input" ref={this.nameInput} data-testid="name-input" />
       </label>
     )
   }

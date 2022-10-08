@@ -16,24 +16,26 @@ class DevicesInput extends React.Component {
 
   render(): JSX.Element {
     return (
-      <div className="checkboxes">
+      <div className="devices">
         <h4>What gaming devices do you have?</h4>
-        <label className="checkbox-label">
-          <input className="checkbox" name="pc" type="checkbox" ref={this.pcCheckbox} data-testid="pc-input" />
-          PC
-        </label>
-        <label className="checkbox-label">
-          <input className="checkbox" name="ps5" type="checkbox" ref={this.ps5Checkbox} data-testid="ps5-input" />
-          PS5
-        </label>
-        <label className="checkbox-label">
-          <input className="checkbox" name="Xbox" type="checkbox" ref={this.xBoxCheckbox} data-testid="xbox-input" />
-          Xbox series X
-        </label>
-        <label className="checkbox-label">
-          <input className="checkbox" name="switch" type="checkbox" ref={this.switchCheckbox} data-testid="switch-input" />
-          Switch
-        </label>
+        <div className="devices__div">
+          <label className="devices__label">
+            <input className="devices__checkbox" name="pc" type="checkbox" ref={this.pcCheckbox} data-testid="pc-input" />
+            PC
+          </label>
+          <label className="devices__label">
+            <input className="devices__checkbox" name="ps5" type="checkbox" ref={this.ps5Checkbox} data-testid="ps5-input" />
+            PS5
+          </label>
+          <label className="devices__label">
+            <input className="devices__checkbox" name="Xbox" type="checkbox" ref={this.xBoxCheckbox} data-testid="xbox-input" />
+            Xbox series X
+          </label>
+          <label className="devices__label">
+            <input className="devices__checkbox" name="switch" type="checkbox" ref={this.switchCheckbox} data-testid="switch-input" />
+            Switch
+          </label>
+        </div>
       </div>
     )
   }

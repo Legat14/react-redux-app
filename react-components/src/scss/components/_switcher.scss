@@ -1,31 +1,31 @@
-.switcher__div {
+.gender__div {
   width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 7px;
   font-family: $common-text-font;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 20px;
 
   h4 {
     font-family: $heading-font;
-    font-weight: 600;
-    font-size: 25px;
+    font-weight: 700;
+    font-size: 23px;
   }
 }
 
-.switcher__label {
+.gender__label {
   position: relative;
   display: flex;
   gap: 90px;
 }
 
-.switcher {
+.gender__input {
   display: none;
 }
 
-.switcher__control {
+.gender__control {
   content: "";
   position: absolute;
   width: 60px;
@@ -39,11 +39,11 @@
   transition: all 0.4s;
 }
 
-.switcher:checked ~ .switcher__control {
+.gender__input:checked ~ .gender__control {
   background-color: $switcer-true-color;
 }
 
-.switcher__control::after {
+.gender__control::after {
   content: "";
   position: absolute;
   top: 3px;
@@ -55,7 +55,7 @@
   transition: all 0.3s;
 }
 
-.switcher:checked ~ .switcher__control::after {
+.gender__input:checked ~ .gender__control::after {
   left: 33px;
   background: linear-gradient($switcer-control-color, #ffffff 47%, $switcer-control-color);
 }
