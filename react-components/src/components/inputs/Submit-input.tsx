@@ -10,7 +10,7 @@ class SubmitInput extends React.Component{
 
   render(): JSX.Element {
   return (
-    <input className="submit" type="submit" disabled={true} ref={this.submitInput} />
+    <input className="submit" type="submit" disabled={true} ref={this.submitInput} data-testid="submit-input" />
     )
   }
 }

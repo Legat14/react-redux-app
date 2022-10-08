@@ -12,7 +12,7 @@ class BirthDateInput extends React.Component {
     return (
       <label className="date-label">
         <h4>Insert your birthday:</h4>
-        <input className="date" name="date" type="date" ref={this.birthDateInput} />
+        <input className="date" name="date" type="date" ref={this.birthDateInput} data-testid="birth-date-input" />
       </label>
     )
   }

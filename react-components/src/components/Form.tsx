@@ -35,7 +35,7 @@ class Form extends React.Component {
 
   render(): JSX.Element {
     return (
-    <form className='form'>
+    <form className='form' data-testid="form">
       <h3>Create your account</h3>
       <NameInput ref={this.nameInputComp} />
       <p className='form__mistake-message form__mistake-message_hidden' ref={this.nameMistakeMessage}>

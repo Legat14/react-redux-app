@@ -12,7 +12,7 @@ class NameInput extends React.Component {
     return (
       <label className="input-label">
         <h4>Type your name:</h4>
-        <input className="input" name="input" type="input" ref={this.nameInput} />
+        <input className="input" name="input" type="input" ref={this.nameInput} data-testid="name-input" />
       </label>
     )
   }

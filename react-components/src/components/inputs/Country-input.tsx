@@ -12,7 +12,7 @@ class CountryInput extends React.Component {
     return (
       <label className="select-label">
         <h4>Choose your country:</h4>
-        <select className="select" name="select" ref={this.countryInput}>
+        <select className="select" name="select" ref={this.countryInput} data-testid="country-input">
           <option value={'Russia'}>Russia</option>
           <option value={'Ukraine'}>Ukraine</option>
           <option value={'Belarus'}>Belarus</option>
