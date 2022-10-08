@@ -1,3 +1,4 @@
+import { fireEvent } from '@testing-library/react';
 import AccountCardsDiv from 'components/Account-cards-div';
 import ConfirmationWindow from 'components/Confirmation-window';
 import { validateAvatar, validateDate, validateName } from 'data-validation';
@@ -68,6 +69,14 @@ class FormPage extends React.Component {
       avatarInput = this.form.current.avatarInputComp.current.avatarInput.current;
     }
     return avatarInput;
+  }
+
+  getAvatarInputBtn(): HTMLButtonElement | null {
+    let avatarInputBtn = null;
+    if (this.form.current && this.form.current.avatarInputComp.current) {
+      avatarInputBtn = this.form.current.avatarInputComp.current.avatarInputBtn.current;
+    }
+    return avatarInputBtn;
   }
 
   getCountryInput(): HTMLSelectElement | null {
@@ -342,6 +351,18 @@ class FormPage extends React.Component {
     }
   }
 
+  addPressButtonEvent() {
+    const avatarInput = this.getAvatarInput();
+    const avatarInputBtn = this.getAvatarInputBtn();
+    if (avatarInputBtn) {
+      avatarInputBtn.addEventListener('click', (): void => {
+        if (avatarInput) {
+          fireEvent.click(avatarInput);
+        }
+      });
+    }
+  }
+
   addEnableSubmitEvents() {
     const nameInput = this.getNameInput();
     const birthDateInput = this.getBirthDateInput();
@@ -366,6 +387,8 @@ class FormPage extends React.Component {
 
   componentDidMount(): void {
     this.addEnableSubmitEvents();
+    this.addPressButtonEvent();
+    console.log('Enents are added!'); // TODO: Загрузка страницы происходит дважды. Нужно пофискисть.
   }
 
   render(): JSX.Element {

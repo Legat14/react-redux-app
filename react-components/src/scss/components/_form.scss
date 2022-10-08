@@ -50,6 +50,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 15px;
+  cursor: pointer;
 }
 
 .devices {
@@ -72,7 +73,8 @@
   font-size: inherit;
 }
 
-.submit__input {
+.submit__input,
+.avatar__button {
   width: 200px;
   height: 30px;
   color: #ffffff;
@@ -84,12 +86,14 @@
   transition: 0.2s;
 }
 
-.submit__input:hover :not(:disabled) {
+.submit__input:hover :not(:disabled),
+.avatar__button:hover {
   transform: scale(103%);
   background: linear-gradient($search-button-bg1, $search-button-bg2 43%, $search-button-bg1);
 }
 
-.submit__input:active :not(:disabled) {
+.submit__input:active :not(:disabled),
+.avatar__button:active {
   color: $search-button-active-color;
   transform: scale(97%);
   background: linear-gradient($search-button-bg1, $search-button-bg2 50%, $search-button-bg1);
@@ -98,4 +102,8 @@
 
 .submit__input:disabled {
   background: linear-gradient($switcer-control-color, #bebebe 40%, $switcer-control-color);
+}
+
+.avatar__input {
+  display: none;
 }
