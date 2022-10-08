@@ -3,6 +3,7 @@ import ConfirmationWindow from 'components/Confirmation-window';
 import { validateAvatar, validateDate, validateName } from 'data-validation';
 import React, { FormEvent } from 'react';
 import showCreateCardConfirmation from 'show-create-card-confirmation';
+import { disableSubmit, enableSubmit } from 'toggle-submit-functions';
 import { IAccountCard } from 'types';
 import Form from '../Form';
 
@@ -192,6 +193,14 @@ class FormPage extends React.Component {
     return confirmationDiv;
   }
 
+  getSubmitInput(): HTMLInputElement | null {
+    let submitInput = null;
+    if (this.form.current && this.form.current.submitComp.current) {
+      submitInput = this.form.current.submitComp.current.submitInput.current;
+    }
+    return submitInput;
+  }
+
   cleanInput(input: HTMLInputElement | null): void {
     if (input) {
       input.value = '';
@@ -244,6 +253,7 @@ class FormPage extends React.Component {
     const ps5Checkbox = this.getPs5Checkbox();
     const xBoxCheckbox = this.getXboxCheckbox();
     const switchCheckbox = this.getSwitchCheckbox();
+    const submitInput = this.getSubmitInput();
     const confirmationDiv = this.getConfirmationDiv();
 
     const key = this.getKey();
@@ -330,7 +340,26 @@ class FormPage extends React.Component {
       if (confirmationDiv) {
         showCreateCardConfirmation(confirmationDiv);
       }
+      if (submitInput) {
+        disableSubmit(submitInput);
+      }
     }
+  }
+
+  addEnableSubmitEvent() {
+    const nameInput = this.getNameInput();
+    const submitInput = this.getSubmitInput();
+    console.log(nameInput);
+    if (nameInput && submitInput) {
+      nameInput.addEventListener('input', () => {
+        enableSubmit(submitInput);
+        console.log('Enabled!');
+      });
+    }
+  }
+
+  componentDidMount(): void {
+    this.addEnableSubmitEvent();
   }
 
   render(): JSX.Element {
