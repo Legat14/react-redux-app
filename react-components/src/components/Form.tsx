@@ -38,16 +38,19 @@ class Form extends React.Component {
     <form className='form' data-testid="form">
       <h3>Create your account</h3>
       <NameInput ref={this.nameInputComp} />
-      <p className='form__mistake-message form__mistake-message_hidden' ref={this.nameMistakeMessage}>
+      <p className='form__mistake-message form__mistake-message_hidden' ref={this.nameMistakeMessage}
+      data-testid="mistake-message">
         Name must be longer than one symbol and include at least one letter
       </p>
       <DateInput ref={this.birthDateInputComp} />
-      <p className='form__mistake-message form__mistake-message_hidden' ref={this.dateMistakeMessage}>
+      <p className='form__mistake-message form__mistake-message_hidden' ref={this.dateMistakeMessage}
+      data-testid="mistake-message">
         Date must be no newer than 18 years and no elder than 100 years
       </p>
       <GenderInput ref={this.genderInputComp} />
       <AvatarInput ref={this.avatarInputComp} />
-      <p className='form__mistake-message form__mistake-message_hidden' ref={this.avatarMistakeMessage}>
+      <p className='form__mistake-message form__mistake-message_hidden' ref={this.avatarMistakeMessage}
+      data-testid="mistake-message">
         You must choose picture for your avatar
       </p>
       <CountryInput ref={this.countryInputComp} />

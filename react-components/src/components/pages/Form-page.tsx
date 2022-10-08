@@ -384,5 +384,4 @@ class FormPage extends React.Component {
 
 export default FormPage;
 
-// TODO: Tests
 // TODO: Look

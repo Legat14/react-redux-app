@@ -20,7 +20,7 @@ describe ('Forms', (): void => {
     const switchInput = screen.getByTestId('switch-input');
     const nameInput = screen.getByTestId('name-input');
     const submitInput = screen.getByTestId('submit-input');
-
+    
     expect(form).toBeInTheDocument();
     expect(avatarInput).toBeInTheDocument();
     expect(birthDateInput).toBeInTheDocument();
@@ -31,5 +31,82 @@ describe ('Forms', (): void => {
     expect(switchInput).toBeInTheDocument();
     expect(nameInput).toBeInTheDocument();
     expect(submitInput).toBeInTheDocument();
+  });
+
+  it('submit is disabled when rended, enabled after input and disabled click submit', (): void => {
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
+    const nameInput = screen.getByTestId('name-input');
+    const birthDateInput = screen.getByTestId('birth-date-input');
+    const submitInput = screen.getByTestId('submit-input');
+
+    expect(submitInput).toBeDisabled();
+    
+    fireEvent.input(nameInput, {
+      target:
+      {
+        value: "John Smidt"
+      }
+    });
+    fireEvent.input(nameInput, {
+      target:
+      {
+        value: "John Smidt"
+      }
+    });
+    fireEvent.input(birthDateInput, {
+      target:
+      {
+        value: "10101980"
+      }
+    });
+
+    expect(submitInput).toBeEnabled();
+
+    fireEvent.click(submitInput);
+
+    expect(submitInput).toBeDisabled();
+  });
+
+  it('mistake messages are disabled when component mounts', (): void => {
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
+    const mistakeMessages = screen.getAllByTestId('mistake-message');
+
+    expect(mistakeMessages[0]).toHaveClass('form__mistake-message_hidden');
+    expect(mistakeMessages[1]).toHaveClass('form__mistake-message_hidden');
+    expect(mistakeMessages[2]).toHaveClass('form__mistake-message_hidden');
+  });
+
+  it('mistake messages are enables when press submit', (): void => {
+    render(
+      <BrowserRouter>
+        <FormPage />
+      </BrowserRouter>
+    );
+    const nameInput = screen.getByTestId('name-input');
+    const mistakeMessages = screen.getAllByTestId('mistake-message');
+    const submitInput = screen.getByTestId('submit-input');
+
+    fireEvent.input(nameInput, {
+      target: {
+        value: 'John',
+      }
+    })
+    fireEvent.click(submitInput);
+
+    const shownMistakeMessages = mistakeMessages.filter((message): boolean => {
+      if (message.classList.contains('form__mistake-message_hidden')) {
+        return false;
+      }
+      return true;
+    });
+    expect(shownMistakeMessages.length).toStrictEqual(2);
   });
 });
