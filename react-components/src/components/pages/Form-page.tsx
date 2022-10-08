@@ -53,7 +53,6 @@ class FormPage extends React.Component {
     if (this.form.current && this.form.current.genderInputComp.current &&
       this.form.current.genderInputComp.current.switcher.current) {
       genderSwitcherValue = this.form.current.genderInputComp.current.switcher.current.checked;
-      console.log('genderSwitcherValue', genderSwitcherValue);
     }
 
     let gender = 'Female';
@@ -130,17 +129,14 @@ class FormPage extends React.Component {
     let ps5CheckboxValue = false;
     if (ps5Checkbox) {
       ps5CheckboxValue = ps5Checkbox.checked;
-      console.log('ps5CheckboxValue', ps5CheckboxValue);
     }
     let xBoxCheckboxValue = false;
     if (xBoxCheckbox) {
       xBoxCheckboxValue = xBoxCheckbox.checked;
-      console.log('xBoxCheckboxValue', xBoxCheckboxValue);
     }
     let switchCheckboxValue = false;
     if (switchCheckbox) {
       switchCheckboxValue = switchCheckbox.checked;
-      console.log('switchCheckboxValue', switchCheckboxValue);
     }
     if (pcCheckboxValue || ps5CheckboxValue || xBoxCheckboxValue || switchCheckboxValue) {
       devices = [];
@@ -283,11 +279,11 @@ class FormPage extends React.Component {
       isValid = false;
       this.cleanInput(nameInput);
       if (nameMistakeMessage) {
-        nameMistakeMessage.classList.remove('form__mistake-message_disabled');
+        nameMistakeMessage.classList.remove('form__mistake-message_hidden');
       }
     } else {
       if (nameMistakeMessage) {
-        nameMistakeMessage.classList.add('form__mistake-message_disabled');
+        nameMistakeMessage.classList.add('form__mistake-message_hidden');
       }
     }
 
@@ -295,22 +291,22 @@ class FormPage extends React.Component {
       isValid = false;
       this.cleanInput(birthDateInput);
       if (dateMistakeMessage) {
-        dateMistakeMessage.classList.remove('form__mistake-message_disabled');
+        dateMistakeMessage.classList.remove('form__mistake-message_hidden');
       }
     } else {
       if (dateMistakeMessage) {
-        dateMistakeMessage.classList.add('form__mistake-message_disabled');
+        dateMistakeMessage.classList.add('form__mistake-message_hidden');
       }
     }
     
     if (!avatarIsValid) {
       isValid = false;
       if (avatarMistakeMessage) {
-        avatarMistakeMessage.classList.remove('form__mistake-message_disabled');
+        avatarMistakeMessage.classList.remove('form__mistake-message_hidden');
       }
     } else {
       if (avatarMistakeMessage) {
-        avatarMistakeMessage.classList.add('form__mistake-message_disabled');
+        avatarMistakeMessage.classList.add('form__mistake-message_hidden');
       }
     }
 
@@ -332,34 +328,44 @@ class FormPage extends React.Component {
       this.uncheckCheckbox(xBoxCheckbox);
       this.uncheckCheckbox(switchCheckbox);
       if (nameMistakeMessage) {
-        nameMistakeMessage.classList.add('form__mistake-message_disabled');
+        nameMistakeMessage.classList.add('form__mistake-message_hidden');
       }
       if (dateMistakeMessage) {
-        dateMistakeMessage.classList.add('form__mistake-message_disabled');
+        dateMistakeMessage.classList.add('form__mistake-message_hidden');
       }
       if (confirmationDiv) {
         showCreateCardConfirmation(confirmationDiv);
       }
-      if (submitInput) {
-        disableSubmit(submitInput);
-      }
+    }
+    if (submitInput) {
+      disableSubmit(submitInput);
     }
   }
 
-  addEnableSubmitEvent() {
+  addEnableSubmitEvents() {
     const nameInput = this.getNameInput();
+    const birthDateInput = this.getBirthDateInput();
+    const avatarInput = this.getAvatarInput();
     const submitInput = this.getSubmitInput();
-    console.log(nameInput);
     if (nameInput && submitInput) {
       nameInput.addEventListener('input', () => {
         enableSubmit(submitInput);
-        console.log('Enabled!');
+      });
+    }
+    if (birthDateInput && submitInput) {
+      birthDateInput.addEventListener('input', () => {
+        enableSubmit(submitInput);
+      });
+    }
+    if (avatarInput && submitInput) {
+      avatarInput.addEventListener('input', () => {
+        enableSubmit(submitInput);
       });
     }
   }
 
   componentDidMount(): void {
-    this.addEnableSubmitEvent();
+    this.addEnableSubmitEvents();
   }
 
   render(): JSX.Element {
@@ -378,6 +384,5 @@ class FormPage extends React.Component {
 
 export default FormPage;
 
-// TODO: Disable submit button
 // TODO: Tests
 // TODO: Look
