@@ -219,19 +219,21 @@ class FormPage extends React.Component {
   }
 
   createAccountCard({
-    key: key,
-    name: name,
-    birthDate: birthDate,
-    gender: gender,
-    avatar: avatar,
-    country: country,
-    devices: devices,
+    key,
+    name,
+    birthDate,
+    gender,
+    avatar,
+    avatarUrl,
+    country,
+    devices,
   }: IAccountCard): void {
     const newAccoutData = {
       key,
       name,
       birthDate,
       avatar,
+      avatarUrl,
       gender,
       country,
       devices,
@@ -261,6 +263,8 @@ class FormPage extends React.Component {
     const submitInput = this.getSubmitInput();
     const confirmationDiv = this.getConfirmationDiv();
 
+    console.log('Inserted files: ', avatarInput?.files);
+
     const key = this.getKey();
     const name = this.getInputValue(nameInput);
     const birthDate = this.getInputValue(birthDateInput);
@@ -273,6 +277,10 @@ class FormPage extends React.Component {
       xBoxCheckbox,
       switchCheckbox,
     });
+    let avatarUrl = '';
+    if (avatarInput && avatarInput.files && avatarInput.files[0]) {
+      avatarUrl = URL.createObjectURL(avatarInput.files[0]);
+    }
 
     const nameIsValid = validateName(name);
     const dateIsValid = validateDate(birthDate);
@@ -321,13 +329,14 @@ class FormPage extends React.Component {
 
     if (isValid) {
       this.createAccountCard({
-        key: key,
-        name: name,
-        birthDate: birthDate,
-        gender: gender,
-        avatar: avatar,
-        country: country,
-        devices: devices,
+        key,
+        name,
+        birthDate,
+        gender,
+        avatar,
+        avatarUrl,
+        country,
+        devices,
       });
       this.cleanInput(nameInput);
       this.cleanInput(birthDateInput);

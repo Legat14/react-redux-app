@@ -13,6 +13,7 @@ export interface IAccountCard {
   birthDate: string,
   gender: string,
   avatar: string,
+  avatarUrl: string,
   country: string,
   devices: string,
 }
