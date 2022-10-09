@@ -56,9 +56,9 @@ class FormPage extends React.Component {
       genderSwitcherValue = this.form.current.genderInputComp.current.switcher.current.checked;
     }
 
-    let gender = 'Female';
+    let gender = 'Male';
     if (genderSwitcherValue) {
-      gender = 'Male';
+      gender = 'Female';
     }
     return gender;
   }
@@ -263,8 +263,6 @@ class FormPage extends React.Component {
     const submitInput = this.getSubmitInput();
     const confirmationDiv = this.getConfirmationDiv();
 
-    console.log('Inserted files: ', avatarInput?.files);
-
     const key = this.getKey();
     const name = this.getInputValue(nameInput);
     const birthDate = this.getInputValue(birthDateInput);
@@ -415,5 +413,3 @@ class FormPage extends React.Component {
 }
 
 export default FormPage;
-
-// TODO: Look
