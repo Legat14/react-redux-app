@@ -364,7 +364,7 @@ class FormPage extends React.Component {
     if (avatarInputBtn) {
       avatarInputBtn.addEventListener('click', (): void => {
         if (avatarInput) {
-          fireEvent.click(avatarInput);
+          avatarInput.click();
         }
       });
     }
@@ -395,7 +395,7 @@ class FormPage extends React.Component {
   componentDidMount(): void {
     this.addEnableSubmitEvents();
     this.addPressButtonEvent();
-    console.log('Enents are added!'); // TODO: Загрузка страницы происходит дважды. Нужно пофискисть.
+    console.log('Enents are added!');
   }
 
   render(): JSX.Element {
