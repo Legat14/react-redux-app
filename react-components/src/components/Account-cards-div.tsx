@@ -26,10 +26,10 @@ class AccountCardsDiv extends React.Component<{ cardData: IAccountCard[] }> {
     });
 
     return (
-      <div>
-        <h4>
+      <div className='account-cards__div'>
+        <h3>
           Accounts registered: {this.props.cardData.length}
-        </h4>
+        </h3>
         {cardsArr}
       </div>
     )

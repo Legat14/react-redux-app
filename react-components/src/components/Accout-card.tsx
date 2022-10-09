@@ -9,9 +9,11 @@ class AccountCard extends React.Component<IAccountCard> {
   render(): JSX.Element {
     return (
       <div className="account-card">
-        <img src={this.props.avatarUrl} alt="avatar" />
+        <h4>{this.props.name}</h4>
+        <div className="account-card__avatar-div">
+          <img className="account-card__avatar-img" src={this.props.avatarUrl} alt="avatar" />
+        </div>
         <div className="account-card__div">
-          <h4>{this.props.name}</h4>
           <p>
             <strong>Birth date:</strong>
             <span>{this.props.birthDate}</span>
