@@ -1,4 +1,4 @@
-export function  validateName(name: string): boolean {
+export function validateName(name: string): boolean {
   let haveNormalLetters = true;
   if (name.search(/[a-zA-Zа-яА-Я]/) < 0) {
     haveNormalLetters = false;
@@ -10,7 +10,7 @@ export function  validateName(name: string): boolean {
   return haveNormalLetters && haveMoreThanOneSymbol;
 }
 
-export function  validateDate(date: string): boolean {
+export function validateDate(date: string): boolean {
   let dateIsChosen = true;
   if (!date) {
     dateIsChosen = false;

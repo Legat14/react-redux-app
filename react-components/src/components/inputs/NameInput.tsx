@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class NameInput extends React.Component {
   public nameInput: React.RefObject<HTMLInputElement>;
@@ -12,9 +12,15 @@ class NameInput extends React.Component {
     return (
       <label className="name__label">
         <h4>Type your name:</h4>
-        <input className="name__input" name="name-input" type="input" ref={this.nameInput} data-testid="name-input" />
+        <input
+          className="name__input"
+          name="name-input"
+          type="input"
+          ref={this.nameInput}
+          data-testid="name-input"
+        />
       </label>
-    )
+    );
   }
 }
 

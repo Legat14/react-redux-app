@@ -1,10 +1,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import MainPage from 'components/pages/Main-page';
-import AboutUsPage from 'components/pages/About-page';
-import DoesntExist from 'components/pages/404';
+import MainPage from 'components/pages/MainPage';
+import AboutUsPage from 'components/pages/AboutUsPage';
+import DoesntExist from 'components/pages/DoesntExist';
 import Layout from 'components/Layout';
-import FormPage from 'components/pages/Form-page';
+import FormPage from 'components/pages/FormPage';
 
 function App(): JSX.Element {
   return (

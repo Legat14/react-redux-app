@@ -1,10 +1,9 @@
-import { fireEvent } from '@testing-library/react';
-import AccountCardsDiv from 'components/Account-cards-div';
-import ConfirmationWindow from 'components/Confirmation-window';
+import AccountCardsDiv from 'components/AccountCardsDiv';
+import ConfirmationWindow from 'components/ConfirmationWindow';
 import { validateAvatar, validateDate, validateName } from 'data-validation';
 import React, { FormEvent } from 'react';
-import showCreateCardConfirmation from 'show-create-card-confirmation';
-import { disableSubmit, enableSubmit } from 'toggle-submit-functions';
+import showCreateCardConfirmation from '../../controller/showCreateCardConfirmation';
+import { disableSubmit, enableSubmit } from '../../controller/toggleSubmitFunctions';
 import { IAccountCard } from 'types';
 import Form from '../Form';
 
@@ -51,8 +50,11 @@ class FormPage extends React.Component {
 
   getGender(): string {
     let genderSwitcherValue = false;
-    if (this.form.current && this.form.current.genderInputComp.current &&
-      this.form.current.genderInputComp.current.switcher.current) {
+    if (
+      this.form.current &&
+      this.form.current.genderInputComp.current &&
+      this.form.current.genderInputComp.current.switcher.current
+    ) {
       genderSwitcherValue = this.form.current.genderInputComp.current.switcher.current.checked;
     }
 
@@ -125,10 +127,10 @@ class FormPage extends React.Component {
     xBoxCheckbox,
     switchCheckbox,
   }: {
-    pcCheckbox: HTMLInputElement | null
-    ps5Checkbox: HTMLInputElement | null
-    xBoxCheckbox: HTMLInputElement | null
-    switchCheckbox: HTMLInputElement | null
+    pcCheckbox: HTMLInputElement | null;
+    ps5Checkbox: HTMLInputElement | null;
+    xBoxCheckbox: HTMLInputElement | null;
+    switchCheckbox: HTMLInputElement | null;
   }): string {
     let devices = ['none :-('];
     let pcCheckboxValue = false;
@@ -193,7 +195,7 @@ class FormPage extends React.Component {
   getConfirmationDiv(): HTMLDivElement | null {
     let confirmationDiv = null;
     if (this.confirmation.current) {
-      confirmationDiv = this.confirmation.current.confirmationDiv.current
+      confirmationDiv = this.confirmation.current.confirmationDiv.current;
     }
     return confirmationDiv;
   }
@@ -237,7 +239,7 @@ class FormPage extends React.Component {
       gender,
       country,
       devices,
-    }
+    };
 
     let newState = {};
     this.setState((previousState: { cards: IAccountCard[] }) => {
@@ -249,7 +251,6 @@ class FormPage extends React.Component {
   }
 
   handleSubmit(event: FormEvent<HTMLFormElement>): void {
-
     event.preventDefault();
 
     const nameInput = this.getNameInput();
@@ -313,7 +314,7 @@ class FormPage extends React.Component {
         dateMistakeMessage.classList.add('form__mistake-message_hidden');
       }
     }
-    
+
     if (!avatarIsValid) {
       isValid = false;
       if (avatarMistakeMessage) {
@@ -403,9 +404,7 @@ class FormPage extends React.Component {
       <section className="form-page__section" onSubmit={this.handleSubmit}>
         <h2>React Forms</h2>
         <Form ref={this.form} />
-        <AccountCardsDiv
-          cardData={this.state.cards}
-        />
+        <AccountCardsDiv cardData={this.state.cards} />
         <ConfirmationWindow ref={this.confirmation} />
       </section>
     );

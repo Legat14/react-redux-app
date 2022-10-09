@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class DevicesInput extends React.Component {
   public pcCheckbox: React.RefObject<HTMLInputElement>;
@@ -20,28 +20,52 @@ class DevicesInput extends React.Component {
         <h4>What gaming devices do you have?</h4>
         <div className="devices__div">
           <label className="devices__label">
-            <input className="devices__checkbox" name="pc" type="checkbox" ref={this.pcCheckbox} data-testid="pc-input" />
+            <input
+              className="devices__checkbox"
+              name="pc"
+              type="checkbox"
+              ref={this.pcCheckbox}
+              data-testid="pc-input"
+            />
             <div className="devices__mark"></div>
             PC
           </label>
           <label className="devices__label">
-            <input className="devices__checkbox" name="ps5" type="checkbox" ref={this.ps5Checkbox} data-testid="ps5-input" />
+            <input
+              className="devices__checkbox"
+              name="ps5"
+              type="checkbox"
+              ref={this.ps5Checkbox}
+              data-testid="ps5-input"
+            />
             <div className="devices__mark"></div>
             PS5
           </label>
           <label className="devices__label">
-            <input className="devices__checkbox" name="Xbox" type="checkbox" ref={this.xBoxCheckbox} data-testid="xbox-input" />
+            <input
+              className="devices__checkbox"
+              name="Xbox"
+              type="checkbox"
+              ref={this.xBoxCheckbox}
+              data-testid="xbox-input"
+            />
             <div className="devices__mark"></div>
             Xbox series X
           </label>
           <label className="devices__label">
-            <input className="devices__checkbox" name="switch" type="checkbox" ref={this.switchCheckbox} data-testid="switch-input" />
+            <input
+              className="devices__checkbox"
+              name="switch"
+              type="checkbox"
+              ref={this.switchCheckbox}
+              data-testid="switch-input"
+            />
             <div className="devices__mark"></div>
             Switch
           </label>
         </div>
       </div>
-    )
+    );
   }
 }
 

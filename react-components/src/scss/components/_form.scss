@@ -61,21 +61,21 @@
   gap: 10px;
 }
 
-  .devices__div {
-    width: 100%;
+.devices__div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .devices__label {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
 
-    .devices__label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .devices__checkbox {
-      display: none;
-    }
+  .devices__checkbox {
+    display: none;
+  }
 
   .devices__mark {
     width: 20px;
@@ -93,7 +93,7 @@
     border: 1px solid #000000;
     border-radius: 4px;
   }
-  
+
   .devices__mark::after {
     content: '';
     position: absolute;

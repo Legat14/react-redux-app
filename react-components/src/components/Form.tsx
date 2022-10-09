@@ -1,11 +1,11 @@
 import React from 'react';
-import NameInput from './inputs/Name-input';
-import DateInput from './inputs/Birth-date-input';
-import GenderInput from './inputs/Gender-input';
-import CountryInput from './inputs/Country-input';
-import DevicesInput from './inputs/Devices-input';
-import AvatarInput from './inputs/Avatar-input';
-import SubmitInput from './inputs/Submit-input';
+import NameInput from './inputs/NameInput';
+import DateInput from './inputs/BirthDateInput';
+import GenderInput from './inputs/GenderInput';
+import CountryInput from './inputs/CountryInput';
+import DevicesInput from './inputs/DevicesInput';
+import AvatarInput from './inputs/AvatarInput';
+import SubmitInput from './inputs/SubmitInput';
 
 class Form extends React.Component {
   public nameInputComp: React.RefObject<NameInput>;
@@ -35,35 +35,44 @@ class Form extends React.Component {
 
   render(): JSX.Element {
     return (
-    <form className='form' data-testid="form">
-      <h3>Create your account</h3>
-      <NameInput ref={this.nameInputComp} />
-      <div className="form__mistake-message-div">
-        <p className='form__mistake-message form__mistake-message_hidden' ref={this.nameMistakeMessage}
-        data-testid="mistake-message">
-          Name must be longer than one symbol and include at least one letter
-        </p>
-      </div>
-      <DateInput ref={this.birthDateInputComp} />
-      <div className="form__mistake-message-div">
-        <p className='form__mistake-message form__mistake-message_hidden' ref={this.dateMistakeMessage}
-        data-testid="mistake-message">
-          Date must be no newer than 18 years and no elder than 100 years
-        </p>
-      </div>
-      <GenderInput ref={this.genderInputComp} />
-      <AvatarInput ref={this.avatarInputComp} />
-      <div className="form__mistake-message-div">
-        <p className='form__mistake-message form__mistake-message_hidden' ref={this.avatarMistakeMessage}
-        data-testid="mistake-message">
-          You must choose picture for your avatar
-        </p>
-      </div>
-      <CountryInput ref={this.countryInputComp} />
-      <DevicesInput ref={this.devicesInputComp} />
-      <SubmitInput ref={this.submitComp} />
-    </form>
-    )
+      <form className="form" data-testid="form">
+        <h3>Create your account</h3>
+        <NameInput ref={this.nameInputComp} />
+        <div className="form__mistake-message-div">
+          <p
+            className="form__mistake-message form__mistake-message_hidden"
+            ref={this.nameMistakeMessage}
+            data-testid="mistake-message"
+          >
+            Name must be longer than one symbol and include at least one letter
+          </p>
+        </div>
+        <DateInput ref={this.birthDateInputComp} />
+        <div className="form__mistake-message-div">
+          <p
+            className="form__mistake-message form__mistake-message_hidden"
+            ref={this.dateMistakeMessage}
+            data-testid="mistake-message"
+          >
+            Date must be no newer than 18 years and no elder than 100 years
+          </p>
+        </div>
+        <GenderInput ref={this.genderInputComp} />
+        <AvatarInput ref={this.avatarInputComp} />
+        <div className="form__mistake-message-div">
+          <p
+            className="form__mistake-message form__mistake-message_hidden"
+            ref={this.avatarMistakeMessage}
+            data-testid="mistake-message"
+          >
+            You must choose picture for your avatar
+          </p>
+        </div>
+        <CountryInput ref={this.countryInputComp} />
+        <DevicesInput ref={this.devicesInputComp} />
+        <SubmitInput ref={this.submitComp} />
+      </form>
+    );
   }
 }
 

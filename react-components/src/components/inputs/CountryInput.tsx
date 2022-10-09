@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class CountryInput extends React.Component {
   public countryInput: React.RefObject<HTMLSelectElement>;
@@ -12,7 +12,12 @@ class CountryInput extends React.Component {
     return (
       <label className="country__label">
         <h4>Choose your country:</h4>
-        <select className="country__input" name="country" ref={this.countryInput} data-testid="country-input">
+        <select
+          className="country__input"
+          name="country"
+          ref={this.countryInput}
+          data-testid="country-input"
+        >
           <option value={'Russia'}>Russia</option>
           <option value={'Ukraine'}>Ukraine</option>
           <option value={'Belarus'}>Belarus</option>
@@ -20,7 +25,7 @@ class CountryInput extends React.Component {
           <option value={'Finland'}>Finland</option>
         </select>
       </label>
-    )
+    );
   }
 }
 

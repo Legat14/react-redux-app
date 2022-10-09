@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import FormPage from 'components/pages/Form-page';
+import FormPage from 'components/pages/FormPage';
 
-describe ('Forms', (): void => {
+describe('Forms', (): void => {
   it('renders all form components', (): void => {
     render(
       <BrowserRouter>
@@ -20,7 +20,7 @@ describe ('Forms', (): void => {
     const switchInput = screen.getByTestId('switch-input');
     const nameInput = screen.getByTestId('name-input');
     const submitInput = screen.getByTestId('submit-input');
-    
+
     expect(form).toBeInTheDocument();
     expect(avatarInput).toBeInTheDocument();
     expect(birthDateInput).toBeInTheDocument();
@@ -44,24 +44,21 @@ describe ('Forms', (): void => {
     const submitInput = screen.getByTestId('submit-input');
 
     expect(submitInput).toBeDisabled();
-    
+
     fireEvent.input(nameInput, {
-      target:
-      {
-        value: "John Smidt"
-      }
+      target: {
+        value: 'John Smidt',
+      },
     });
     fireEvent.input(nameInput, {
-      target:
-      {
-        value: "John Smidt"
-      }
+      target: {
+        value: 'John Smidt',
+      },
     });
     fireEvent.input(birthDateInput, {
-      target:
-      {
-        value: "10101980"
-      }
+      target: {
+        value: '10101980',
+      },
     });
 
     expect(submitInput).toBeEnabled();
@@ -97,8 +94,8 @@ describe ('Forms', (): void => {
     fireEvent.input(nameInput, {
       target: {
         value: 'John',
-      }
-    })
+      },
+    });
     fireEvent.click(submitInput);
 
     const shownMistakeMessages = mistakeMessages.filter((message): boolean => {

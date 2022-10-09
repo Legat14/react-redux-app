@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class SwitcherInput extends React.Component {
   public switcher: React.RefObject<HTMLInputElement>;
@@ -14,12 +14,18 @@ class SwitcherInput extends React.Component {
         <h4>Choose youre gender</h4>
         <label className="gender__label">
           <span>Male</span>
-          <input className="gender__input" name="gender" type="checkbox" ref={this.switcher} data-testid="gender-input" />
+          <input
+            className="gender__input"
+            name="gender"
+            type="checkbox"
+            ref={this.switcher}
+            data-testid="gender-input"
+          />
           <div className="gender__control"></div>
           <span>Female</span>
         </label>
       </div>
-    )
+    );
   }
 }
 
