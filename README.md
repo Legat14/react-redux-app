@@ -2,3 +2,5 @@
 Private repository for @legat14
 
 React components deploy: https://legat14-react-components.netlify.app/
+
+React forms deploy: https://legat-14-react-forms.netlify.app/
