@@ -52,8 +52,8 @@ class SearchTool extends React.Component<{}, {request: string}> {
     }
   }
 
-  search(event: React.FormEvent<HTMLFormElement>): void {
-    (event ).preventDefault();
+  async search(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
     console.log('Search: ', this.state.request);
     const request = this.state.request;
     const requestArr = request.split(' ');
@@ -63,6 +63,9 @@ class SearchTool extends React.Component<{}, {request: string}> {
     const processedRequest = trimmedRequest.join('+');
     const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}&api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`
     console.log(requestUrl);
+    const responce = await fetch(requestUrl);
+    const responseObj = await responce.json();
+    console.log(responseObj);
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
