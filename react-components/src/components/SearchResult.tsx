@@ -9,7 +9,7 @@ class SearchResult extends React.Component<{response: {} | IResponse}> {
   }
 
   renderPhoto(photo: IPhoto): JSX.Element {
-    const src = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`;
+    const src = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
     return (
       <PhotoCard
         key={+photo.id}
