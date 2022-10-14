@@ -1,16 +1,17 @@
-import React, { FormEventHandler, ReactEventHandler } from 'react';
+import React from 'react';
+import { IResponse } from 'types';
 
-class SearchTool extends React.Component<{}, {request: string}> {
+class SearchTool extends React.Component<{getPhotos: (response: IResponse) => void}, {request: string}> {
   requestEndpoint: string;
   requestMethod: string;
   apiKey: string;
   format: string;
 
-  constructor(props: {}) {
+  constructor(props: {getPhotos: () => void}) {
     super(props);
     this.requestEndpoint = 'https://www.flickr.com/services/rest/';
     this.requestMethod = 'flickr.photos.search';
-    this.apiKey = '55f3f75e00ac276da38071522de9c95a'; // TODO: Заменить хардкод на переменную энвайромента
+    this.apiKey = '92c3ed46142b2191fc2baa90c9cc54b4'; // TODO: Заменить хардкод на переменную энвайромента
     this.format = 'json&nojsoncallback=1';
     this.getValue = this.getValue.bind(this);
     this.search = this.search.bind(this);
@@ -54,7 +55,6 @@ class SearchTool extends React.Component<{}, {request: string}> {
 
   async search(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
-    console.log('Search: ', this.state.request);
     const request = this.state.request;
     const requestArr = request.split(' ');
     const trimmedRequest = requestArr.map((element): string =>{
@@ -62,10 +62,9 @@ class SearchTool extends React.Component<{}, {request: string}> {
     });
     const processedRequest = trimmedRequest.join('+');
     const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}&api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`
-    console.log(requestUrl);
-    const responce = await fetch(requestUrl);
-    const responseObj = await responce.json();
-    console.log(responseObj);
+    const response = await fetch(requestUrl);
+    const responseObj = await response.json();
+    this.props.getPhotos(responseObj);
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
