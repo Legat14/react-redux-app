@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react";
+
 export interface IGameCard {
   key: number;
   title: string;
@@ -44,8 +46,17 @@ export interface IResponse {
 }
 
 export interface IPhotoCard {
+  onClick: MouseEventHandler<HTMLDivElement>,
   key: number,
   src: string,
   title: string,
   owner: string,
+}
+
+export interface IModalContent {
+  src: string,
+  id: string,
+  owner: string,
+  server: string,
+  title: string,
 }

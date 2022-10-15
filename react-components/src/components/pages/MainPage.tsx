@@ -1,23 +1,48 @@
+import ModalWindow from 'components/ModalWindow';
 import SearchResult from 'components/SearchResult';
 import SearchTool from 'components/SearchTool';
 import React from 'react';
-import { IResponse } from 'types';
+import { IModalContent, IPhoto, IResponse } from 'types';
 
-class MainPage extends React.Component<{}, IResponse | {}> {
+class MainPage extends React.Component<{}, {
+  response: IResponse | {},
+  modalContent: IModalContent | {}
+}> {
   searchTool: React.RefObject<HTMLInputElement>;
 
   constructor(props: {}) {
     super(props);
     this.getPhotos = this.getPhotos.bind(this);
+    this.getModalContent = this.getModalContent.bind(this);
     this.searchTool = React.createRef();
     this.state = {
-      response: {}, // TODO: узнать, как получить стейт сюда вместо дочернего элемента (колбеками)
+      response: {},
+      modalContent: {}
     }
   }
 
   getPhotos = (response: IResponse): void => {
-    this.setState({
-      response: response,
+    this.setState((prev) => {
+      return {
+        response: response,
+        modalContent: prev.modalContent,
+      }
+    });
+  }
+
+  getModalContent = (photo: IPhoto, src: string): void => {
+    console.log('Modal Content: ', photo, src);
+    this.setState((prev) => {
+      return {
+        response: prev.response,
+        modalContent: {
+          src: src,
+          id: photo.id,
+          owner: photo.owner,
+          server: photo.server,
+          title: photo.title,
+        }
+      }
     });
   }
 
@@ -28,7 +53,19 @@ class MainPage extends React.Component<{}, IResponse | {}> {
           <h2>Main page</h2>
           <SearchTool getPhotos={this.getPhotos} />
         </div>
-        <SearchResult response={(this.state as {response: IResponse}).response} />
+        <ModalWindow
+          modalContent={(this.state as {
+            response: IResponse | {},
+            modalContent: IModalContent | {}
+          }).modalContent}
+        />
+        <SearchResult
+          response={(this.state as {
+            response: IResponse | {},
+            modalContent: IModalContent | {}
+          }).response}
+          getModalContent={this.getModalContent}
+        />
       </section>
     );
   }

@@ -3,17 +3,27 @@ import { IPhoto, IResponse } from 'types';
 import PhotoCard from './PhotoCard';
 import isNotEmpty from 'helpers/isNotEmpty';
 
-class SearchResult extends React.Component<{response: {} | IResponse}> {
-  constructor(props: {response: IResponse}) {
+class SearchResult extends React.Component<{
+  response: {} | IResponse,
+  getModalContent: (photo: IPhoto, src: string) => void,
+}> {
+  constructor(props: {
+    response: IResponse,
+    getModalContent: (photo: IPhoto, src: string) => void,
+  }) {
     super(props);
   }
 
   renderPhoto(photo: IPhoto): JSX.Element {
-    const src = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
+    const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
+    const srcLarge = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
     return (
-      <PhotoCard
+      <PhotoCard onClick={() => {
+        this.props.getModalContent(photo, srcLarge);
+      }
+      }
         key={+photo.id}
-        src={src}
+        src={srcMedium}
         title={photo.title}
         owner={photo.owner}
        />
