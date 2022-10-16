@@ -9,11 +9,16 @@ class MainPage extends React.Component<{}, {
   response: IResponse | {},
   modalContent: IModalContent | {}
 }> {
+  overlay: React.RefObject<ModalWindowOverlay>;
+  modal: React.RefObject<ModalWindow>;
 
   constructor(props: {}) {
     super(props);
     this.getPhotos = this.getPhotos.bind(this);
     this.getModalContent = this.getModalContent.bind(this);
+    this.closeModalWindow = this.closeModalWindow.bind(this);
+    this.overlay = React.createRef();
+    this.modal = React.createRef();
     this.state = {
       response: {},
       modalContent: {}
@@ -45,11 +50,21 @@ class MainPage extends React.Component<{}, {
     });
   }
 
+  closeModalWindow() {
+    if (this.overlay.current) {
+      this.overlay.current.hideOverlay();
+    }
+    if (this.modal.current) {
+      this.modal.current.hideModel();
+    }
+  }
+
   render(): JSX.Element {
     return (
-      <section className="main-page__section">
-        <ModalWindowOverlay />
+      <section className="main-page__section" onClick={this.closeModalWindow}>
+        <ModalWindowOverlay ref={this.overlay} />
         <ModalWindow
+          ref={this.modal}
           modalContent={(this.state as {
             response: IResponse | {},
             modalContent: IModalContent | {}
