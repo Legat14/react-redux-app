@@ -33,6 +33,12 @@ class ModalWindow extends React.Component<{modalContent: IModalContent | {}}, {m
       }}
       >
         <img src={(this.props.modalContent as IModalContent).src} alt={(this.props.modalContent as IModalContent).title} />
+        <div className="modal-window__description">
+          <h3>{(this.props.modalContent as IModalContent).title}</h3>
+          <p><span>id: </span>{(this.props.modalContent as IModalContent).id}</p>
+          <p><span>owner: </span>{(this.props.modalContent as IModalContent).owner}</p>
+          <p><span>server: </span>{(this.props.modalContent as IModalContent).server}</p>
+        </div>
       </div> :
       <div className={this.state.modalWindowClass}
         onClick={(event): void => {
