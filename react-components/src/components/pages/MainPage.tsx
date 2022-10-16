@@ -109,7 +109,9 @@ class MainPage extends React.Component<{}, {
           }).response}
           getModalContent={this.getModalContent}
         /> :
-        <h2>Loading...</h2>}
+        <div className="main-page__loading-screen">
+          <img src="./assets/gif/loading-screen.gif" alt="loading..." />
+        </div>}
       </section>
     );
   }
