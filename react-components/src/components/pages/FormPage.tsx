@@ -396,7 +396,6 @@ class FormPage extends React.Component {
   componentDidMount(): void {
     this.addEnableSubmitEvents();
     this.addPressButtonEvent();
-    console.log('Enents are added!');
   }
 
   render(): JSX.Element {

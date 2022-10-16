@@ -42,6 +42,9 @@ class SearchTool extends React.Component<{getPhotos: (response: IResponse) => vo
   componentDidMount(): void {
     const searchInput = localStorage.getItem('searchInput');
     if (searchInput || searchInput === '') {
+      this.setState({
+        request: searchInput,
+      })
       this.setValue(searchInput);
     }
   }
