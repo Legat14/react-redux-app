@@ -1,0 +1,30 @@
+.modal-window {
+    position: absolute;
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 20px;
+}
+
+.modal-window__overlay,
+.header__overlay {
+    position: absolute;
+    z-index: 2000;
+    width: 100vw;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    cursor: pointer;
+}
+
+.modal-window__overlay {
+    height: 100vh;
+}
+
+.header__overlay {
+    height: 100%;
+}
+
+.modal-window__hidden {
+    display: none;
+  }

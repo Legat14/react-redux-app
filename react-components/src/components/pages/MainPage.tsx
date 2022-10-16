@@ -1,4 +1,5 @@
 import ModalWindow from 'components/ModalWindow';
+import ModalWindowOverlay from 'components/ModalWindowOverlay';
 import SearchResult from 'components/SearchResult';
 import SearchTool from 'components/SearchTool';
 import React from 'react';
@@ -8,13 +9,11 @@ class MainPage extends React.Component<{}, {
   response: IResponse | {},
   modalContent: IModalContent | {}
 }> {
-  searchTool: React.RefObject<HTMLInputElement>;
 
   constructor(props: {}) {
     super(props);
     this.getPhotos = this.getPhotos.bind(this);
     this.getModalContent = this.getModalContent.bind(this);
-    this.searchTool = React.createRef();
     this.state = {
       response: {},
       modalContent: {}
@@ -49,16 +48,17 @@ class MainPage extends React.Component<{}, {
   render(): JSX.Element {
     return (
       <section className="main-page__section">
-        <div className="main-page__bar">
-          <h2>Main page</h2>
-          <SearchTool getPhotos={this.getPhotos} />
-        </div>
+        <ModalWindowOverlay />
         <ModalWindow
           modalContent={(this.state as {
             response: IResponse | {},
             modalContent: IModalContent | {}
           }).modalContent}
         />
+        <div className="main-page__bar">
+          <h2>Main page</h2>
+          <SearchTool getPhotos={this.getPhotos} />
+        </div>
         <SearchResult
           response={(this.state as {
             response: IResponse | {},

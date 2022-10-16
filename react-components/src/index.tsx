@@ -4,7 +4,7 @@ import './main.scss';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import App from 'App';
-import addBeforeUnloadEvent from 'controller/before-unload-event';
+import addBeforeUnloadEvent from 'controller/addBeforeUnloadEvent';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

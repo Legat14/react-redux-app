@@ -12,11 +12,9 @@ class ModalWindow extends React.Component<{modalContent: IModalContent | {}}> {
       isNotEmpty(this.props.modalContent) ?
       <div className="modal-window">
         <img src={(this.props.modalContent as IModalContent).src} alt={(this.props.modalContent as IModalContent).title} />
-        <div className="modal-owerlay"></div>
       </div> :
       <div className="modal-window">
         <h2>Modal is Empty by now</h2>
-        <div className="modal-owerlay"></div>
       </div>
     )
   }
