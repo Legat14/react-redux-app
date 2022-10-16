@@ -7,7 +7,8 @@ import { IModalContent, IPhoto, IResponse } from 'types';
 
 class MainPage extends React.Component<{}, {
   response: IResponse | {},
-  modalContent: IModalContent | {}
+  modalContent: IModalContent | {},
+  isLoaded: boolean,
 }> {
   overlay: React.RefObject<ModalWindowOverlay>;
   modal: React.RefObject<ModalWindow>;
@@ -18,12 +19,24 @@ class MainPage extends React.Component<{}, {
     this.getModalContent = this.getModalContent.bind(this);
     this.openModalWindow = this.openModalWindow.bind(this);
     this.closeModalWindow = this.closeModalWindow.bind(this);
+    this.setIsLoaded = this.setIsLoaded.bind(this);
     this.overlay = React.createRef();
     this.modal = React.createRef();
     this.state = {
       response: {},
-      modalContent: {}
+      modalContent: {},
+      isLoaded: true,
     }
+  }
+
+  setIsLoaded(value: boolean) {
+    this.setState((prev) => {
+      return {
+        response: {},
+        modalContent: prev.modalContent,
+        isLoaded: value,
+      }
+    });
   }
 
   getPhotos = (response: IResponse): void => {
@@ -31,6 +44,7 @@ class MainPage extends React.Component<{}, {
       return {
         response: response,
         modalContent: prev.modalContent,
+        isLoaded: true,
       }
     });
   }
@@ -83,15 +97,19 @@ class MainPage extends React.Component<{}, {
         />
         <div className="main-page__bar">
           <h2>Main page</h2>
-          <SearchTool getPhotos={this.getPhotos} />
+          <SearchTool
+            getPhotos={this.getPhotos}
+            setIsLoaded={this.setIsLoaded}
+          />
         </div>
-        <SearchResult
+        {this.state.isLoaded ? <SearchResult
           response={(this.state as {
             response: IResponse | {},
             modalContent: IModalContent | {}
           }).response}
           getModalContent={this.getModalContent}
-        />
+        /> :
+        <h2>Loading...</h2>}
       </section>
     );
   }

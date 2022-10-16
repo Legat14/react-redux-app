@@ -1,13 +1,16 @@
 import React from 'react';
 import { IResponse } from 'types';
 
-class SearchTool extends React.Component<{getPhotos: (response: IResponse) => void}, {request: string}> {
+class SearchTool extends React.Component<{
+  getPhotos: (response: IResponse) => void,
+  setIsLoaded: (value: boolean) => void
+}, {request: string}> {
   requestEndpoint: string;
   requestMethod: string;
   apiKey: string;
   format: string;
 
-  constructor(props: {getPhotos: () => void}) {
+  constructor(props: {getPhotos: (response: IResponse) => void, setIsLoaded: (value: boolean) => void}) {
     super(props);
     this.requestEndpoint = 'https://www.flickr.com/services/rest/';
     this.requestMethod = 'flickr.photos.search';
@@ -58,6 +61,7 @@ class SearchTool extends React.Component<{getPhotos: (response: IResponse) => vo
 
   async search(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
+    this.props.setIsLoaded(false);
     const request = this.state.request;
     const requestArr = request.split(' ');
     const trimmedRequest = requestArr.map((element): string =>{
@@ -67,6 +71,7 @@ class SearchTool extends React.Component<{getPhotos: (response: IResponse) => vo
     const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}&api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
+    this.props.setIsLoaded(true);
     this.props.getPhotos(responseObj);
   }
 
