@@ -2,8 +2,13 @@ import isNotEmpty from 'helpers/isNotEmpty';
 import React from 'react';
 import { IModalContent } from 'types';
 
-class ModalWindow extends React.Component<{modalContent: IModalContent | {}}, {modalWindowClass: string}> {
-  constructor(props: {modalContent: IModalContent | {}}) {
+class ModalWindow extends React.Component<{
+  modalContent: IModalContent | {},
+  closeModalWindow: () => void},
+  {modalWindowClass: string}> {
+  constructor(props: {
+    modalContent: IModalContent | {},
+    closeModalWindow: () => void}) {
     super(props);
     this.state = {
       modalWindowClass: 'modal-window modal-window__hidden',
@@ -39,6 +44,9 @@ class ModalWindow extends React.Component<{modalContent: IModalContent | {}}, {m
           <p><span>owner: </span>{(this.props.modalContent as IModalContent).owner}</p>
           <p><span>server: </span>{(this.props.modalContent as IModalContent).server}</p>
         </div>
+        <div className="modal-window__colse-btn"
+          onClick={this.props.closeModalWindow}
+        >{'>X<'}</div>
       </div> :
       <div className={this.state.modalWindowClass}
         onClick={(event): void => {

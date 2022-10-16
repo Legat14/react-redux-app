@@ -36,7 +36,6 @@ class MainPage extends React.Component<{}, {
   }
 
   getModalContent = (photo: IPhoto, src: string): void => {
-    console.log('Modal Content: ', photo, src);
     this.setState((prev) => {
       return {
         response: prev.response,
@@ -52,7 +51,7 @@ class MainPage extends React.Component<{}, {
     this.openModalWindow();
   }
   
-  openModalWindow() {
+  openModalWindow(): void {
     if (this.overlay.current) {
       this.overlay.current.showOverlay();
     }
@@ -61,7 +60,7 @@ class MainPage extends React.Component<{}, {
     }
   }
 
-  closeModalWindow() {
+  closeModalWindow(): void {
     if (this.overlay.current) {
       this.overlay.current.hideOverlay();
     }
@@ -80,6 +79,7 @@ class MainPage extends React.Component<{}, {
             response: IResponse | {},
             modalContent: IModalContent | {}
           }).modalContent}
+          closeModalWindow={this.closeModalWindow}
         />
         <div className="main-page__bar">
           <h2>Main page</h2>

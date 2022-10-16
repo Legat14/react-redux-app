@@ -11,12 +11,9 @@ class ModalWindowOverlay extends React.Component<{}, {overlayClass: string}> {
   }
 
   showOverlay() {
-    console.log(this);
-    console.log(this.state);
     this.setState({
       overlayClass: 'modal-window__overlay',
     });
-    console.log(this.state);
   }
 
   hideOverlay() {
