@@ -18,7 +18,8 @@ class SearchResult extends React.Component<{
     const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
     const srcLarge = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
     return (
-      <PhotoCard onClick={() => {
+      <PhotoCard onClick={(event) => {
+        event.stopPropagation();
         this.props.getModalContent(photo, srcLarge);
       }
       }

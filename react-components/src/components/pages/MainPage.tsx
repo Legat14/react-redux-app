@@ -16,6 +16,7 @@ class MainPage extends React.Component<{}, {
     super(props);
     this.getPhotos = this.getPhotos.bind(this);
     this.getModalContent = this.getModalContent.bind(this);
+    this.openModalWindow = this.openModalWindow.bind(this);
     this.closeModalWindow = this.closeModalWindow.bind(this);
     this.overlay = React.createRef();
     this.modal = React.createRef();
@@ -48,6 +49,16 @@ class MainPage extends React.Component<{}, {
         }
       }
     });
+    this.openModalWindow();
+  }
+  
+  openModalWindow() {
+    if (this.overlay.current) {
+      this.overlay.current.showOverlay();
+    }
+    if (this.modal.current) {
+      this.modal.current.showModel();
+    }
   }
 
   closeModalWindow() {

@@ -6,7 +6,7 @@ class ModalWindow extends React.Component<{modalContent: IModalContent | {}}, {m
   constructor(props: {modalContent: IModalContent | {}}) {
     super(props);
     this.state = {
-      modalWindowClass: 'modal-window',
+      modalWindowClass: 'modal-window modal-window__hidden',
     }
     this.showModel = this.showModel.bind(this);
     this.hideModel = this.hideModel.bind(this);
