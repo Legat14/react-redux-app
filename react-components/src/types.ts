@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler } from 'react';
 
 export interface IGameCard {
   key: number;
@@ -21,42 +21,42 @@ export interface IAccountCard {
 }
 
 export interface IPhoto {
-  farm: number,
-  id: string,
-  isfamily: number,
-  isfreind: number,
-  ispublic: number,
-  owner: string,
-  secret: string,
-  server: string,
-  title: string,
+  farm: number;
+  id: string;
+  isfamily: number;
+  isfreind: number;
+  ispublic: number;
+  owner: string;
+  secret: string;
+  server: string;
+  title: string;
 }
 
 interface IPhotos {
-  page: number,
-  pages: number,
-  perpage: number,
-  photo: Array<IPhoto>,
-  total: number,
+  page: number;
+  pages: number;
+  perpage: number;
+  photo: Array<IPhoto>;
+  total: number;
 }
 
 export interface IResponse {
-  photos: IPhotos,
-  stat: string,
+  photos: IPhotos;
+  stat: string;
 }
 
 export interface IPhotoCard {
-  onClick: MouseEventHandler<HTMLDivElement>,
-  key: number,
-  src: string,
-  title: string,
-  owner: string,
+  onClick: MouseEventHandler<HTMLDivElement>;
+  key: number;
+  src: string;
+  title: string;
+  owner: string;
 }
 
 export interface IModalContent {
-  src: string,
-  id: string,
-  owner: string,
-  server: string,
-  title: string,
+  src: string;
+  id: string;
+  owner: string;
+  server: string;
+  title: string;
 }

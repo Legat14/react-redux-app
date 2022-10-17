@@ -1,16 +1,22 @@
 import React from 'react';
 import { IResponse } from 'types';
 
-class SearchTool extends React.Component<{
-  getPhotos: (response: IResponse) => void,
-  setIsLoaded: (value: boolean) => void
-}, {request: string}> {
+class SearchTool extends React.Component<
+  {
+    getPhotos: (response: IResponse) => void;
+    setIsLoaded: (value: boolean) => void;
+  },
+  { request: string }
+> {
   requestEndpoint: string;
   requestMethod: string;
   apiKey: string;
   format: string;
 
-  constructor(props: {getPhotos: (response: IResponse) => void, setIsLoaded: (value: boolean) => void}) {
+  constructor(props: {
+    getPhotos: (response: IResponse) => void;
+    setIsLoaded: (value: boolean) => void;
+  }) {
     super(props);
     this.requestEndpoint = 'https://www.flickr.com/services/rest/';
     this.requestMethod = 'flickr.photos.search';
@@ -21,7 +27,7 @@ class SearchTool extends React.Component<{
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       request: '',
-    }
+    };
   }
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
@@ -47,7 +53,7 @@ class SearchTool extends React.Component<{
     if (searchInput || searchInput === '') {
       this.setState({
         request: searchInput,
-      })
+      });
       this.setValue(searchInput);
     }
   }
@@ -64,15 +70,23 @@ class SearchTool extends React.Component<{
     this.props.setIsLoaded(false);
     const request = this.state.request;
     const requestArr = request.split(' ');
-    const trimmedRequest = requestArr.map((element): string =>{
+    const trimmedRequest = requestArr.map((element): string => {
       return element.trim();
     });
     const processedRequest = trimmedRequest.join('+');
-    const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}&api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`
+    const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}&api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`;
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
     this.props.setIsLoaded(true);
     this.props.getPhotos(responseObj);
+    try {
+      console.log('before ', responseObj.stat);
+      if (await responseObj.stat !== 'ok') {
+        throw 'Something went wrong!';
+      }
+    } catch (error) {
+      console.error(`Error: ${error}`)
+    }
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -92,7 +106,7 @@ class SearchTool extends React.Component<{
           type="search"
           placeholder="Enter request here"
           value={this.state.request}
-          onChange = {this.handleChange}
+          onChange={this.handleChange}
           ref={this.inputRef as React.RefObject<HTMLInputElement>}
         ></input>
         <button className="search-btn" type="submit">

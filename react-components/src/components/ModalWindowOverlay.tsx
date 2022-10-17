@@ -1,11 +1,11 @@
 import React from 'react';
 
-class ModalWindowOverlay extends React.Component<{}, {overlayClass: string}> {
+class ModalWindowOverlay extends React.Component<{}, { overlayClass: string }> {
   constructor(props: {}) {
     super(props);
     this.state = {
       overlayClass: 'modal-window__overlay modal-window__hidden',
-    }
+    };
     this.showOverlay = this.showOverlay.bind(this);
     this.hideOverlay = this.hideOverlay.bind(this);
   }
@@ -22,10 +22,8 @@ class ModalWindowOverlay extends React.Component<{}, {overlayClass: string}> {
     });
   }
 
-  render(): JSX.Element { 
-    return (
-      <div className={this.state.overlayClass}></div>
-    )
+  render(): JSX.Element {
+    return <div className={this.state.overlayClass}></div>;
   }
 }
 

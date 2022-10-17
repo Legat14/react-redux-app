@@ -5,11 +5,14 @@ import SearchTool from 'components/SearchTool';
 import React from 'react';
 import { IModalContent, IPhoto, IResponse } from 'types';
 
-class MainPage extends React.Component<{}, {
-  response: IResponse | {},
-  modalContent: IModalContent | {},
-  isLoaded: boolean,
-}> {
+class MainPage extends React.Component<
+  {},
+  {
+    response: IResponse | {};
+    modalContent: IModalContent | {};
+    isLoaded: boolean;
+  }
+> {
   overlay: React.RefObject<ModalWindowOverlay>;
   modal: React.RefObject<ModalWindow>;
 
@@ -26,7 +29,7 @@ class MainPage extends React.Component<{}, {
       response: {},
       modalContent: {},
       isLoaded: true,
-    }
+    };
   }
 
   setIsLoaded(value: boolean) {
@@ -35,7 +38,7 @@ class MainPage extends React.Component<{}, {
         response: {},
         modalContent: prev.modalContent,
         isLoaded: value,
-      }
+      };
     });
   }
 
@@ -45,9 +48,9 @@ class MainPage extends React.Component<{}, {
         response: response,
         modalContent: prev.modalContent,
         isLoaded: true,
-      }
+      };
     });
-  }
+  };
 
   getModalContent = (photo: IPhoto, src: string): void => {
     this.setState((prev) => {
@@ -59,12 +62,12 @@ class MainPage extends React.Component<{}, {
           owner: photo.owner,
           server: photo.server,
           title: photo.title,
-        }
-      }
+        },
+      };
     });
     this.openModalWindow();
-  }
-  
+  };
+
   openModalWindow(): void {
     if (this.overlay.current) {
       this.overlay.current.showOverlay();
@@ -89,29 +92,37 @@ class MainPage extends React.Component<{}, {
         <ModalWindowOverlay ref={this.overlay} />
         <ModalWindow
           ref={this.modal}
-          modalContent={(this.state as {
-            response: IResponse | {},
-            modalContent: IModalContent | {}
-          }).modalContent}
+          modalContent={
+            (
+              this.state as {
+                response: IResponse | {};
+                modalContent: IModalContent | {};
+              }
+            ).modalContent
+          }
           closeModalWindow={this.closeModalWindow}
         />
         <div className="main-page__bar">
           <h2>Main page</h2>
-          <SearchTool
-            getPhotos={this.getPhotos}
-            setIsLoaded={this.setIsLoaded}
-          />
+          <SearchTool getPhotos={this.getPhotos} setIsLoaded={this.setIsLoaded} />
         </div>
-        {this.state.isLoaded ? <SearchResult
-          response={(this.state as {
-            response: IResponse | {},
-            modalContent: IModalContent | {}
-          }).response}
-          getModalContent={this.getModalContent}
-        /> :
-        <div className="main-page__loading-screen">
-          <img src="./assets/gif/loading-screen.gif" alt="loading..." />
-        </div>}
+        {this.state.isLoaded ? (
+          <SearchResult
+            response={
+              (
+                this.state as {
+                  response: IResponse | {};
+                  modalContent: IModalContent | {};
+                }
+              ).response
+            }
+            getModalContent={this.getModalContent}
+          />
+        ) : (
+          <div className="main-page__loading-screen">
+            <img src="./assets/gif/loading-screen.gif" alt="loading..." />
+          </div>
+        )}
       </section>
     );
   }

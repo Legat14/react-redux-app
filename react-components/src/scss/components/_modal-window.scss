@@ -1,89 +1,89 @@
 .modal-window {
-    position: fixed;
-    top: 10%;
-    height: 80%;
-    z-index: 3000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-self: center;
-    align-self: center;
-    background-color: #ffffff;
-    border-radius: 20px;
-    overflow: hidden;
-    
-    img {
-        height: 100%;
-    }
+  position: fixed;
+  top: 10%;
+  height: 80%;
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+  }
 }
 
 .modal-window__overlay {
-    position: fixed;
-    top: -150px;
-    z-index: 2000;
-    width: 100vw;
-    height: 300%;
-    background-color: rgba($color: #000000, $alpha: 0.5);
-    cursor: pointer;
+  position: fixed;
+  top: -150px;
+  z-index: 2000;
+  width: 100vw;
+  height: 300%;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  cursor: pointer;
 }
 
 .header__overlay {
-    height: 100%;
+  height: 100%;
 }
 
 .modal-window__hidden {
-    display: none;
+  display: none;
 }
 
 .modal-window__description {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-family: $common-text-font;
-    font-weight: 400;
-    font-size: 22px;
-    color: #000000;
-    background-color: rgba($color: #ffffff, $alpha: 0.5);
-    border-radius: 20px 0 0 0;
-    
-    span {
-        font-weight: 700;
-    }
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: $common-text-font;
+  font-weight: 400;
+  font-size: 22px;
+  color: #000000;
+  background-color: rgba($color: #ffffff, $alpha: 0.5);
+  border-radius: 20px 0 0 0;
 
-    h3 {
-        font-family: $heading-font;
-        font-weight: 600;
-        font-size: 25px;
-    }
+  span {
+    font-weight: 700;
+  }
+
+  h3 {
+    font-family: $heading-font;
+    font-weight: 600;
+    font-size: 25px;
+  }
 }
 
 .modal-window__colse-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 68px;
-    height: 22px;
-    padding: 7px 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: $common-text-font;
-    font-weight: 700;
-    font-size: 22px;
-    color: rgba($color: #000000, $alpha: 0.5);
-    background-color: rgba($color: #ffffff, $alpha: 0.5);
-    border: 3px solid rgba($color: #ffffff, $alpha: 0.5);
-    border-radius: 0 20px 0 20px;
-    cursor: pointer;
-    transition: all 0.5s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 68px;
+  height: 22px;
+  padding: 7px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $common-text-font;
+  font-weight: 700;
+  font-size: 22px;
+  color: rgba($color: #000000, $alpha: 0.5);
+  background-color: rgba($color: #ffffff, $alpha: 0.5);
+  border: 3px solid rgba($color: #ffffff, $alpha: 0.5);
+  border-radius: 0 20px 0 20px;
+  cursor: pointer;
+  transition: all 0.5s;
 }
 
 .modal-window__colse-btn:hover {
-    font-size: 18px;
-    color: #40d447;
-    background-color: #000000;
+  font-size: 18px;
+  color: #40d447;
+  background-color: #000000;
 }
