@@ -32,7 +32,7 @@ export interface IPhoto {
   title: string;
 }
 
-interface IPhotos {
+export interface IPhotos {
   page: number;
   pages: number;
   perpage: number;
@@ -41,8 +41,10 @@ interface IPhotos {
 }
 
 export interface IResponse {
-  photos: IPhotos;
   stat: string;
+  photos?: IPhotos;
+  code?: number;
+  message?: string;
 }
 
 export interface IPhotoCard {

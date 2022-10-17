@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPhoto, IResponse } from 'types';
+import { IPhoto, IPhotos, IResponse } from 'types';
 import PhotoCard from './PhotoCard';
 import isNotEmpty from 'helpers/isNotEmpty';
 
@@ -26,10 +26,13 @@ class SearchResult extends React.Component<{
   }
 
   render(): JSX.Element {
-    let photosArr: Array<[] | IPhoto>;
-    console.log(this.props.response);
+    let photosArr: Array<[] | IPhoto> = [];
     isNotEmpty(this.props.response)
-      ? (photosArr = (this.props.response as IResponse).photos.photo.slice(0, 20))
+      ? (
+        ((this.props.response as IResponse).photos) ?
+          photosArr = ((this.props.response as IResponse).photos as IPhotos).photo.slice(0, 20) :
+            console.error('Didn\'t get photos')
+        )
       : (photosArr = []);
     let photoCardsArr: Array<JSX.Element> = [];
     if (photosArr.length > 0) {

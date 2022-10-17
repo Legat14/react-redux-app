@@ -85,7 +85,7 @@ class SearchTool extends React.Component<
         throw 'Something went wrong!';
       }
     } catch (error) {
-      console.error(`Error: ${error}`)
+      console.error(`Error: ${error}`);
     }
   }
 
