@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import MainPage from 'components/pages/MainPage';
 import Header from 'components/Header';
 import SearchResult from 'components/SearchResult';
@@ -15,75 +15,64 @@ describe('Components', (): void => {
     const reactCompText = screen.getByText(/React components/i);
     expect(reactCompText).toBeInTheDocument();
   });
-  // it('renders search input in App component', (): void => {
-  //   render(
-  //     <BrowserRouter>
-  //       <MainPage />
-  //     </BrowserRouter>
-  //   );
-  //   const searchInput = screen.getByRole('searchbox');
-  //   expect(searchInput).toBeInTheDocument();
-  // });
-  // it('renders search button in App component', (): void => {
-  //   render(
-  //     <BrowserRouter>
-  //       <MainPage />
-  //     </BrowserRouter>
-  //   );
-  //   const searchBtn = screen.getByRole('button');
-  //   expect(searchBtn).toBeInTheDocument();
-  // });
+  it('renders search input in App component', (): void => {
+    render(
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    );
+    const searchInput = screen.getByRole('searchbox');
+    expect(searchInput).toBeInTheDocument();
+  });
+  it('renders search button in App component', (): void => {
+    render(
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    );
+    const searchBtn = screen.getByRole('button');
+    expect(searchBtn).toBeInTheDocument();
+  });
 });
 
-// describe('Cards quantity', (): void => {
-//   it('renders all cards', (): void => {
-//     render(<SearchResult />);
-//     const cards = screen.getAllByText(/Platform:/i);
-//     expect(cards.length).toBeGreaterThanOrEqual(6);
-//   });
-// });
-
-// describe('Card content', (): void => {
-//   it('renders all card content', (): void => {
-//     render(<SearchResult />);
-//     let isTruthy = true;
-//     const headings = screen.getAllByRole('heading');
-//     headings.forEach((heading) => {
-//       if (!heading.innerHTML.replace(' ₽', '')) {
-//         isTruthy = false;
-//       }
-//     });
-
-//     const img = screen.getAllByRole('img');
-//     img.forEach((img) => {
-//       if (!img.getAttribute('src')) {
-//         isTruthy = false;
-//       }
-//     });
-
-//     const platform = screen.getAllByText(/Platform:/i);
-//     platform.forEach((cardPlatform) => {
-//       const currentCardPlatform = cardPlatform.nextElementSibling;
-//       if (!currentCardPlatform) {
-//         isTruthy = false;
-//       }
-//       const currentCardPlatformContent = currentCardPlatform?.innerHTML;
-//       if (!currentCardPlatformContent) {
-//         isTruthy = false;
-//       }
-//     });
-
-//     const release = screen.getAllByText(/Release date:/i);
-//     release.forEach((cardRelease) => {
-//       const currentCardRelease = cardRelease.nextElementSibling;
-//       if (!currentCardRelease) {
-//         isTruthy = false;
-//       }
-//       const currentCardReleaseContent = currentCardRelease?.innerHTML;
-//       if (!currentCardReleaseContent) {
-//         isTruthy = false;
-//       }
-//     });
-//     expect(isTruthy).toBeTruthy();
-//   });
-// });
+describe('Get cards test', (): void => {
+  it('renders load screen', (): void => {
+    render(
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    );
+    const searchInput = screen.getByRole('searchbox');
+    const searchBtn = screen.getByRole('button');
+    fireEvent.input(searchInput, {
+      target: {
+        value: 'Dog',
+      },
+    });
+    fireEvent.click(searchBtn);
+    const loadingScreen = screen.getByAltText('loading...');
+    expect(loadingScreen).toBeInTheDocument();
+  });
+  it('gets and renders cards', async (): Promise<void> => {
+    render(
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    );
+    const searchInput = screen.getByRole('searchbox');
+    const searchBtn = screen.getByRole('button');
+    fireEvent.input(searchInput, {
+      target: {
+        value: 'Dog',
+      },
+    });
+    let modal = screen.queryByTestId('modal-window');
+    expect(modal).toBeNull();
+    fireEvent.click(searchBtn);
+    const cards = await screen.findAllByTestId('photo-card');
+    expect(cards[0]).toBeInTheDocument();
+    fireEvent.click(cards[0]);
+    modal = screen.getByTestId('modal-window');
+    expect(modal).toBeInTheDocument();
+  });
+});

@@ -37,6 +37,7 @@ class ModalWindow extends React.Component<
         onClick={(event): void => {
           event.stopPropagation();
         }}
+        data-testid={'modal-window'}
       >
         <img
           src={(this.props.modalContent as IModalContent).src}

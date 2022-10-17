@@ -7,7 +7,6 @@ class SearchResult extends React.Component<{
   response: {} | IResponse;
   getModalContent: (photo: IPhoto, src: string) => void;
 }> {
-
   renderPhoto(photo: IPhoto): JSX.Element {
     const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
     const srcLarge = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
@@ -28,11 +27,9 @@ class SearchResult extends React.Component<{
   render(): JSX.Element {
     let photosArr: Array<[] | IPhoto> = [];
     isNotEmpty(this.props.response)
-      ? (
-        ((this.props.response as IResponse).photos) ?
-          photosArr = ((this.props.response as IResponse).photos as IPhotos).photo.slice(0, 20) :
-            console.error('Didn\'t get photos')
-        )
+      ? (this.props.response as IResponse).photos
+        ? (photosArr = ((this.props.response as IResponse).photos as IPhotos).photo.slice(0, 20))
+        : console.error("Didn't get photos")
       : (photosArr = []);
     let photoCardsArr: Array<JSX.Element> = [];
     if (photosArr.length > 0) {
