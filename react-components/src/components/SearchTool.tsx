@@ -80,7 +80,6 @@ class SearchTool extends React.Component<
     this.props.setIsLoaded(true);
     this.props.getPhotos(responseObj);
     try {
-      console.log('before ', responseObj.stat);
       if (await responseObj.stat !== 'ok') {
         throw 'Something went wrong!';
       }
