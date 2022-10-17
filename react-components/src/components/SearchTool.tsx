@@ -74,18 +74,17 @@ class SearchTool extends React.Component<
       return element.trim();
     });
     const processedRequest = trimmedRequest.join('+');
-    const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}
-    &api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`;
+    const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}&api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`;
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
     this.props.setIsLoaded(true);
     this.props.getPhotos(responseObj);
     try {
-      if ((await responseObj.stat) !== 'ok') {
-        throw new Error('Something went wrong!');
+      if (await responseObj.stat !== 'ok') {
+        throw 'Something went wrong!';
       }
     } catch (error) {
-      console.error(error);
+      console.error(`Error: ${error}`);
     }
   }
 
