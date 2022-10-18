@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import MainPage from 'components/pages/MainPage/MainPage';
 import Header from 'components/Header';
-import SearchResult from 'components/SearchResult';
+import SearchResult from '../components/pages/MainPage/components/SearchResult';
 
 describe('Components', (): void => {
   it('renders React components text in App component', (): void => {

@@ -1,7 +1,5 @@
-import ModalWindow from 'components/ModalWindow';
-import ModalWindowOverlay from 'components/ModalWindowOverlay';
-import SearchResult from 'components/SearchResult';
-import SearchTool from 'components/SearchTool';
+import SearchResult from './components/SearchResult';
+import SearchTool from './components/SearchTool';
 import React from 'react';
 import { IModalContent, IPhoto, IResponse } from 'types';
 

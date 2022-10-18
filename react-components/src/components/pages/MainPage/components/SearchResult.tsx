@@ -1,7 +1,6 @@
 import React from 'react';
-import { IPhoto, IPhotos, IResponse } from 'types';
-import PhotoCard from './PhotoCard';
-import isNotEmpty from 'helpers/isNotEmpty';
+import GameCard from '../../../GameCard';
+import { mockData } from '../../../../model/mockData';
 
 class SearchResult extends React.Component<{
   response: {} | IResponse;
