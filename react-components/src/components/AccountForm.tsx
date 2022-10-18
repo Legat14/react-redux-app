@@ -7,7 +7,7 @@ import DevicesInput from './inputs/DevicesInput';
 import AvatarInput from './inputs/AvatarInput';
 import SubmitInput from './inputs/SubmitInput';
 
-class Form extends React.Component {
+class AccountForm extends React.Component {
   public nameInputComp: React.RefObject<NameInput>;
   public birthDateInputComp: React.RefObject<DateInput>;
   public genderInputComp: React.RefObject<GenderInput>;
@@ -76,4 +76,4 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+export default AccountForm;
