@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import MainPage from 'components/pages/MainPage';
+import MainPage from 'components/pages/MainPage/MainPage';
 import Header from 'components/Header';
 import SearchResult from 'components/SearchResult';
 

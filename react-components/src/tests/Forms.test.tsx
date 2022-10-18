@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import FormPage from 'components/pages/FormPage';
+import FormPage from 'components/pages/FormPage/FormPage';
 
 describe('Forms', (): void => {
   it('renders all form components', (): void => {
