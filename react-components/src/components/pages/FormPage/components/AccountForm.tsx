@@ -1,11 +1,11 @@
 import React from 'react';
-import NameInput from './inputs/NameInput';
-import DateInput from './inputs/BirthDateInput';
-import GenderInput from './inputs/GenderInput';
-import CountryInput from './inputs/CountryInput';
-import DevicesInput from './inputs/DevicesInput';
-import AvatarInput from './inputs/AvatarInput';
-import SubmitInput from './inputs/SubmitInput';
+import NameInput from '../inputs/NameInput';
+import DateInput from '../inputs/BirthDateInput';
+import GenderInput from '../inputs/GenderInput';
+import CountryInput from '../inputs/CountryInput';
+import DevicesInput from '../inputs/DevicesInput';
+import AvatarInput from '../inputs/AvatarInput';
+import SubmitInput from '../inputs/SubmitInput';
 
 class AccountForm extends React.Component {
   public nameInputComp: React.RefObject<NameInput>;
