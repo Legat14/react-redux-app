@@ -1,6 +1,6 @@
 import React from 'react';
-import GameCard from './GameCard';
-import { mockData } from '../model/mockData';
+import GameCard from '../../../GameCard';
+import { mockData } from '../../../../model/mockData';
 
 function SearchResult(): JSX.Element {
   const gameCardsArr = mockData.map((card): JSX.Element => {
