@@ -2,7 +2,7 @@ import React from 'react';
 import { IAccountCard } from 'types';
 import AccountCard from './AccoutCard';
 
-class AccountCardsDiv extends React.Component<{ cardData: IAccountCard[] }> {
+class AccountCards extends React.Component<{ cardData: IAccountCard[] }> {
   render(): JSX.Element {
     const cardsArr = this.props.cardData.map((element): JSX.Element => {
       return (
@@ -28,4 +28,4 @@ class AccountCardsDiv extends React.Component<{ cardData: IAccountCard[] }> {
   }
 }
 
-export default AccountCardsDiv;
+export default AccountCards;
