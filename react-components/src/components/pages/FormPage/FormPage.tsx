@@ -1,11 +1,11 @@
-import AccountCards from 'components/AccountCards';
-import ConfirmationWindow from 'components/ConfirmationWindow';
-import { validateAvatar, validateDate, validateName } from 'data-validation';
 import React, { FormEvent } from 'react';
-import showCreateCardConfirmation from '../../../controller/showCreateCardConfirmation';
-import { disableSubmit, enableSubmit } from '../../../controller/toggleSubmitFunctions';
+import AccountCards from './components/AccountCards';
+import ConfirmationWindow from './components/ConfirmationWindow';
+import { validateAvatar, validateDate, validateName } from './functions/data-validation';
+import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
+import { disableSubmit, enableSubmit } from './functions/toggleSubmitFunctions';
 import { IAccountCard } from 'types';
-import AccountForm from '../../AccountForm';
+import AccountForm from './components/AccountForm';
 
 class FormPage extends React.Component {
   form: React.RefObject<AccountForm>;
