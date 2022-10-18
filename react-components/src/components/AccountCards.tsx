@@ -1,6 +1,6 @@
 import React from 'react';
 import { IAccountCard } from 'types';
-import AccountCard from './AccoutCard';
+import AccountCard from './AccountCard';
 
 class AccountCards extends React.Component<{ cardData: IAccountCard[] }> {
   render(): JSX.Element {
