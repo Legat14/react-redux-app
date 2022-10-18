@@ -1,4 +1,4 @@
-import AccountCardsDiv from 'components/AccountCardsDiv';
+import AccountCardsDiv from 'components/AccountCards';
 import ConfirmationWindow from 'components/ConfirmationWindow';
 import { validateAvatar, validateDate, validateName } from 'data-validation';
 import React, { FormEvent } from 'react';
