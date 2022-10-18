@@ -1,14 +1,14 @@
-import AccountCardsDiv from 'components/AccountCards';
+import AccountCards from 'components/AccountCards';
 import ConfirmationWindow from 'components/ConfirmationWindow';
 import { validateAvatar, validateDate, validateName } from 'data-validation';
 import React, { FormEvent } from 'react';
 import showCreateCardConfirmation from '../../controller/showCreateCardConfirmation';
 import { disableSubmit, enableSubmit } from '../../controller/toggleSubmitFunctions';
 import { IAccountCard } from 'types';
-import Form from '../Form';
+import AccountForm from '../AccountForm';
 
 class FormPage extends React.Component {
-  form: React.RefObject<Form>;
+  form: React.RefObject<AccountForm>;
   confirmation: React.RefObject<ConfirmationWindow>;
   state: { cards: IAccountCard[] };
 
@@ -402,8 +402,8 @@ class FormPage extends React.Component {
     return (
       <section className="form-page__section" onSubmit={this.handleSubmit}>
         <h2>React Forms</h2>
-        <Form ref={this.form} />
-        <AccountCardsDiv cardData={this.state.cards} />
+        <AccountForm ref={this.form} />
+        <AccountCards cardData={this.state.cards} />
         <ConfirmationWindow ref={this.confirmation} />
       </section>
     );
