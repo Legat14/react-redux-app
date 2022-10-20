@@ -9,7 +9,7 @@ import AccountForm from './components/AccountForm';
 
 class FormPage extends React.Component {
   form: React.RefObject<AccountForm>;
-  confirmation: React.RefObject<ConfirmationWindow>;
+  confirmation: React.RefObject<HTMLDivElement>;
   state: { cards: IAccountCard[] };
 
   constructor(props: {}) {
@@ -192,12 +192,12 @@ class FormPage extends React.Component {
     return avatarMistakeMessage;
   }
 
-  getConfirmationDiv(): HTMLDivElement | null {
-    let confirmationDiv = null;
+  getConfirmation(): HTMLDivElement | null {
+    let confirmation = null;
     if (this.confirmation.current) {
-      confirmationDiv = this.confirmation.current.confirmationDiv.current;
+      confirmation = this.confirmation.current;
     }
-    return confirmationDiv;
+    return confirmation;
   }
 
   getSubmitInput(): HTMLInputElement | null {
@@ -262,7 +262,7 @@ class FormPage extends React.Component {
     const xBoxCheckbox = this.getXboxCheckbox();
     const switchCheckbox = this.getSwitchCheckbox();
     const submitInput = this.getSubmitInput();
-    const confirmationDiv = this.getConfirmationDiv();
+    const confirmationDiv = this.getConfirmation();
 
     const key = this.getKey();
     const name = this.getInputValue(nameInput);
