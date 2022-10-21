@@ -400,9 +400,9 @@ class FormPage extends React.Component {
 
   render(): JSX.Element {
     return (
-      <section className="form-page__section" onSubmit={this.handleSubmit}>
+      <section className="form-page__section">
         <h2>React Forms</h2>
-        <AccountForm ref={this.form} />
+        <AccountForm ref={this.form} onSubmit={this.handleSubmit} />
         <AccountCards cardData={this.state.cards} />
         <ConfirmationWindow ref={this.confirmation} />
       </section>

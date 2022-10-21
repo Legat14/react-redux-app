@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import NameInput from '../inputs/NameInput';
 import DateInput from '../inputs/BirthDateInput';
 import GenderInput from '../inputs/GenderInput';
@@ -7,7 +7,7 @@ import DevicesInput from '../inputs/DevicesInput';
 import AvatarInput from '../inputs/AvatarInput';
 import SubmitInput from '../inputs/SubmitInput';
 
-class AccountForm extends React.Component {
+class AccountForm extends React.Component<{onSubmit: (event: FormEvent<HTMLFormElement>) => void}> {
   public nameInputComp: React.RefObject<NameInput>;
   public birthDateInputComp: React.RefObject<DateInput>;
   public genderInputComp: React.RefObject<GenderInput>;
@@ -19,7 +19,7 @@ class AccountForm extends React.Component {
   public dateMistakeMessage: React.RefObject<HTMLParagraphElement>;
   public avatarMistakeMessage: React.RefObject<HTMLParagraphElement>;
 
-  constructor(props: {}) {
+  constructor(props: {onSubmit: (event: FormEvent<HTMLFormElement>) => void}) {
     super(props);
     this.nameInputComp = React.createRef();
     this.birthDateInputComp = React.createRef();
@@ -35,7 +35,7 @@ class AccountForm extends React.Component {
 
   render(): JSX.Element {
     return (
-      <form className="form" data-testid="form">
+      <form className="form" data-testid="form" onSubmit={this.props.onSubmit}>
         <h3>Create your account</h3>
         <NameInput ref={this.nameInputComp} />
         <div className="form__mistake-message-div">
