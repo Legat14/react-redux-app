@@ -4,17 +4,17 @@ import ConfirmationWindow from './components/ConfirmationWindow';
 import { validateAvatar, validateDate, validateName } from './functions/data-validation';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
 import { disableSubmit, enableSubmit } from './functions/toggleSubmitFunctions';
-import { IAccountCard } from 'types';
+import { IAccountCard, IAccountFormRefs } from 'types';
 import AccountForm from './components/AccountForm';
 
 class FormPage extends React.Component {
-  form: React.RefObject<AccountForm>;
+  accountForm: React.RefObject<IAccountFormRefs>;
   confirmation: React.RefObject<HTMLDivElement>;
   state: { cards: IAccountCard[] };
 
   constructor(props: {}) {
     super(props);
-    this.form = React.createRef();
+    this.accountForm = React.createRef();
     this.confirmation = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = { cards: [] };
@@ -26,8 +26,8 @@ class FormPage extends React.Component {
 
   getNameInput(): HTMLInputElement | null {
     let nameInput = null;
-    if (this.form.current && this.form.current.nameInputComp.current) {
-      nameInput = this.form.current.nameInputComp.current.nameInput.current;
+    if (this.accountForm.current && this.accountForm.current.nameInputComp.nameInput) {
+      nameInput = this.accountForm.current.nameInputComp.nameInput.current;
     }
     return nameInput;
   }
@@ -42,8 +42,8 @@ class FormPage extends React.Component {
 
   getBirthDateInput(): HTMLInputElement | null {
     let birthDateInput = null;
-    if (this.form.current && this.form.current.birthDateInputComp.current) {
-      birthDateInput = this.form.current.birthDateInputComp.current.birthDateInput.current;
+    if (this.accountForm.current && this.accountForm.current.birthDateInputComp) {
+      birthDateInput = this.accountForm.current.birthDateInputComp.birthDateInput.current;
     }
     return birthDateInput;
   }
@@ -51,11 +51,11 @@ class FormPage extends React.Component {
   getGender(): string {
     let genderSwitcherValue = false;
     if (
-      this.form.current &&
-      this.form.current.genderInputComp.current &&
-      this.form.current.genderInputComp.current.switcher.current
+      this.accountForm.current &&
+      this.accountForm.current.genderInputComp &&
+      this.accountForm.current.genderInputComp.switcher.current
     ) {
-      genderSwitcherValue = this.form.current.genderInputComp.current.switcher.current.checked;
+      genderSwitcherValue = this.accountForm.current.genderInputComp.switcher.current.checked;
     }
 
     let gender = 'Male';
@@ -67,56 +67,56 @@ class FormPage extends React.Component {
 
   getAvatarInput(): HTMLInputElement | null {
     let avatarInput = null;
-    if (this.form.current && this.form.current.avatarInputComp.current) {
-      avatarInput = this.form.current.avatarInputComp.current.avatarInput.current;
+    if (this.accountForm.current && this.accountForm.current.avatarInputComp) {
+      avatarInput = this.accountForm.current.avatarInputComp.avatarInput.current;
     }
     return avatarInput;
   }
 
   getAvatarInputBtn(): HTMLButtonElement | null {
     let avatarInputBtn = null;
-    if (this.form.current && this.form.current.avatarInputComp.current) {
-      avatarInputBtn = this.form.current.avatarInputComp.current.avatarInputBtn.current;
+    if (this.accountForm.current && this.accountForm.current.avatarInputComp) {
+      avatarInputBtn = this.accountForm.current.avatarInputComp.avatarInputBtn.current;
     }
     return avatarInputBtn;
   }
 
   getCountryInput(): HTMLSelectElement | null {
     let countryInput = null;
-    if (this.form.current && this.form.current.countryInputComp.current) {
-      countryInput = this.form.current.countryInputComp.current.countryInput.current;
+    if (this.accountForm.current && this.accountForm.current.countryInputComp) {
+      countryInput = this.accountForm.current.countryInputComp.countryInput.current;
     }
     return countryInput;
   }
 
   getPcCheckbox(): HTMLInputElement | null {
     let pcCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      pcCheckbox = this.form.current.devicesInputComp.current.pcCheckbox.current;
+    if (this.accountForm.current && this.accountForm.current.devicesInputComp) {
+      pcCheckbox = this.accountForm.current.devicesInputComp.pcCheckbox.current;
     }
     return pcCheckbox;
   }
 
   getPs5Checkbox(): HTMLInputElement | null {
     let pS5Checkbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      pS5Checkbox = this.form.current.devicesInputComp.current.ps5Checkbox.current;
+    if (this.accountForm.current && this.accountForm.current.devicesInputComp) {
+      pS5Checkbox = this.accountForm.current.devicesInputComp.ps5Checkbox.current;
     }
     return pS5Checkbox;
   }
 
   getXboxCheckbox(): HTMLInputElement | null {
     let xBoxCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      xBoxCheckbox = this.form.current.devicesInputComp.current.xBoxCheckbox.current;
+    if (this.accountForm.current && this.accountForm.current.devicesInputComp) {
+      xBoxCheckbox = this.accountForm.current.devicesInputComp.xBoxCheckbox.current;
     }
     return xBoxCheckbox;
   }
 
   getSwitchCheckbox(): HTMLInputElement | null {
     let switchCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      switchCheckbox = this.form.current.devicesInputComp.current.switchCheckbox.current;
+    if (this.accountForm.current && this.accountForm.current.devicesInputComp) {
+      switchCheckbox = this.accountForm.current.devicesInputComp.switchCheckbox.current;
     }
     return switchCheckbox;
   }
@@ -170,24 +170,24 @@ class FormPage extends React.Component {
 
   getNameMistakeMessage(): HTMLParagraphElement | null {
     let nameMistakeMessage = null;
-    if (this.form.current) {
-      nameMistakeMessage = this.form.current.nameMistakeMessage.current;
+    if (this.accountForm.current) {
+      nameMistakeMessage = this.accountForm.current.nameMistakeMessage;
     }
     return nameMistakeMessage;
   }
 
   getDateMistakeMessage(): HTMLParagraphElement | null {
     let dateMistakeMessage = null;
-    if (this.form.current) {
-      dateMistakeMessage = this.form.current.dateMistakeMessage.current;
+    if (this.accountForm.current) {
+      dateMistakeMessage = this.accountForm.current.dateMistakeMessage;
     }
     return dateMistakeMessage;
   }
 
   getAvatarMistakeMessage(): HTMLParagraphElement | null {
     let avatarMistakeMessage = null;
-    if (this.form.current) {
-      avatarMistakeMessage = this.form.current.avatarMistakeMessage.current;
+    if (this.accountForm.current) {
+      avatarMistakeMessage = this.accountForm.current.avatarMistakeMessage;
     }
     return avatarMistakeMessage;
   }
@@ -202,8 +202,8 @@ class FormPage extends React.Component {
 
   getSubmitInput(): HTMLInputElement | null {
     let submitInput = null;
-    if (this.form.current && this.form.current.submitComp.current) {
-      submitInput = this.form.current.submitComp.current.submitInput.current;
+    if (this.accountForm.current && this.accountForm.current.submitComp) {
+      submitInput = this.accountForm.current.submitComp.submitInput.current;
     }
     return submitInput;
   }
@@ -402,7 +402,7 @@ class FormPage extends React.Component {
     return (
       <section className="form-page__section" onSubmit={this.handleSubmit}>
         <h2>React Forms</h2>
-        <AccountForm ref={this.form} />
+        <AccountForm ref={this.accountForm} />
         <AccountCards cardData={this.state.cards} />
         <ConfirmationWindow ref={this.confirmation} />
       </section>

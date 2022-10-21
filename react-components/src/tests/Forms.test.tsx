@@ -64,7 +64,7 @@ describe('Forms', (): void => {
     expect(submitInput).toBeEnabled();
 
     fireEvent.click(submitInput);
-
+  
     expect(submitInput).toBeDisabled();
   });
 

@@ -1,4 +1,11 @@
 import { MouseEventHandler } from 'react';
+import AvatarInput from './components/pages/FormPage/inputs/AvatarInput';
+import BirthDateInput from './components/pages/FormPage/inputs/BirthDateInput';
+import GenderInput from './components/pages/FormPage/inputs/GenderInput';
+import CountryInput from './components/pages/FormPage/inputs/CountryInput';
+import DevicesInput from './components/pages/FormPage/inputs/DevicesInput';
+import NameInput from './components/pages/FormPage/inputs/NameInput';
+import SubmitInput from './components/pages/FormPage/inputs/SubmitInput';
 
 export interface IAccountCard {
   key: number;
@@ -52,4 +59,17 @@ export interface IModalContent {
   owner: string;
   server: string;
   title: string;
+}
+
+export interface IAccountFormRefs {
+  nameInputComp: NameInput,
+  birthDateInputComp: BirthDateInput,
+  genderInputComp: GenderInput,
+  avatarInputComp: AvatarInput,
+  countryInputComp: CountryInput,
+  devicesInputComp: DevicesInput,
+  submitComp: SubmitInput,
+  nameMistakeMessage: HTMLParagraphElement,
+  dateMistakeMessage: HTMLParagraphElement,
+  avatarMistakeMessage: HTMLParagraphElement,
 }
