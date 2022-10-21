@@ -14,7 +14,6 @@ class MainPage extends React.Component<
     isLoaded: boolean;
   }
 > {
-  modal: React.RefObject<ModalWindow>;
 
   constructor(props: {}) {
     super(props);
@@ -23,7 +22,6 @@ class MainPage extends React.Component<
     this.openModalWindow = this.openModalWindow.bind(this);
     this.closeModalWindow = this.closeModalWindow.bind(this);
     this.setIsLoaded = this.setIsLoaded.bind(this);
-    this.modal = React.createRef();
     this.state = {
       response: {},
       modalContent: {},
@@ -69,21 +67,11 @@ class MainPage extends React.Component<
   };
 
   openModalWindow(): void {
-    console.log('open');
     this.setState({isOpened: true});
-    console.log(this.state);
-    if (this.modal.current) {
-      this.modal.current.showModel();
-    }
   }
   
   closeModalWindow(): void {
-    console.log('close');
     this.setState({isOpened: false});
-    console.log(this.state);
-    if (this.modal.current) {
-      this.modal.current.hideModel();
-    }
   }
 
   render(): JSX.Element {
@@ -91,16 +79,16 @@ class MainPage extends React.Component<
       <section className="main-page__section" onClick={this.closeModalWindow}>
         <ModalWindowOverlay isOpened={this.state.isOpened} />
         <ModalWindow
-          ref={this.modal}
           modalContent={
             (
               this.state as {
                 response: IResponse | {};
                 modalContent: IModalContent | {};
               }
-            ).modalContent
-          }
+              ).modalContent
+            }
           closeModalWindow={this.closeModalWindow}
+          isOpened={this.state.isOpened}
         />
         <div className="main-page__bar">
           <h2>Main page</h2>
