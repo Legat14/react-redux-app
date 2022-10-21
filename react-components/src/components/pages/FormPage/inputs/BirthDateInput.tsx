@@ -14,7 +14,7 @@ class BirthDateInput extends React.Component {
         <h4>Insert your birthday:</h4>
         <input
           className="date__input"
-          name="date"
+          name="date-input"
           type="date"
           ref={this.birthDateInput}
           data-testid="birth-date-input"
