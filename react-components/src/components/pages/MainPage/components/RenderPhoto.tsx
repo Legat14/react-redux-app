@@ -16,7 +16,7 @@ function RenderPhoto(
     onClick={(event) => {
       event.stopPropagation();
       const modalContent = getModalContent(photo, srcLarge);
-      setModalContent(modalContent); // Эта штука зацикливает отрисовку MainPage
+      setModalContent(modalContent);
       setIsOpened(true);
     }}
       key={+photo.id}
