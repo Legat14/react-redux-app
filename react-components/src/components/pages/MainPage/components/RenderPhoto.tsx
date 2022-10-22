@@ -1,16 +1,24 @@
 import React from 'react';
-import PhotoCard from 'components/PhotoCard';
-import { IPhoto } from 'types';
+import PhotoCard from './PhotoCard';
+import { IModalContent, IPhoto } from 'types';
+import getModalContent from '../functions/getModalContent';
 
-function RenderPhoto(photo: IPhoto, getModalContent: (photo: IPhoto, src: string) => void): JSX.Element {
+function RenderPhoto(
+  photo: IPhoto,
+  setModalContent: (modalContent: IModalContent) => void,
+  setIsOpened: (value: boolean) => void,
+  ): JSX.Element {
   const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
   const srcLarge = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
+  
   return (
     <PhotoCard
-      onClick={(event) => {
-        event.stopPropagation();
-        getModalContent(photo, srcLarge);
-      }}
+    onClick={(event) => {
+      event.stopPropagation();
+      const modalContent = getModalContent(photo, srcLarge);
+      setModalContent(modalContent); // Эта штука зацикливает отрисовку MainPage
+      setIsOpened(true);
+    }}
       key={+photo.id}
       src={srcMedium}
       title={photo.title}

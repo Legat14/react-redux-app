@@ -1,11 +1,12 @@
 import React from 'react';
-import { IPhoto, IPhotos, IResponse } from 'types';
+import { IModalContent, IPhoto, IPhotos, IResponse } from 'types';
 import isNotEmpty from 'helpers/isNotEmpty';
 import RenderPhoto from './RenderPhoto';
 
 function SearchResult(props: {
   response: {} | IResponse,
-  getModalContent: (photo: IPhoto, src: string) => void;
+  setModalContent: (modalContent: IModalContent) => void;
+  setIsOpened: (isOpened: boolean) => void
 }): JSX.Element {
 
   let photosArr: Array<[] | IPhoto> = [];
@@ -17,7 +18,11 @@ function SearchResult(props: {
   let photoCardsArr: Array<JSX.Element> = [];
   if (photosArr.length > 0) {
     photoCardsArr = photosArr.map((photo: IPhoto | []): JSX.Element => {
-      return RenderPhoto(photo as IPhoto, props.getModalContent);
+      return RenderPhoto(
+        photo as IPhoto,
+        props.setModalContent,
+        props.setIsOpened,
+        );
     });
   }
 

@@ -4,7 +4,7 @@ import { IModalContent } from 'types';
 
 function ModalWindow(props: {
   modalContent: IModalContent | {},
-  closeModalWindow: () => void,
+  setIsOpened: (value: boolean) => void,
   isOpened: boolean,
  }): JSX.Element {
 
@@ -41,9 +41,12 @@ function ModalWindow(props: {
           {(props.modalContent as IModalContent).server}
         </p>
       </div>
-      <div className="modal-window__colse-btn" onClick={props.closeModalWindow}>
+      <button
+      className="modal-window__colse-btn"
+      type="button"
+      onClick={() => props.setIsOpened(false)}>
         {'>X<'}
-      </div>
+      </button>
     </div>
   ) : (
     <div

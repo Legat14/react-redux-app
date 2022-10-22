@@ -3,7 +3,7 @@ import { IResponse } from 'types';
 
 class SearchTool extends React.Component<
   {
-    getPhotos: (response: IResponse) => void;
+    setResponse: (response: IResponse) => void;
     setIsLoaded: (value: boolean) => void;
   },
   { request: string }
@@ -14,7 +14,7 @@ class SearchTool extends React.Component<
   format: string;
 
   constructor(props: {
-    getPhotos: (response: IResponse) => void;
+    setResponse: (response: IResponse) => void;
     setIsLoaded: (value: boolean) => void;
   }) {
     super(props);
@@ -78,7 +78,7 @@ class SearchTool extends React.Component<
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
     this.props.setIsLoaded(true);
-    this.props.getPhotos(responseObj);
+    this.props.setResponse(responseObj);
     try {
       if (await responseObj.stat !== 'ok') {
         throw new Error('Something went wrong!');
