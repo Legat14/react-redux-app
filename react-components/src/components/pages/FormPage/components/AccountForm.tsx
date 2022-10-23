@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ForwardedRef } from 'react';
 import NameInput from '../inputs/NameInput';
 import DateInput from '../inputs/BirthDateInput';
 import GenderInput from '../inputs/GenderInput';
@@ -14,7 +14,7 @@ class AccountForm extends React.Component {
   public avatarInputComp: React.RefObject<AvatarInput>;
   public countryInputComp: React.RefObject<CountryInput>;
   public devicesInputComp: React.RefObject<DevicesInput>;
-  public submitComp: React.RefObject<SubmitInput>;
+  public submitInput: ForwardedRef<HTMLInputElement>;
   public nameMistakeMessage: React.RefObject<HTMLParagraphElement>;
   public dateMistakeMessage: React.RefObject<HTMLParagraphElement>;
   public avatarMistakeMessage: React.RefObject<HTMLParagraphElement>;
@@ -27,7 +27,7 @@ class AccountForm extends React.Component {
     this.avatarInputComp = React.createRef();
     this.countryInputComp = React.createRef();
     this.devicesInputComp = React.createRef();
-    this.submitComp = React.createRef();
+    this.submitInput = React.createRef();
     this.nameMistakeMessage = React.createRef();
     this.dateMistakeMessage = React.createRef();
     this.avatarMistakeMessage = React.createRef();
@@ -70,7 +70,7 @@ class AccountForm extends React.Component {
         </div>
         <CountryInput ref={this.countryInputComp} />
         <DevicesInput ref={this.devicesInputComp} />
-        <SubmitInput ref={this.submitComp} />
+        <SubmitInput ref={this.submitInput} />
       </form>
     );
   }

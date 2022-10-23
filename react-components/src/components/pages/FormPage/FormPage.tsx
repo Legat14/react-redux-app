@@ -195,8 +195,8 @@ function FormPage(): JSX.Element{
 
   const getSubmitInput = (): HTMLInputElement | null => {
     let submitInput = null;
-    if (accountForm.current && (accountForm.current as AccountForm).submitComp.current) {
-      submitInput = (accountForm.current as AccountForm).submitComp.current!.submitInput.current;
+    if (accountForm.current && (accountForm.current as AccountForm).submitInput) {
+      submitInput = ((accountForm.current as AccountForm).submitInput! as React.RefObject<HTMLInputElement>).current;
     }
     return submitInput;
   }

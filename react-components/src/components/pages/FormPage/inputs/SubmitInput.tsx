@@ -1,24 +1,16 @@
-import React from 'react';
+import React, { ForwardedRef, useRef } from 'react';
 
-class SubmitInput extends React.Component {
-  submitInput: React.RefObject<HTMLInputElement>;
+const SubmitInput = React.forwardRef((props: {}, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
 
-  constructor(props: {}) {
-    super(props);
-    this.submitInput = React.createRef();
-  }
-
-  render(): JSX.Element {
-    return (
-      <input
-        className="submit__input"
-        type="submit"
-        disabled={true}
-        ref={this.submitInput}
-        data-testid="submit-input"
-      />
-    );
-  }
-}
+  return (
+    <input
+      className="submit__input"
+      type="submit"
+      disabled={true}
+      ref={ref}
+      data-testid="submit-input"
+    />
+  );
+});
 
 export default SubmitInput;
