@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
 import { validateAvatar, validateDate, validateName } from './functions/data-validation';
@@ -7,32 +7,25 @@ import { disableSubmit, enableSubmit } from './functions/toggleSubmitFunctions';
 import { IAccountCard } from 'types';
 import AccountForm from './components/AccountForm';
 
-class FormPage extends React.Component {
-  form: React.RefObject<AccountForm>;
-  confirmation: React.RefObject<HTMLDivElement>;
-  state: { cards: IAccountCard[] };
+function FormPage(): JSX.Element{
 
-  constructor(props: {}) {
-    super(props);
-    this.form = React.createRef();
-    this.confirmation = React.createRef();
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = { cards: [] };
+  const [cards, setCards] = useState<IAccountCard[] | []>([]);
+  const accountForm = useRef(null);
+  const confirmation = useRef(null);
+
+  const getKey = (): number => {
+    return cards.length;
   }
 
-  getKey(): number {
-    return this.state.cards.length;
-  }
-
-  getNameInput(): HTMLInputElement | null {
+  const getNameInput = (): HTMLInputElement | null => {
     let nameInput = null;
-    if (this.form.current && this.form.current.nameInputComp.current) {
-      nameInput = this.form.current.nameInputComp.current.nameInput.current;
+    if (accountForm.current && (accountForm.current as AccountForm).nameInputComp.current) {
+      nameInput = (accountForm.current as AccountForm).nameInputComp.current!.nameInput.current;
     }
     return nameInput;
   }
 
-  getInputValue(nameInput: HTMLInputElement | HTMLSelectElement | null): string {
+  const getInputValue = (nameInput: HTMLInputElement | HTMLSelectElement | null): string => {
     let inputValue = '';
     if (nameInput) {
       inputValue = nameInput.value;
@@ -40,22 +33,22 @@ class FormPage extends React.Component {
     return inputValue;
   }
 
-  getBirthDateInput(): HTMLInputElement | null {
+  const getBirthDateInput = (): HTMLInputElement | null => {
     let birthDateInput = null;
-    if (this.form.current && this.form.current.birthDateInputComp.current) {
-      birthDateInput = this.form.current.birthDateInputComp.current.birthDateInput.current;
+    if (accountForm.current && (accountForm.current as AccountForm).birthDateInputComp.current) {
+      birthDateInput = (accountForm.current as AccountForm).birthDateInputComp.current!.birthDateInput.current;
     }
     return birthDateInput;
   }
 
-  getGender(): string {
+  const getGender = (): string => {
     let genderSwitcherValue = false;
     if (
-      this.form.current &&
-      this.form.current.genderInputComp.current &&
-      this.form.current.genderInputComp.current.switcher.current
+      accountForm.current &&
+      (accountForm.current as AccountForm).genderInputComp.current &&
+      (accountForm.current as AccountForm).genderInputComp.current!.switcher.current
     ) {
-      genderSwitcherValue = this.form.current.genderInputComp.current.switcher.current.checked;
+      genderSwitcherValue = (accountForm.current as AccountForm).genderInputComp.current!.switcher.current!.checked;
     }
 
     let gender = 'Male';
@@ -65,63 +58,63 @@ class FormPage extends React.Component {
     return gender;
   }
 
-  getAvatarInput(): HTMLInputElement | null {
+  const getAvatarInput = (): HTMLInputElement | null => {
     let avatarInput = null;
-    if (this.form.current && this.form.current.avatarInputComp.current) {
-      avatarInput = this.form.current.avatarInputComp.current.avatarInput.current;
+    if (accountForm.current && (accountForm.current as AccountForm).avatarInputComp.current) {
+      avatarInput = (accountForm.current as AccountForm).avatarInputComp.current!.avatarInput.current;
     }
     return avatarInput;
   }
 
-  getAvatarInputBtn(): HTMLButtonElement | null {
+  const getAvatarInputBtn = (): HTMLButtonElement | null => {
     let avatarInputBtn = null;
-    if (this.form.current && this.form.current.avatarInputComp.current) {
-      avatarInputBtn = this.form.current.avatarInputComp.current.avatarInputBtn.current;
+    if (accountForm.current && (accountForm.current as AccountForm).avatarInputComp.current) {
+      avatarInputBtn = (accountForm.current as AccountForm).avatarInputComp.current!.avatarInputBtn.current;
     }
     return avatarInputBtn;
   }
 
-  getCountryInput(): HTMLSelectElement | null {
+  const getCountryInput = (): HTMLSelectElement | null => {
     let countryInput = null;
-    if (this.form.current && this.form.current.countryInputComp.current) {
-      countryInput = this.form.current.countryInputComp.current.countryInput.current;
+    if (accountForm.current && (accountForm.current as AccountForm).countryInputComp.current) {
+      countryInput = (accountForm.current as AccountForm).countryInputComp.current!.countryInput.current;
     }
     return countryInput;
   }
 
-  getPcCheckbox(): HTMLInputElement | null {
+  const getPcCheckbox = (): HTMLInputElement | null => {
     let pcCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      pcCheckbox = this.form.current.devicesInputComp.current.pcCheckbox.current;
+    if (accountForm.current && (accountForm.current as AccountForm).devicesInputComp.current) {
+      pcCheckbox = (accountForm.current as AccountForm).devicesInputComp.current!.pcCheckbox.current;
     }
     return pcCheckbox;
   }
 
-  getPs5Checkbox(): HTMLInputElement | null {
+  const getPs5Checkbox = (): HTMLInputElement | null => {
     let pS5Checkbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      pS5Checkbox = this.form.current.devicesInputComp.current.ps5Checkbox.current;
+    if (accountForm.current && (accountForm.current as AccountForm).devicesInputComp.current) {
+      pS5Checkbox = (accountForm.current as AccountForm).devicesInputComp.current!.ps5Checkbox.current;
     }
     return pS5Checkbox;
   }
 
-  getXboxCheckbox(): HTMLInputElement | null {
+  const getXboxCheckbox = (): HTMLInputElement | null => {
     let xBoxCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      xBoxCheckbox = this.form.current.devicesInputComp.current.xBoxCheckbox.current;
+    if (accountForm.current && (accountForm.current as AccountForm).devicesInputComp.current) {
+      xBoxCheckbox = (accountForm.current as AccountForm).devicesInputComp.current!.xBoxCheckbox.current;
     }
     return xBoxCheckbox;
   }
 
-  getSwitchCheckbox(): HTMLInputElement | null {
+  const getSwitchCheckbox = (): HTMLInputElement | null => {
     let switchCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      switchCheckbox = this.form.current.devicesInputComp.current.switchCheckbox.current;
+    if (accountForm.current && (accountForm.current as AccountForm).devicesInputComp.current) {
+      switchCheckbox = (accountForm.current as AccountForm).devicesInputComp.current!.switchCheckbox.current;
     }
     return switchCheckbox;
   }
 
-  getDevices({
+  const getDevices = ({
     pcCheckbox,
     ps5Checkbox,
     xBoxCheckbox,
@@ -131,7 +124,7 @@ class FormPage extends React.Component {
     ps5Checkbox: HTMLInputElement | null;
     xBoxCheckbox: HTMLInputElement | null;
     switchCheckbox: HTMLInputElement | null;
-  }): string {
+  }): string => {
     let devices = ['none :-('];
     let pcCheckboxValue = false;
     if (pcCheckbox) {
@@ -168,59 +161,59 @@ class FormPage extends React.Component {
     return devicesStr;
   }
 
-  getNameMistakeMessage(): HTMLParagraphElement | null {
+  const getNameMistakeMessage = (): HTMLParagraphElement | null => {
     let nameMistakeMessage = null;
-    if (this.form.current) {
-      nameMistakeMessage = this.form.current.nameMistakeMessage.current;
+    if (accountForm.current) {
+      nameMistakeMessage = (accountForm.current as AccountForm).nameMistakeMessage.current;
     }
     return nameMistakeMessage;
   }
 
-  getDateMistakeMessage(): HTMLParagraphElement | null {
+  const getDateMistakeMessage = (): HTMLParagraphElement | null => {
     let dateMistakeMessage = null;
-    if (this.form.current) {
-      dateMistakeMessage = this.form.current.dateMistakeMessage.current;
+    if (accountForm.current) {
+      dateMistakeMessage = (accountForm.current as AccountForm).dateMistakeMessage.current;
     }
     return dateMistakeMessage;
   }
 
-  getAvatarMistakeMessage(): HTMLParagraphElement | null {
+  const getAvatarMistakeMessage = (): HTMLParagraphElement | null => {
     let avatarMistakeMessage = null;
-    if (this.form.current) {
-      avatarMistakeMessage = this.form.current.avatarMistakeMessage.current;
+    if (accountForm.current) {
+      avatarMistakeMessage = (accountForm.current as AccountForm).avatarMistakeMessage.current;
     }
     return avatarMistakeMessage;
   }
 
-  getConfirmation(): HTMLDivElement | null {
-    let confirmation = null;
-    if (this.confirmation.current) {
-      confirmation = this.confirmation.current;
+  const getConfirmation = (): HTMLDivElement | null => {
+    let confirmationElement = null;
+    if (confirmation.current) {
+      confirmationElement = confirmation.current;
     }
-    return confirmation;
+    return confirmationElement;
   }
 
-  getSubmitInput(): HTMLInputElement | null {
+  const getSubmitInput = (): HTMLInputElement | null => {
     let submitInput = null;
-    if (this.form.current && this.form.current.submitComp.current) {
-      submitInput = this.form.current.submitComp.current.submitInput.current;
+    if (accountForm.current && (accountForm.current as AccountForm).submitComp.current) {
+      submitInput = (accountForm.current as AccountForm).submitComp.current!.submitInput.current;
     }
     return submitInput;
   }
 
-  cleanInput(input: HTMLInputElement | null): void {
+  const cleanInput = (input: HTMLInputElement | null): void => {
     if (input) {
       input.value = '';
     }
   }
 
-  uncheckCheckbox(checkbox: HTMLInputElement | null): void {
+  const uncheckCheckbox = (checkbox: HTMLInputElement | null): void => {
     if (checkbox) {
       checkbox.checked = false;
     }
   }
 
-  createAccountCard({
+  const createAccountCard = ({
     key,
     name,
     birthDate,
@@ -229,7 +222,7 @@ class FormPage extends React.Component {
     avatarUrl,
     country,
     devices,
-  }: IAccountCard): void {
+  }: IAccountCard): void => {
     const newAccoutData = {
       key,
       name,
@@ -241,36 +234,31 @@ class FormPage extends React.Component {
       devices,
     };
 
-    let newState = {};
-    this.setState((previousState: { cards: IAccountCard[] }) => {
-      const cards = [...previousState.cards];
-      cards.push(newAccoutData);
-      newState = { cards: cards };
-      return newState;
-    });
+    const newCardsState = [...cards, newAccoutData];
+    setCards(newCardsState);
   }
 
-  handleSubmit(event: FormEvent<HTMLFormElement>): void {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const nameInput = this.getNameInput();
-    const birthDateInput = this.getBirthDateInput();
-    const avatarInput = this.getAvatarInput();
-    const countryInput = this.getCountryInput();
-    const pcCheckbox = this.getPcCheckbox();
-    const ps5Checkbox = this.getPs5Checkbox();
-    const xBoxCheckbox = this.getXboxCheckbox();
-    const switchCheckbox = this.getSwitchCheckbox();
-    const submitInput = this.getSubmitInput();
-    const confirmationDiv = this.getConfirmation();
+    const nameInput = getNameInput();
+    const birthDateInput = getBirthDateInput();
+    const avatarInput = getAvatarInput();
+    const countryInput = getCountryInput();
+    const pcCheckbox = getPcCheckbox();
+    const ps5Checkbox = getPs5Checkbox();
+    const xBoxCheckbox = getXboxCheckbox();
+    const switchCheckbox = getSwitchCheckbox();
+    const submitInput = getSubmitInput();
+    const confirmationDiv = getConfirmation();
 
-    const key = this.getKey();
-    const name = this.getInputValue(nameInput);
-    const birthDate = this.getInputValue(birthDateInput);
-    const gender = this.getGender();
-    const avatar = this.getInputValue(avatarInput);
-    const country = this.getInputValue(countryInput);
-    const devices = this.getDevices({
+    const key = getKey();
+    const name = getInputValue(nameInput);
+    const birthDate = getInputValue(birthDateInput);
+    const gender = getGender();
+    const avatar = getInputValue(avatarInput);
+    const country = getInputValue(countryInput);
+    const devices = getDevices({
       pcCheckbox,
       ps5Checkbox,
       xBoxCheckbox,
@@ -285,15 +273,15 @@ class FormPage extends React.Component {
     const dateIsValid = validateDate(birthDate);
     const avatarIsValid = validateAvatar(avatar);
 
-    const nameMistakeMessage = this.getNameMistakeMessage();
-    const dateMistakeMessage = this.getDateMistakeMessage();
-    const avatarMistakeMessage = this.getAvatarMistakeMessage();
+    const nameMistakeMessage = getNameMistakeMessage();
+    const dateMistakeMessage = getDateMistakeMessage();
+    const avatarMistakeMessage = getAvatarMistakeMessage();
 
     let isValid = true;
 
     if (!nameIsValid) {
       isValid = false;
-      this.cleanInput(nameInput);
+      cleanInput(nameInput);
       if (nameMistakeMessage) {
         nameMistakeMessage.classList.remove('form__mistake-message_hidden');
       }
@@ -305,7 +293,7 @@ class FormPage extends React.Component {
 
     if (!dateIsValid) {
       isValid = false;
-      this.cleanInput(birthDateInput);
+      cleanInput(birthDateInput);
       if (dateMistakeMessage) {
         dateMistakeMessage.classList.remove('form__mistake-message_hidden');
       }
@@ -327,7 +315,7 @@ class FormPage extends React.Component {
     }
 
     if (isValid) {
-      this.createAccountCard({
+      createAccountCard({
         key,
         name,
         birthDate,
@@ -337,13 +325,13 @@ class FormPage extends React.Component {
         country,
         devices,
       });
-      this.cleanInput(nameInput);
-      this.cleanInput(birthDateInput);
-      this.cleanInput(avatarInput);
-      this.uncheckCheckbox(pcCheckbox);
-      this.uncheckCheckbox(ps5Checkbox);
-      this.uncheckCheckbox(xBoxCheckbox);
-      this.uncheckCheckbox(switchCheckbox);
+      cleanInput(nameInput);
+      cleanInput(birthDateInput);
+      cleanInput(avatarInput);
+      uncheckCheckbox(pcCheckbox);
+      uncheckCheckbox(ps5Checkbox);
+      uncheckCheckbox(xBoxCheckbox);
+      uncheckCheckbox(switchCheckbox);
       if (nameMistakeMessage) {
         nameMistakeMessage.classList.add('form__mistake-message_hidden');
       }
@@ -359,9 +347,9 @@ class FormPage extends React.Component {
     }
   }
 
-  addPressButtonEvent() {
-    const avatarInput = this.getAvatarInput();
-    const avatarInputBtn = this.getAvatarInputBtn();
+  const addPressButtonEvent = () => {
+    const avatarInput = getAvatarInput();
+    const avatarInputBtn = getAvatarInputBtn();
     if (avatarInputBtn) {
       avatarInputBtn.addEventListener('click', (): void => {
         if (avatarInput) {
@@ -371,11 +359,11 @@ class FormPage extends React.Component {
     }
   }
 
-  addEnableSubmitEvents() {
-    const nameInput = this.getNameInput();
-    const birthDateInput = this.getBirthDateInput();
-    const avatarInput = this.getAvatarInput();
-    const submitInput = this.getSubmitInput();
+  const addEnableSubmitEvents = () => {
+    const nameInput = getNameInput();
+    const birthDateInput = getBirthDateInput();
+    const avatarInput = getAvatarInput();
+    const submitInput = getSubmitInput();
     if (nameInput && submitInput) {
       nameInput.addEventListener('input', () => {
         enableSubmit(submitInput);
@@ -393,21 +381,19 @@ class FormPage extends React.Component {
     }
   }
 
-  componentDidMount(): void {
-    this.addEnableSubmitEvents();
-    this.addPressButtonEvent();
-  }
+  useEffect(() => {
+    addEnableSubmitEvents();
+    addPressButtonEvent();
+  });
 
-  render(): JSX.Element {
-    return (
-      <section className="form-page__section" onSubmit={this.handleSubmit}>
-        <h2>React Forms</h2>
-        <AccountForm ref={this.form} />
-        <AccountCards cardData={this.state.cards} />
-        <ConfirmationWindow ref={this.confirmation} />
-      </section>
-    );
-  }
+  return (
+    <section className="form-page__section" onSubmit={handleSubmit}>
+      <h2>React Forms</h2>
+      <AccountForm ref={accountForm} />
+      <AccountCards cardData={cards} />
+      <ConfirmationWindow ref={confirmation} />
+    </section>
+  );
 }
 
 export default FormPage;
