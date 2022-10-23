@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { IResponse } from 'types';
 
 function SearchTool(props: {
@@ -12,13 +13,15 @@ function SearchTool(props: {
   const apiKey = '92c3ed46142b2191fc2baa90c9cc54b4'; // TODO: Заменить хардкод на переменную энвайромента
   const format = 'json&nojsoncallback=1';
   const searchInput = useRef(null);
+  const {register, handleSubmit, formState: {errors}} = useForm<{inputSearch: string}>();
 
-  const getValue = (): string | null => {
-    console.log(searchInput.current);
+  const getValue = (): string | null => { // TODO: Это перестало работать. Нужно починить.
     let inputValue = '';
+    console.log('searchInput.current', searchInput.current);
     if (searchInput.current) {
       inputValue = (searchInput.current as HTMLInputElement).value;
     }
+    console.log('inputValue ', inputValue);
     return inputValue;
   }
 
@@ -29,27 +32,27 @@ function SearchTool(props: {
   }
 
   useEffect((): () => void => {
-    console.log('load from LS');
+    console.log('loaded');
     const localStorageValue = localStorage.getItem('searchInput');
     if (localStorageValue || localStorageValue === '') {
       setRequest(localStorageValue);
       setValue(searchInput, localStorageValue)
     }
-  
+    
     return ():void => {
-      console.log('save to LS');
       const inputValue = getValue();
-      console.log(searchInput);
+      console.log(inputValue);
       if (inputValue) {
         localStorage.setItem('searchInput', inputValue);
+        console.log('saved');
+        console.log(inputValue);
       }
     }
   }, [request]);
 
-  const search = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    event.preventDefault();
+  const search = async (data: {inputSearch: string}): Promise<void> => {
     props.setIsLoaded(false);
-    const requestArr = request.split(' ');
+    const requestArr = data.inputSearch.split(' ');
     const trimmedRequest = requestArr.map((element): string => {
       return element.trim();
     });
@@ -69,22 +72,23 @@ function SearchTool(props: {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('handleChange');
     if (event.currentTarget) {
       const value = event.currentTarget.value;
+      console.log('handleChange value: ', event.currentTarget.value);
       setRequest(value);
     }
   }
 
   // TODO: Использовать React Hook Form
   return (
-    <form className="search-tool" onSubmit={search}>
+    <form className="search-tool" onSubmit={handleSubmit(search)}>
       <input
         className="input-search"
         type="search"
         placeholder="Enter request here"
         value={request}
-        onChange={handleChange}
-        ref={searchInput}
+        {...register('inputSearch', { required: true, onChange: (e) => handleChange(e) })}
       ></input>
       <button className="search-btn" type="submit">
         Search
