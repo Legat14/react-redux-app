@@ -13,10 +13,11 @@ function SearchTool(props: {
   const format = 'json&nojsoncallback=1';
   const searchInput = useRef(null);
 
-  const getValue = (currentInput: React.RefObject<HTMLInputElement>): string | null => {
+  const getValue = (): string | null => {
+    console.log(searchInput.current);
     let inputValue = '';
-    if (currentInput.current) {
-      inputValue = currentInput.current.value;
+    if (searchInput.current) {
+      inputValue = (searchInput.current as HTMLInputElement).value;
     }
     return inputValue;
   }
@@ -27,20 +28,23 @@ function SearchTool(props: {
     }
   }
 
-  useEffect((): () => void => { // TODO: Сохранение или загрузка из локального хранилища не работает. Нужно починить.
+  useEffect((): () => void => {
+    console.log('load from LS');
     const localStorageValue = localStorage.getItem('searchInput');
     if (localStorageValue || localStorageValue === '') {
       setRequest(localStorageValue);
       setValue(searchInput, localStorageValue)
     }
-
+  
     return ():void => {
-      const inputValue = getValue(searchInput);
+      console.log('save to LS');
+      const inputValue = getValue();
+      console.log(searchInput);
       if (inputValue) {
         localStorage.setItem('searchInput', inputValue);
       }
     }
-  }, []);
+  }, [request]);
 
   const search = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
