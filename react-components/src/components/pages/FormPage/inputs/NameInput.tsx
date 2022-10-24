@@ -1,27 +1,19 @@
-import React from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
 
-class NameInput extends React.Component {
-  public nameInput: React.RefObject<HTMLInputElement>;
+const NameInput = forwardRef ((props: {}, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
 
-  constructor(props: {}) {
-    super(props);
-    this.nameInput = React.createRef();
-  }
-
-  render(): JSX.Element {
-    return (
-      <label className="name__label">
-        <h4>Type your name:</h4>
-        <input
-          className="name__input"
-          name="name-input"
-          type="input"
-          ref={this.nameInput}
-          data-testid="name-input"
-        />
-      </label>
-    );
-  }
-}
+  return (
+    <label className="name__label">
+      <h4>Type your name:</h4>
+      <input
+        className="name__input"
+        name="name-input"
+        type="input"
+        ref={ref}
+        data-testid="name-input"
+      />
+    </label>
+  );
+});
 
 export default NameInput;

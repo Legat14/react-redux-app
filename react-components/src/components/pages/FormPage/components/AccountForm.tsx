@@ -8,13 +8,13 @@ import AvatarInput from '../inputs/AvatarInput';
 import SubmitInput from '../inputs/SubmitInput';
 
 class AccountForm extends React.Component {
-  public nameInputComp: React.RefObject<NameInput>;
+  public nameInputComp: React.RefObject<HTMLInputElement>;
   public birthDateInputComp: React.RefObject<DateInput>;
   public genderInputComp: React.RefObject<GenderInput>;
   public avatarInputComp: React.RefObject<AvatarInput>;
   public countryInputComp: React.RefObject<CountryInput>;
   public devicesInputComp: React.RefObject<DevicesInput>;
-  public submitInput: ForwardedRef<HTMLInputElement>;
+  public submitInput: React.RefObject<HTMLInputElement>;
   public nameMistakeMessage: React.RefObject<HTMLParagraphElement>;
   public dateMistakeMessage: React.RefObject<HTMLParagraphElement>;
   public avatarMistakeMessage: React.RefObject<HTMLParagraphElement>;

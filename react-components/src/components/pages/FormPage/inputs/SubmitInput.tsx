@@ -1,6 +1,6 @@
-import React, { ForwardedRef, useRef } from 'react';
+import React, { forwardRef, ForwardedRef } from 'react';
 
-const SubmitInput = React.forwardRef((props: {}, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
+const SubmitInput = forwardRef((props: {}, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
 
   return (
     <input

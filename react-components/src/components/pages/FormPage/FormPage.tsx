@@ -20,7 +20,7 @@ function FormPage(): JSX.Element{
   const getNameInput = (): HTMLInputElement | null => {
     let nameInput = null;
     if (accountForm.current && (accountForm.current as AccountForm).nameInputComp.current) {
-      nameInput = (accountForm.current as AccountForm).nameInputComp.current!.nameInput.current;
+      nameInput = (accountForm.current as AccountForm).nameInputComp.current;
     }
     return nameInput;
   }
@@ -196,7 +196,7 @@ function FormPage(): JSX.Element{
   const getSubmitInput = (): HTMLInputElement | null => {
     let submitInput = null;
     if (accountForm.current && (accountForm.current as AccountForm).submitInput) {
-      submitInput = ((accountForm.current as AccountForm).submitInput! as React.RefObject<HTMLInputElement>).current;
+      submitInput = (accountForm.current as AccountForm).submitInput!.current;
     }
     return submitInput;
   }
