@@ -10,7 +10,7 @@ import SubmitInput from '../inputs/SubmitInput';
 class AccountForm extends React.Component {
   public nameInputComp: React.RefObject<HTMLInputElement>;
   public birthDateInputComp: React.RefObject<DateInput>;
-  public genderInputComp: React.RefObject<GenderInput>;
+  public genderInputComp: React.RefObject<HTMLInputElement>;
   public avatarInputComp: React.RefObject<AvatarInput>;
   public countryInputComp: React.RefObject<CountryInput>;
   public devicesInputComp: React.RefObject<DevicesInput>;

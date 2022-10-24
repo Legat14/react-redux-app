@@ -46,9 +46,9 @@ function FormPage(): JSX.Element{
     if (
       accountForm.current &&
       (accountForm.current as AccountForm).genderInputComp.current &&
-      (accountForm.current as AccountForm).genderInputComp.current!.switcher.current
+      (accountForm.current as AccountForm).genderInputComp.current
     ) {
-      genderSwitcherValue = (accountForm.current as AccountForm).genderInputComp.current!.switcher.current!.checked;
+      genderSwitcherValue = (accountForm.current as AccountForm).genderInputComp.current!.checked;
     }
 
     let gender = 'Male';
