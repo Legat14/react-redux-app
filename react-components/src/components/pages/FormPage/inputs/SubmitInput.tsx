@@ -1,7 +1,6 @@
 import React, { forwardRef, ForwardedRef } from 'react';
 
 const SubmitInput = forwardRef((props: {}, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
-
   return (
     <input
       className="submit__input"

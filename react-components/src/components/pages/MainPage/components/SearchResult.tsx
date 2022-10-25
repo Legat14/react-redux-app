@@ -4,11 +4,10 @@ import isNotEmpty from 'helpers/isNotEmpty';
 import RenderPhoto from './RenderPhoto';
 
 function SearchResult(props: {
-  response: {} | IResponse,
+  response: {} | IResponse;
   setModalContent: (modalContent: IModalContent) => void;
-  setIsOpened: (isOpened: boolean) => void
+  setIsOpened: (isOpened: boolean) => void;
 }): JSX.Element {
-
   let photosArr: Array<[] | IPhoto> = [];
   isNotEmpty(props.response)
     ? (props.response as IResponse).photos
@@ -18,11 +17,7 @@ function SearchResult(props: {
   let photoCardsArr: Array<JSX.Element> = [];
   if (photosArr.length > 0) {
     photoCardsArr = photosArr.map((photo: IPhoto | []): JSX.Element => {
-      return RenderPhoto(
-        photo as IPhoto,
-        props.setModalContent,
-        props.setIsOpened,
-        );
+      return RenderPhoto(photo as IPhoto, props.setModalContent, props.setIsOpened);
     });
   }
 

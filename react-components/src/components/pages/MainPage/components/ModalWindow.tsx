@@ -3,11 +3,10 @@ import React from 'react';
 import { IModalContent } from 'types';
 
 function ModalWindow(props: {
-  modalContent: IModalContent | {},
-  setIsOpened: (value: boolean) => void,
-  isOpened: boolean,
- }): JSX.Element {
-
+  modalContent: IModalContent | {};
+  setIsOpened: (value: boolean) => void;
+  isOpened: boolean;
+}): JSX.Element {
   let modalWindowClass = 'modal-window modal-window__hidden';
 
   if (props.isOpened) {
@@ -42,9 +41,10 @@ function ModalWindow(props: {
         </p>
       </div>
       <button
-      className="modal-window__colse-btn"
-      type="button"
-      onClick={() => props.setIsOpened(false)}>
+        className="modal-window__colse-btn"
+        type="button"
+        onClick={() => props.setIsOpened(false)}
+      >
         {'>X<'}
       </button>
     </div>

@@ -54,20 +54,20 @@ export interface IModalContent {
 }
 
 export interface IAllInputsData {
-  nameInput: string,
-  birthDateInput: string,
-  genderInput: boolean,
-  avatarInput: FileList,
-  countryInput: string,
+  nameInput: string;
+  birthDateInput: string;
+  genderInput: boolean;
+  avatarInput: FileList;
+  countryInput: string;
 }
 
 export interface IDevicesInputRefs {
-  getCheckboxesData: () => ICheckboxesData,
+  getCheckboxesData: () => ICheckboxesData;
 }
 
 export interface ICheckboxesData {
-  pcCheckbox: boolean,
-  ps5Checkbox: boolean,
-  XboxCheckbox: boolean,
-  switchCheckbox: boolean,
+  pcCheckbox: boolean;
+  ps5Checkbox: boolean;
+  XboxCheckbox: boolean;
+  switchCheckbox: boolean;
 }

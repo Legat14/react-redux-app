@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ModalWindowOverlay(props: {isOpened: boolean}): JSX.Element {
+function ModalWindowOverlay(props: { isOpened: boolean }): JSX.Element {
   let overlayClass = 'modal-window__overlay modal-window__hidden';
 
   if (props.isOpened) {

@@ -3,20 +3,19 @@ import { useForm } from 'react-hook-form';
 import { ICheckboxesData, IDevicesInputRefs } from 'types';
 
 function DevicesInput(props: {}, ref: ForwardedRef<IDevicesInputRefs>): JSX.Element {
-
-  const {register, watch} = useForm();
+  const { register, watch } = useForm();
 
   useImperativeHandle(ref, () => {
     return {
       getCheckboxesData: (): ICheckboxesData => {
-        return { 
+        return {
           pcCheckbox: watch('pcCheckbox'),
           ps5Checkbox: watch('ps5Checkbox'),
           XboxCheckbox: watch('XboxCheckbox'),
           switchCheckbox: watch('switchCheckbox'),
-        }
-      }
-    }
+        };
+      },
+    };
   });
 
   return (
