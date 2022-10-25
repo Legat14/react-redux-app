@@ -1,6 +1,7 @@
 import React, { ForwardedRef, forwardRef } from 'react';
+import { ChangeHandler } from 'react-hook-form';
 
-const SwitcherInput = forwardRef((props: {}, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
+const GenderInput = forwardRef((props: { onChange: ChangeHandler, onBlur: ChangeHandler, name: string }, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
 
   return (
     <div className="gender__div">
@@ -9,8 +10,10 @@ const SwitcherInput = forwardRef((props: {}, ref: ForwardedRef<HTMLInputElement>
         <span>Male</span>
         <input
           className="gender__input"
-          name="gender"
           type="checkbox"
+          name={props.name}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
           ref={ref}
           data-testid="gender-input"
         />
@@ -21,4 +24,4 @@ const SwitcherInput = forwardRef((props: {}, ref: ForwardedRef<HTMLInputElement>
   );
 });
 
-export default SwitcherInput;
+export default GenderInput;

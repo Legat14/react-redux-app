@@ -1,79 +1,107 @@
-import React, { ForwardedRef } from 'react';
+import React, { ForwardedRef, useImperativeHandle, useRef, forwardRef } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import NameInput from '../inputs/NameInput';
-import DateInput from '../inputs/BirthDateInput';
+import BirthDateInput from '../inputs/BirthDateInput';
 import GenderInput from '../inputs/GenderInput';
 import CountryInput from '../inputs/CountryInput';
 import DevicesInput from '../inputs/DevicesInput';
 import AvatarInput from '../inputs/AvatarInput';
 import SubmitInput from '../inputs/SubmitInput';
+import { IAllInputsData, ICheckboxesData, IDevicesInputRefs } from 'types';
 
-class AccountForm extends React.Component {
-  public nameInputComp: React.RefObject<HTMLInputElement>;
-  public birthDateInputComp: React.RefObject<DateInput>;
-  public genderInputComp: React.RefObject<HTMLInputElement>;
-  public avatarInputComp: React.RefObject<AvatarInput>;
-  public countryInputComp: React.RefObject<CountryInput>;
-  public devicesInputComp: React.RefObject<DevicesInput>;
-  public submitInput: React.RefObject<HTMLInputElement>;
-  public nameMistakeMessage: React.RefObject<HTMLParagraphElement>;
-  public dateMistakeMessage: React.RefObject<HTMLParagraphElement>;
-  public avatarMistakeMessage: React.RefObject<HTMLParagraphElement>;
+function AccountForm(
+  props: {
+    handleSubmit: (inputsData: IAllInputsData, checkboxesData: ICheckboxesData) => void,
+  },
+  ref: ForwardedRef<HTMLElement>): JSX.Element {
+  const {register, handleSubmit} = useForm();
 
-  constructor(props: {}) {
-    super(props);
-    this.nameInputComp = React.createRef();
-    this.birthDateInputComp = React.createRef();
-    this.genderInputComp = React.createRef();
-    this.avatarInputComp = React.createRef();
-    this.countryInputComp = React.createRef();
-    this.devicesInputComp = React.createRef();
-    this.submitInput = React.createRef();
-    this.nameMistakeMessage = React.createRef();
-    this.dateMistakeMessage = React.createRef();
-    this.avatarMistakeMessage = React.createRef();
-  }
+    const devicesInputComp = useRef<IDevicesInputRefs>(null);
+    // this.nameMistakeMessage = React.createRef();
+    // this.dateMistakeMessage = React.createRef();
+    // this.avatarMistakeMessage = React.createRef();
 
-  render(): JSX.Element {
-    return (
-      <form className="form" data-testid="form">
-        <h3>Create your account</h3>
-        <NameInput ref={this.nameInputComp} />
-        <div className="form__mistake-message-div">
-          <p
-            className="form__mistake-message form__mistake-message_hidden"
-            ref={this.nameMistakeMessage}
-            data-testid="mistake-message"
-          >
-            Name must be longer than one symbol and include at least one letter
-          </p>
-        </div>
-        <DateInput ref={this.birthDateInputComp} />
-        <div className="form__mistake-message-div">
-          <p
-            className="form__mistake-message form__mistake-message_hidden"
-            ref={this.dateMistakeMessage}
-            data-testid="mistake-message"
-          >
-            Date must be no newer than 18 years and no elder than 100 years
-          </p>
-        </div>
-        <GenderInput ref={this.genderInputComp} />
-        <AvatarInput ref={this.avatarInputComp} />
-        <div className="form__mistake-message-div">
-          <p
-            className="form__mistake-message form__mistake-message_hidden"
-            ref={this.avatarMistakeMessage}
-            data-testid="mistake-message"
-          >
-            You must choose picture for your avatar
-          </p>
-        </div>
-        <CountryInput ref={this.countryInputComp} />
-        <DevicesInput ref={this.devicesInputComp} />
-        <SubmitInput ref={this.submitInput} />
-      </form>
-    );
-  }
+    const nameInputReg = register('nameInput', { required: true });
+    const birthDateInputReg = register('birthDateInput', { required: true });
+    const genderInputReg = register('genderInput');
+    const avatarInputReg = register('avatarInput', { required: true });
+    const countryInputReg = register('countryInput');
+
+    const getAllInputsData: SubmitHandler<FieldValues> = (inputsData): void => {
+      if (devicesInputComp.current) {
+        const checkboxesData = devicesInputComp.current.getCheckboxesData();
+        console.log(inputsData, checkboxesData);
+        props.handleSubmit(inputsData as IAllInputsData, checkboxesData);
+      }
+    }
+
+  return (
+    <form className="form" data-testid="form"
+    onSubmit={handleSubmit(getAllInputsData)}>
+      <h3>Create your account</h3>
+      <NameInput
+        name={nameInputReg.name}
+        onChange={nameInputReg.onChange}
+        onBlur={nameInputReg.onBlur}
+        ref={nameInputReg.ref}
+      />
+      <div className="form__mistake-message-div">
+        <p
+          className="form__mistake-message form__mistake-message_hidden"
+          // ref={this.nameMistakeMessage}
+          data-testid="mistake-message"
+        >
+          Name must be longer than one symbol and include at least one letter
+        </p>
+      </div>
+      <BirthDateInput
+        name={birthDateInputReg.name}
+        onChange={birthDateInputReg.onChange}
+        onBlur={birthDateInputReg.onBlur}
+        ref={birthDateInputReg.ref}
+      />
+      <div className="form__mistake-message-div">
+        <p
+          className="form__mistake-message form__mistake-message_hidden"
+          // ref={this.dateMistakeMessage}
+          data-testid="mistake-message"
+        >
+          Date must be no newer than 18 years and no elder than 100 years
+        </p>
+      </div>
+      <GenderInput
+        name={genderInputReg.name}
+        onChange={genderInputReg.onChange}
+        onBlur={genderInputReg.onBlur}
+        ref={genderInputReg.ref}
+        />
+      <AvatarInput
+        name={avatarInputReg.name}
+        onChange={avatarInputReg.onChange}
+        onBlur={avatarInputReg.onBlur}
+        ref={avatarInputReg.ref}
+        />
+      <div className="form__mistake-message-div">
+        <p
+          className="form__mistake-message form__mistake-message_hidden"
+          // ref={this.avatarMistakeMessage}
+          data-testid="mistake-message"
+        >
+          You must choose picture for your avatar
+        </p>
+      </div>
+      <CountryInput
+        name={countryInputReg.name}
+        onChange={countryInputReg.onChange}
+        onBlur={countryInputReg.onBlur}
+        ref={countryInputReg.ref}
+      />
+      <DevicesInput
+        ref={devicesInputComp}
+      />
+      <SubmitInput />
+    </form>
+  );
 }
 
-export default AccountForm;
+export default forwardRef(AccountForm);
