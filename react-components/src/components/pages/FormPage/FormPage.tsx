@@ -186,13 +186,13 @@ function FormPage(): JSX.Element{
   //   return avatarMistakeMessage;
   // }
 
-  // const getConfirmation = (): HTMLDivElement | null => {
-  //   let confirmationElement = null;
-  //   if (confirmation.current) {
-  //     confirmationElement = confirmation.current;
-  //   }
-  //   return confirmationElement;
-  // }
+  const getConfirmation = (): HTMLDivElement | null => {
+    let confirmationElement = null;
+    if (confirmation.current) {
+      confirmationElement = confirmation.current;
+    }
+    return confirmationElement;
+  }
 
   // const getSubmitInput = (): HTMLInputElement | null => {
   //   let submitInput = null;
@@ -262,7 +262,7 @@ function FormPage(): JSX.Element{
     // const xBoxCheckbox = getXboxCheckbox();
     // const switchCheckbox = getSwitchCheckbox();
     // const submitInput = getSubmitInput();
-    // const confirmationDiv = getConfirmation();
+    const confirmationDiv = getConfirmation();
 
     // const key = getKey();
     // const name = getInputValue(nameInput);
@@ -350,9 +350,9 @@ function FormPage(): JSX.Element{
     //   if (dateMistakeMessage) {
     //     dateMistakeMessage.classList.add('form__mistake-message_hidden');
     //   }
-    //   if (confirmationDiv) {
-    //     showCreateCardConfirmation(confirmationDiv);
-    //   }
+      if (confirmationDiv) {
+        showCreateCardConfirmation(confirmationDiv);
+      }
     // }
     // if (submitInput) {
     //   disableSubmit(submitInput);
