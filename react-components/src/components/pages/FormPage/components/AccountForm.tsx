@@ -1,4 +1,4 @@
-import React, { ForwardedRef, useRef, forwardRef } from 'react';
+import React, { ForwardedRef, useRef, forwardRef, useState, useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import NameInput from '../inputs/NameInput';
 import BirthDateInput from '../inputs/BirthDateInput';
@@ -19,8 +19,18 @@ function AccountForm(
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  const [isSubmited, setIsSubmited] = useState(false);
+
+  useEffect(():void => {
+    if(isSubmited === true) {
+      reset();
+      setIsSubmited(false);
+    }
+  });
 
   const devicesInputComp = useRef<IDevicesInputRefs>(null);
   // this.nameMistakeMessage = React.createRef();
@@ -38,6 +48,7 @@ function AccountForm(
       const checkboxesData = devicesInputComp.current.getCheckboxesData();
       console.log(inputsData, checkboxesData);
       props.handleSubmit(inputsData as IAllInputsData, checkboxesData);
+      setIsSubmited(true);
     }
   };
 
