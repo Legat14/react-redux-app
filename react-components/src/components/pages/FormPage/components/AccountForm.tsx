@@ -9,6 +9,7 @@ import AvatarInput from '../inputs/AvatarInput';
 import SubmitInput from '../inputs/SubmitInput';
 import { IAllInputsData, ICheckboxesData, IDevicesInputRefs } from 'types';
 import { ErrorMessage } from '@hookform/error-message';
+import { validateDate } from '../functions/validateDate';
 
 function AccountForm(
   props: {
@@ -20,6 +21,7 @@ function AccountForm(
     register,
     handleSubmit,
     reset,
+    resetField,
     formState: { errors },
   } = useForm();
 
@@ -37,13 +39,44 @@ function AccountForm(
   // this.dateMistakeMessage = React.createRef();
   // this.avatarMistakeMessage = React.createRef();
 
-  const nameInputReg = register('nameInput', { required: true });
-  const birthDateInputReg = register('birthDateInput', { required: true });
+  const nameInputReg = register('nameInput', {
+    onBlur: (): void => {
+      if (errors.nameInput) {
+        resetField('nameInput', { keepError: true });
+      }
+    },
+    required: true,
+    minLength: 2,
+    pattern: /[a-zA-Zа-яА-Я]/,
+  });
+  const birthDateInputReg = register('birthDateInput', {
+    onBlur: (event): void => {
+      event.preventDefault();
+      if (errors.birthDateInput) {
+        resetField('birthDateInput', { keepError: true });
+      }
+    },
+    required: true,
+    validate: (value) => {
+      return validateDate(value)
+    }
+  });
   const genderInputReg = register('genderInput');
-  const avatarInputReg = register('avatarInput', { required: true });
+  const avatarInputReg = register('avatarInput',{
+    onBlur: (event): void => {
+      event.preventDefault();
+      if (errors.avatarInput) {
+        resetField('avatarInput', { keepError: true });
+      }
+    },
+    required: true,
+  });
   const countryInputReg = register('countryInput');
 
   const getAllInputsData: SubmitHandler<FieldValues> = (inputsData): void => {
+    if (errors.birthDateInput) {
+      resetField('birthDateInput', { keepError: true });
+    }
     if (devicesInputComp.current) {
       const checkboxesData = devicesInputComp.current.getCheckboxesData();
       console.log(inputsData, checkboxesData);

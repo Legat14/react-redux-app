@@ -1,7 +1,6 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
-import { validateAvatar, validateDate, validateName } from './functions/data-validation';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
 import { disableSubmit, enableSubmit } from './functions/toggleSubmitFunctions';
 import { IAccountCard, IAllInputsData, ICheckboxesData } from 'types';
@@ -405,6 +404,4 @@ function FormPage(): JSX.Element {
 export default FormPage;
 
 // TODO:
-// Добавить условия валидации
-// Сделать очистку полей после неудачной валидации так, чтобы сообщения об ошибках оставались видимыми
 // Вернуть тесты
