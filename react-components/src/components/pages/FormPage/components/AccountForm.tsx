@@ -31,7 +31,7 @@ function AccountForm(
   useEffect((): void => {
     if (isSubmited === true) {
       reset();
-      if(submitInput.current) {
+      if (submitInput.current) {
         disableSubmit(submitInput.current);
       }
       setIsSubmited(false);
@@ -43,7 +43,7 @@ function AccountForm(
 
   const nameInputReg = register('nameInput', {
     onChange: (): void => {
-      if(submitInput.current) {
+      if (submitInput.current) {
         enableSubmit(submitInput.current);
       }
     },
@@ -58,7 +58,7 @@ function AccountForm(
   });
   const birthDateInputReg = register('birthDateInput', {
     onChange: (): void => {
-      if(submitInput.current) {
+      if (submitInput.current) {
         enableSubmit(submitInput.current);
       }
     },
@@ -76,7 +76,7 @@ function AccountForm(
   const genderInputReg = register('genderInput');
   const avatarInputReg = register('avatarInput', {
     onChange: (): void => {
-      if(submitInput.current) {
+      if (submitInput.current) {
         enableSubmit(submitInput.current);
       }
     },
@@ -174,9 +174,7 @@ function AccountForm(
         ref={countryInputReg.ref}
       />
       <DevicesInput ref={devicesInputComp} />
-      <SubmitInput
-      ref={submitInput}
-      />
+      <SubmitInput ref={submitInput} />
     </form>
   );
 }

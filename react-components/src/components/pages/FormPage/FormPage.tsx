@@ -47,7 +47,3 @@ function FormPage(): JSX.Element {
 }
 
 export default FormPage;
-
-// TODO:
-// Disable submit button
-// Вернуть тесты

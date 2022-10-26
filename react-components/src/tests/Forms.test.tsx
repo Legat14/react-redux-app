@@ -75,14 +75,14 @@ describe('Forms', (): void => {
     );
     const nameInput = screen.getByTestId('name-input');
     const submitInput = screen.getByTestId('submit-input');
-    
+
     fireEvent.input(nameInput, {
       target: {
-          value: 1,
-        },
+        value: 1,
+      },
     });
     fireEvent.click(submitInput);
-    
+
     const mistakeMessages1 = await screen.findAllByTestId('mistake-message');
     expect(mistakeMessages1.length).toStrictEqual(3);
   });
