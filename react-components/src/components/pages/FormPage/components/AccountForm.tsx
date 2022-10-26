@@ -27,17 +27,14 @@ function AccountForm(
 
   const [isSubmited, setIsSubmited] = useState(false);
 
-  useEffect(():void => {
-    if(isSubmited === true) {
+  useEffect((): void => {
+    if (isSubmited === true) {
       reset();
       setIsSubmited(false);
     }
   });
 
   const devicesInputComp = useRef<IDevicesInputRefs>(null);
-  // this.nameMistakeMessage = React.createRef();
-  // this.dateMistakeMessage = React.createRef();
-  // this.avatarMistakeMessage = React.createRef();
 
   const nameInputReg = register('nameInput', {
     onBlur: (): void => {
@@ -58,11 +55,11 @@ function AccountForm(
     },
     required: true,
     validate: (value) => {
-      return validateDate(value)
-    }
+      return validateDate(value);
+    },
   });
   const genderInputReg = register('genderInput');
-  const avatarInputReg = register('avatarInput',{
+  const avatarInputReg = register('avatarInput', {
     onBlur: (event): void => {
       event.preventDefault();
       if (errors.avatarInput) {
@@ -79,7 +76,6 @@ function AccountForm(
     }
     if (devicesInputComp.current) {
       const checkboxesData = devicesInputComp.current.getCheckboxesData();
-      console.log(inputsData, checkboxesData);
       props.handleSubmit(inputsData as IAllInputsData, checkboxesData);
       setIsSubmited(true);
     }
@@ -95,21 +91,17 @@ function AccountForm(
         ref={nameInputReg.ref}
       />
       <div className="form__mistake-message-div">
-      <ErrorMessage
-        errors={errors}
-        name='nameInput'
-        render={({ message }) => {
-          return (
-            <p
-              className="form__mistake-message"
-              data-testid="mistake-message"
-            >
-              Name must be longer than one symbol and include at least one letter
-              {message}
-            </p>
-          )
-        }}
-      />
+        <ErrorMessage
+          errors={errors}
+          name="nameInput"
+          render={() => {
+            return (
+              <p className="form__mistake-message" data-testid="mistake-message">
+                Name must be longer than one symbol and include at least one letter
+              </p>
+            );
+          }}
+        />
       </div>
       <BirthDateInput
         name={birthDateInputReg.name}
@@ -118,20 +110,16 @@ function AccountForm(
         ref={birthDateInputReg.ref}
       />
       <div className="form__mistake-message-div">
-      <ErrorMessage
-        errors={errors}
-        name='birthDateInput'
-        render={({ message }) => {
-          return (
-            <p
-              className="form__mistake-message"
-              data-testid="mistake-message"
-              >
-              Date must be no newer than 18 years and no elder than 100 years
-              {message}
-            </p>
-          )
-        }}
+        <ErrorMessage
+          errors={errors}
+          name="birthDateInput"
+          render={() => {
+            return (
+              <p className="form__mistake-message" data-testid="mistake-message">
+                Date must be no newer than 18 years and no elder than 100 years
+              </p>
+            );
+          }}
         />
       </div>
       <GenderInput
@@ -147,21 +135,17 @@ function AccountForm(
         ref={avatarInputReg.ref}
       />
       <div className="form__mistake-message-div">
-      <ErrorMessage
-        errors={errors}
-        name='avatarInput'
-        render={({ message }) => {
-          return (
-            <p
-              className="form__mistake-message"
-              data-testid="mistake-message"
-            >
-              You must choose picture for your avatar
-              {message}
-            </p>
-          )
-        }}
-      />
+        <ErrorMessage
+          errors={errors}
+          name="avatarInput"
+          render={() => {
+            return (
+              <p className="form__mistake-message" data-testid="mistake-message">
+                You must choose picture for your avatar
+              </p>
+            );
+          }}
+        />
       </div>
       <CountryInput
         name={countryInputReg.name}
