@@ -10,6 +10,7 @@ import SubmitInput from '../inputs/SubmitInput';
 import { IAllInputsData, ICheckboxesData, IDevicesInputRefs } from 'types';
 import { ErrorMessage } from '@hookform/error-message';
 import { validateDate } from '../functions/validateDate';
+import { disableSubmit, enableSubmit } from '../functions/toggleSubmitFunctions';
 
 function AccountForm(
   props: {
@@ -30,13 +31,22 @@ function AccountForm(
   useEffect((): void => {
     if (isSubmited === true) {
       reset();
+      if(submitInput.current) {
+        disableSubmit(submitInput.current);
+      }
       setIsSubmited(false);
     }
   });
 
   const devicesInputComp = useRef<IDevicesInputRefs>(null);
+  const submitInput = useRef<HTMLInputElement>(null);
 
   const nameInputReg = register('nameInput', {
+    onChange: (): void => {
+      if(submitInput.current) {
+        enableSubmit(submitInput.current);
+      }
+    },
     onBlur: (): void => {
       if (errors.nameInput) {
         resetField('nameInput', { keepError: true });
@@ -47,6 +57,11 @@ function AccountForm(
     pattern: /[a-zA-Zа-яА-Я]/,
   });
   const birthDateInputReg = register('birthDateInput', {
+    onChange: (): void => {
+      if(submitInput.current) {
+        enableSubmit(submitInput.current);
+      }
+    },
     onBlur: (event): void => {
       event.preventDefault();
       if (errors.birthDateInput) {
@@ -60,6 +75,11 @@ function AccountForm(
   });
   const genderInputReg = register('genderInput');
   const avatarInputReg = register('avatarInput', {
+    onChange: (): void => {
+      if(submitInput.current) {
+        enableSubmit(submitInput.current);
+      }
+    },
     onBlur: (event): void => {
       event.preventDefault();
       if (errors.avatarInput) {
@@ -154,7 +174,9 @@ function AccountForm(
         ref={countryInputReg.ref}
       />
       <DevicesInput ref={devicesInputComp} />
-      <SubmitInput />
+      <SubmitInput
+      ref={submitInput}
+      />
     </form>
   );
 }

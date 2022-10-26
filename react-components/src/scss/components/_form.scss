@@ -136,13 +136,13 @@
   transition: 0.2s;
 }
 
-.submit__input:hover :not(:disabled),
+.submit__input:hover,
 .avatar__button:hover {
   transform: scale(103%);
   background: linear-gradient($search-button-bg1, $search-button-bg2 43%, $search-button-bg1);
 }
 
-.submit__input:active :not(:disabled),
+.submit__input:active,
 .avatar__button:active {
   color: $search-button-active-color;
   transform: scale(97%);

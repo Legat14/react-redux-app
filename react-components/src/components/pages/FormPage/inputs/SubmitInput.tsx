@@ -6,7 +6,7 @@ const SubmitInput = forwardRef((props: {}, ref: ForwardedRef<HTMLInputElement>):
       className="submit__input"
       type="submit"
       name="submitInput"
-      // disabled={true} TODO: Вернуть переключатель в работу
+      disabled={true}
       ref={ref}
       data-testid="submit-input"
     />
