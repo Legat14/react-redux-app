@@ -110,7 +110,7 @@ function AccountForm(
         onBlur={nameInputReg.onBlur}
         ref={nameInputReg.ref}
       />
-      <div className="form__mistake-message-div">
+      <div className="form__mistake-message-div" data-testid="mistake-message-div">
         <ErrorMessage
           errors={errors}
           name="nameInput"
@@ -129,7 +129,7 @@ function AccountForm(
         onBlur={birthDateInputReg.onBlur}
         ref={birthDateInputReg.ref}
       />
-      <div className="form__mistake-message-div">
+      <div className="form__mistake-message-div" data-testid="mistake-message-div">
         <ErrorMessage
           errors={errors}
           name="birthDateInput"
@@ -154,7 +154,7 @@ function AccountForm(
         onBlur={avatarInputReg.onBlur}
         ref={avatarInputReg.ref}
       />
-      <div className="form__mistake-message-div">
+      <div className="form__mistake-message-div" data-testid="mistake-message-div">
         <ErrorMessage
           errors={errors}
           name="avatarInput"
