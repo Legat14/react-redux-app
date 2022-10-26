@@ -51,13 +51,21 @@ function AccountForm(
         ref={nameInputReg.ref}
       />
       <div className="form__mistake-message-div">
-        <p
-          className="form__mistake-message form__mistake-message_hidden"
-          // ref={this.nameMistakeMessage}
-          data-testid="mistake-message"
-        >
-          Name must be longer than one symbol and include at least one letter
-        </p>
+      <ErrorMessage
+        errors={errors}
+        name='nameInput'
+        render={({ message }) => {
+          return (
+            <p
+              className="form__mistake-message"
+              data-testid="mistake-message"
+            >
+              Name must be longer than one symbol and include at least one letter
+              {message}
+            </p>
+          )
+        }}
+      />
       </div>
       <BirthDateInput
         name={birthDateInputReg.name}
@@ -65,23 +73,23 @@ function AccountForm(
         onBlur={birthDateInputReg.onBlur}
         ref={birthDateInputReg.ref}
       />
+      <div className="form__mistake-message-div">
       <ErrorMessage
         errors={errors}
         name='birthDateInput'
         render={({ message }) => {
           return (
-            <div className="form__mistake-message-div">
-              <p
-                className="form__mistake-message"
-                data-testid="mistake-message"
-                >
-                Date must be no newer than 18 years and no elder than 100 years
-                {message}
-              </p>
-            </div>
+            <p
+              className="form__mistake-message"
+              data-testid="mistake-message"
+              >
+              Date must be no newer than 18 years and no elder than 100 years
+              {message}
+            </p>
           )
         }}
-      />
+        />
+      </div>
       <GenderInput
         name={genderInputReg.name}
         onChange={genderInputReg.onChange}
@@ -95,13 +103,21 @@ function AccountForm(
         ref={avatarInputReg.ref}
       />
       <div className="form__mistake-message-div">
-        <p
-          className="form__mistake-message form__mistake-message_hidden"
-          // ref={this.avatarMistakeMessage}
-          data-testid="mistake-message"
-        >
-          You must choose picture for your avatar
-        </p>
+      <ErrorMessage
+        errors={errors}
+        name='avatarInput'
+        render={({ message }) => {
+          return (
+            <p
+              className="form__mistake-message"
+              data-testid="mistake-message"
+            >
+              You must choose picture for your avatar
+              {message}
+            </p>
+          )
+        }}
+      />
       </div>
       <CountryInput
         name={countryInputReg.name}
