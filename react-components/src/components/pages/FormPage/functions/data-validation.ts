@@ -16,7 +16,7 @@ export function validateDate(date: string): boolean {
     dateIsChosen = false;
   }
   const birthDateMs = Date.parse(date);
-  const currentDate = new Date().toLocaleString();
+  const currentDate = new Date().toISOString();
   const currentDateMs = Date.parse(currentDate);
   const years18 = 18 * 1000 * 60 * 60 * 24 * 365;
   const years100 = 100 * 1000 * 60 * 60 * 24 * 365;
