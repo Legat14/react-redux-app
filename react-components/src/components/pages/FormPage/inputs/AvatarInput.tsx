@@ -16,7 +16,7 @@ class AvatarInput extends React.Component {
         <h4>Load your avatar:</h4>
         <input
           className="avatar__input"
-          name="avatar"
+          name="avatar-input"
           type="file"
           accept="image/*"
           ref={this.avatarInput}

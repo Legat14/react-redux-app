@@ -16,7 +16,7 @@ class SwitcherInput extends React.Component {
           <span>Male</span>
           <input
             className="gender__input"
-            name="gender"
+            name="gender-input"
             type="checkbox"
             ref={this.switcher}
             data-testid="gender-input"

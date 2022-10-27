@@ -4,7 +4,7 @@ import ConfirmationWindow from './components/ConfirmationWindow';
 import { validateAvatar, validateDate, validateName } from './functions/data-validation';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
 import { disableSubmit, enableSubmit } from './functions/toggleSubmitFunctions';
-import { IAccountCard } from 'types';
+import { IAccountCard, IAccountFormInputs } from 'types';
 import AccountForm from './components/AccountForm';
 
 class FormPage extends React.Component {
@@ -32,14 +32,6 @@ class FormPage extends React.Component {
     return nameInput;
   }
 
-  getInputValue(nameInput: HTMLInputElement | HTMLSelectElement | null): string {
-    let inputValue = '';
-    if (nameInput) {
-      inputValue = nameInput.value;
-    }
-    return inputValue;
-  }
-
   getBirthDateInput(): HTMLInputElement | null {
     let birthDateInput = null;
     if (this.form.current && this.form.current.birthDateInputComp.current) {
@@ -48,18 +40,9 @@ class FormPage extends React.Component {
     return birthDateInput;
   }
 
-  getGender(): string {
-    let genderSwitcherValue = false;
-    if (
-      this.form.current &&
-      this.form.current.genderInputComp.current &&
-      this.form.current.genderInputComp.current.switcher.current
-    ) {
-      genderSwitcherValue = this.form.current.genderInputComp.current.switcher.current.checked;
-    }
-
+  getGender(genderInput: HTMLInputElement): string {
     let gender = 'Male';
-    if (genderSwitcherValue) {
+    if (genderInput.checked === true) {
       gender = 'Female';
     }
     return gender;
@@ -79,46 +62,6 @@ class FormPage extends React.Component {
       avatarInputBtn = this.form.current.avatarInputComp.current.avatarInputBtn.current;
     }
     return avatarInputBtn;
-  }
-
-  getCountryInput(): HTMLSelectElement | null {
-    let countryInput = null;
-    if (this.form.current && this.form.current.countryInputComp.current) {
-      countryInput = this.form.current.countryInputComp.current.countryInput.current;
-    }
-    return countryInput;
-  }
-
-  getPcCheckbox(): HTMLInputElement | null {
-    let pcCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      pcCheckbox = this.form.current.devicesInputComp.current.pcCheckbox.current;
-    }
-    return pcCheckbox;
-  }
-
-  getPs5Checkbox(): HTMLInputElement | null {
-    let pS5Checkbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      pS5Checkbox = this.form.current.devicesInputComp.current.ps5Checkbox.current;
-    }
-    return pS5Checkbox;
-  }
-
-  getXboxCheckbox(): HTMLInputElement | null {
-    let xBoxCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      xBoxCheckbox = this.form.current.devicesInputComp.current.xBoxCheckbox.current;
-    }
-    return xBoxCheckbox;
-  }
-
-  getSwitchCheckbox(): HTMLInputElement | null {
-    let switchCheckbox = null;
-    if (this.form.current && this.form.current.devicesInputComp.current) {
-      switchCheckbox = this.form.current.devicesInputComp.current.switchCheckbox.current;
-    }
-    return switchCheckbox;
   }
 
   getDevices({
@@ -253,23 +196,29 @@ class FormPage extends React.Component {
   handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
 
-    const nameInput = this.getNameInput();
-    const birthDateInput = this.getBirthDateInput();
-    const avatarInput = this.getAvatarInput();
-    const countryInput = this.getCountryInput();
-    const pcCheckbox = this.getPcCheckbox();
-    const ps5Checkbox = this.getPs5Checkbox();
-    const xBoxCheckbox = this.getXboxCheckbox();
-    const switchCheckbox = this.getSwitchCheckbox();
-    const submitInput = this.getSubmitInput();
+    const form = event.currentTarget;
+    const formElements = form.elements as typeof form.elements & IAccountFormInputs;
+
+    console.log(formElements);
+
+    const nameInput = formElements['name-input'];
+    const birthDateInput = formElements['date-input'];
+    const genderInput = formElements['gender-input'];
+    const avatarInput = formElements['avatar-input'];
+    const countryInput = formElements['country-input'];
+    const pcCheckbox = formElements['pc'];
+    const ps5Checkbox = formElements['ps5'];
+    const xBoxCheckbox = formElements['Xbox'];
+    const switchCheckbox = formElements['switch'];
+    const submitInput = formElements['submit-input'];
     const confirmationDiv = this.getConfirmationDiv();
 
     const key = this.getKey();
-    const name = this.getInputValue(nameInput);
-    const birthDate = this.getInputValue(birthDateInput);
-    const gender = this.getGender();
-    const avatar = this.getInputValue(avatarInput);
-    const country = this.getInputValue(countryInput);
+    const name = nameInput.value;
+    const birthDate = birthDateInput.value;
+    const gender = this.getGender(genderInput);
+    const avatar = avatarInput.value;
+    const country = countryInput.value;
     const devices = this.getDevices({
       pcCheckbox,
       ps5Checkbox,
