@@ -14,7 +14,7 @@ class CountryInput extends React.Component {
         <h4>Choose your country:</h4>
         <select
           className="country__input"
-          name="country"
+          name="country-input"
           ref={this.countryInput}
           data-testid="country-input"
         >

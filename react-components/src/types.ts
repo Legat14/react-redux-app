@@ -53,3 +53,16 @@ export interface IModalContent {
   server: string;
   title: string;
 }
+
+export interface IAccountFormInputs {
+  'name-input': HTMLInputElement,
+  'date-input': HTMLInputElement,
+  'gender-input': HTMLInputElement,
+  'avatar-input': HTMLInputElement,
+  'country-input': HTMLSelectElement,
+  'pc': HTMLInputElement,
+  'ps5': HTMLInputElement,
+  'Xbox': HTMLInputElement,
+  'switch': HTMLInputElement,
+  'submit-input': HTMLInputElement,
+}

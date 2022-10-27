@@ -13,6 +13,7 @@ class SubmitInput extends React.Component {
       <input
         className="submit__input"
         type="submit"
+        name="submit-input"
         disabled={true}
         ref={this.submitInput}
         data-testid="submit-input"
