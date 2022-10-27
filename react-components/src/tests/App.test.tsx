@@ -36,7 +36,7 @@ describe('Components', (): void => {
 });
 
 describe('Get cards test', (): void => {
-  it('renders load screen', (): void => {
+  it('renders load screen', async (): Promise<void> => {
     render(
       <BrowserRouter>
         <MainPage />
@@ -50,9 +50,10 @@ describe('Get cards test', (): void => {
       },
     });
     fireEvent.click(searchBtn);
-    const loadingScreen = screen.getByAltText('loading...');
+    const loadingScreen = await screen.findByAltText('loading...');
     expect(loadingScreen).toBeInTheDocument();
   });
+
   it('gets and renders cards', async (): Promise<void> => {
     render(
       <BrowserRouter>
