@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useReducer } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
@@ -7,12 +7,21 @@ import AccountForm from './components/AccountForm';
 import createAccountCard from './functions/createAccountCard';
 
 function FormPage(): JSX.Element {
-  const [accountCards, setAccountCards] = useState<IAccountCard[] | []>([]);
+  // const [accountCards, setAccountCards] = useState<IAccountCard[] | []>([]);
+    const reducer = (state: {accountCards: IAccountCard[]}, action: { type: string, newAccountCard: IAccountCard }):
+    { accountCards: IAccountCard[] | [] } => {
+      if(action.type === 'add-account-card') {
+        const newAccountCards = [...state.accountCards, action.newAccountCard];
+        return {...state, accountCards: newAccountCards};
+      }
+      return state;
+    }
+  const [state, dispatch] = useReducer(reducer, { accountCards: [] });
   const accountForm = useRef<HTMLElement>(null);
   const confirmation = useRef(null);
 
   const getKey = (): number => {
-    return accountCards.length;
+    return state.accountCards.length;
   };
 
   const getConfirmation = (): HTMLDivElement | null => {
@@ -25,10 +34,14 @@ function FormPage(): JSX.Element {
 
   const handleSubmit = (inputsData: IAllInputsData, checkboxesData: ICheckboxesData): void => {
     const key = getKey();
-    const accountCard = createAccountCard(key, inputsData, checkboxesData);
-    const previousAccountCards = accountCards;
-    const newAccountCards = [...previousAccountCards, accountCard];
-    setAccountCards(newAccountCards as IAccountCard[]);
+    const newAccountCard = createAccountCard(key, inputsData, checkboxesData);
+    dispatch({
+      type: 'add-account-card',
+      newAccountCard,
+    });
+    // const previousAccountCards = state.accountCards;
+    // const newAccountCards = [...previousAccountCards, accountCard];
+    // setAccountCards(newAccountCards as IAccountCard[]);
     const confirmationDiv = getConfirmation();
 
     if (confirmationDiv) {
@@ -40,7 +53,7 @@ function FormPage(): JSX.Element {
     <section className="form-page__section">
       <h2>React Forms</h2>
       <AccountForm handleSubmit={handleSubmit} ref={accountForm} />
-      <AccountCards cardData={accountCards} />
+      <AccountCards cardData={state.accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>
   );
