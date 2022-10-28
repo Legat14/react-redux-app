@@ -37,6 +37,7 @@ function SearchTool(props: {
     const responseObj = await response.json();
     props.setIsLoaded(true);
     props.setResponse(responseObj);
+
     try {
       if ((await responseObj.stat) !== 'ok') {
         throw new Error('Something went wrong!');
