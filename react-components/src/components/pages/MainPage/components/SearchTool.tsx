@@ -25,9 +25,17 @@ class SearchTool extends React.Component<
     this.getValue = this.getValue.bind(this);
     this.search = this.search.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      request: '',
-    };
+    const searchInput = localStorage.getItem('searchInput');
+    if (searchInput) {
+      this.state = {
+        request: searchInput,
+      };
+      this.setValue(searchInput as string);
+    } else {
+      this.state = {
+        request: '',
+      };
+    }
   }
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
@@ -45,16 +53,6 @@ class SearchTool extends React.Component<
     const input = this.inputRef.current;
     if (input) {
       input.value = searchValue;
-    }
-  }
-
-  componentDidMount(): void {
-    const searchInput = localStorage.getItem('searchInput');
-    if (searchInput || searchInput === '') {
-      this.setState({
-        request: searchInput,
-      });
-      this.setValue(searchInput);
     }
   }
 
