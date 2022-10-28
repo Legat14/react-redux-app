@@ -1,4 +1,4 @@
-import isNotEmpty from 'helpers/isNotEmpty';
+import isEmpty from 'helpers/isEmpty';
 import React from 'react';
 import { IModalContent } from 'types';
 
@@ -30,8 +30,20 @@ class ModalWindow extends React.Component<
     });
   }
 
-  render(): JSX.Element {
-    return isNotEmpty(this.props.modalContent) ? (
+  fillModal(): JSX.Element {
+    if(isEmpty(this.props.modalContent)) {
+      return (
+        <div
+          className={this.state.modalWindowClass}
+          onClick={(event): void => {
+            event.stopPropagation();
+          }}
+        >
+          <h2>Modal is Empty by now</h2>
+        </div>
+      )
+    }
+    return (
       <div
         className={this.state.modalWindowClass}
         onClick={(event): void => {
@@ -62,16 +74,11 @@ class ModalWindow extends React.Component<
           {'>X<'}
         </div>
       </div>
-    ) : (
-      <div
-        className={this.state.modalWindowClass}
-        onClick={(event): void => {
-          event.stopPropagation();
-        }}
-      >
-        <h2>Modal is Empty by now</h2>
-      </div>
-    );
+    )
+  }
+
+  render(): JSX.Element {
+    return this.fillModal();
   }
 }
 

@@ -37,13 +37,12 @@ class SearchTool extends React.Component<
     }
   }
 
-  inputRef: React.RefObject<HTMLInputElement> = React.createRef();
-
   setValue(searchValue: string): void {
-    const input = this.inputRef.current;
-    if (input) {
-      input.value = searchValue;
-    }
+    this.setState(() => {
+      return {
+        request: searchValue,
+      }
+    });
   }
 
   componentWillUnmount(): void {
@@ -94,7 +93,6 @@ class SearchTool extends React.Component<
           placeholder="Enter request here"
           value={this.state.request}
           onChange={this.handleChange}
-          ref={this.inputRef as React.RefObject<HTMLInputElement>}
         ></input>
         <button className="search-btn" type="submit">
           Search

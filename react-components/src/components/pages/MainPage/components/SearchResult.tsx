@@ -1,7 +1,7 @@
 import React from 'react';
 import PhotoCard from 'components/PhotoCard';
 import { IPhoto, IPhotos, IResponse } from 'types';
-import isNotEmpty from 'helpers/isNotEmpty';
+import isEmpty from 'helpers/isEmpty';
 
 class SearchResult extends React.Component<{
   response: {} | IResponse;
@@ -24,19 +24,29 @@ class SearchResult extends React.Component<{
     );
   }
 
-  render(): JSX.Element {
-    let photosArr: Array<[] | IPhoto> = [];
-    isNotEmpty(this.props.response)
-      ? (this.props.response as IResponse).photos
-        ? (photosArr = ((this.props.response as IResponse).photos as IPhotos).photo.slice(0, 20))
-        : console.error("Didn't get photos")
-      : (photosArr = []);
+  renderSearchResult(): JSX.Element[] {
+    let photosArr: IPhoto[] = [];
+
+    if (isEmpty(this.props.response)) {
+      photosArr = [];
+    } else if ((this.props.response as IResponse).photos) {
+      photosArr = ((this.props.response as IResponse).photos as IPhotos).photo.slice(0, 20);
+    } else {
+      console.error("Didn't get photos");
+    }
+
     let photoCardsArr: Array<JSX.Element> = [];
     if (photosArr.length > 0) {
       photoCardsArr = photosArr.map((photo: IPhoto | []): JSX.Element => {
         return this.renderPhoto(photo as IPhoto);
       });
     }
+
+    return photoCardsArr;
+  }
+
+  render(): JSX.Element {
+    const photoCardsArr = this.renderSearchResult();
 
     return <div className="search-result">{photoCardsArr}</div>;
   }
