@@ -22,7 +22,6 @@ class SearchTool extends React.Component<
     this.requestMethod = 'flickr.photos.search';
     this.apiKey = '92c3ed46142b2191fc2baa90c9cc54b4'; // TODO: Заменить хардкод на переменную энвайромента
     this.format = 'json&nojsoncallback=1';
-    this.getValue = this.getValue.bind(this);
     this.search = this.search.bind(this);
     this.handleChange = this.handleChange.bind(this);
     const searchInput = localStorage.getItem('searchInput');
@@ -40,15 +39,6 @@ class SearchTool extends React.Component<
 
   inputRef: React.RefObject<HTMLInputElement> = React.createRef();
 
-  getValue(): string | null {
-    const input = this.inputRef.current;
-    let searchInput = null;
-    if (input) {
-      searchInput = input.value;
-    }
-    return searchInput;
-  }
-
   setValue(searchValue: string): void {
     const input = this.inputRef.current;
     if (input) {
@@ -57,7 +47,7 @@ class SearchTool extends React.Component<
   }
 
   componentWillUnmount(): void {
-    const searchInput = this.getValue();
+    const searchInput = this.state.request;
     if (searchInput || searchInput === '') {
       localStorage.setItem('searchInput', searchInput);
     }
