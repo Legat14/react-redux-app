@@ -1,24 +1,23 @@
-import React, { useRef, useState, useReducer } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
-import { IAccountCard, IAllInputsData, ICheckboxesData } from 'types';
+import { IAllInputsData, ICheckboxesData } from 'types';
 import AccountForm from './components/AccountForm';
 import createAccountCard from './functions/createAccountCard';
+import Context from 'model/Context';
 
 function FormPage(): JSX.Element {
-  // const [accountCards, setAccountCards] = useState<IAccountCard[] | []>([]);
-    const reducer = (state: {accountCards: IAccountCard[]}, action: { type: string, newAccountCard: IAccountCard }):
-    { accountCards: IAccountCard[] | [] } => {
-      if(action.type === 'add-account-card') {
-        const newAccountCards = [...state.accountCards, action.newAccountCard];
-        return {...state, accountCards: newAccountCards};
-      }
-      return state;
-    }
-  const [state, dispatch] = useReducer(reducer, { accountCards: [] });
+  const state = useContext(Context).state;
+  const dispatch = useContext(Context).dispatch;
   const accountForm = useRef<HTMLElement>(null);
   const confirmation = useRef(null);
+  
+  console.log('Context: ', useContext(Context));
+
+  useEffect(() => {
+    console.log(state.accountCards);
+  });
 
   const getKey = (): number => {
     return state.accountCards.length;
@@ -39,11 +38,7 @@ function FormPage(): JSX.Element {
       type: 'add-account-card',
       newAccountCard,
     });
-    // const previousAccountCards = state.accountCards;
-    // const newAccountCards = [...previousAccountCards, accountCard];
-    // setAccountCards(newAccountCards as IAccountCard[]);
     const confirmationDiv = getConfirmation();
-
     if (confirmationDiv) {
       showCreateCardConfirmation(confirmationDiv);
     }
