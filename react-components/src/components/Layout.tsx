@@ -6,9 +6,14 @@ import Header from './Header';
 
 const accountCardReducer = (state: {accountCards: IAccountCard[]}, action: { type: string, newAccountCard: IAccountCard }):
 { accountCards: IAccountCard[] | [] } => {
-    if(action.type === 'add-account-card') {
+    if (action.type === 'add-account-card') { // TODO: Создать enum для возможных команд
+      if (action.newAccountCard) {
         const newAccountCards = [...state.accountCards, action.newAccountCard];
-        return {...state, accountCards: newAccountCards};
+        return {...state, accountCards: newAccountCards as IAccountCard[]};
+      }
+    }
+    if (action.type === 'delete-all-account-cards') {
+      return {...state, accountCards: []};
     }
     return state;
 }
