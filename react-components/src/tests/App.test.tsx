@@ -55,6 +55,7 @@ describe('Get cards test', (): void => {
 
     expect(loadingScreen).toBeInTheDocument();
   });
+
   it('gets and renders cards', async (): Promise<void> => {
     render(
       <BrowserRouter>
