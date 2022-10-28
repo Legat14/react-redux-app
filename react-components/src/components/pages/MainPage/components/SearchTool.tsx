@@ -4,7 +4,7 @@ import { IResponse } from 'types';
 class SearchTool extends React.Component<
   {
     getPhotos: (response: IResponse) => void;
-    setIsLoaded: (value: boolean) => void;
+    setIsLoading: (value: boolean) => void;
   },
   { request: string }
 > {
@@ -15,7 +15,7 @@ class SearchTool extends React.Component<
 
   constructor(props: {
     getPhotos: (response: IResponse) => void;
-    setIsLoaded: (value: boolean) => void;
+    setIsLoading: (value: boolean) => void;
   }) {
     super(props);
     this.requestEndpoint = 'https://www.flickr.com/services/rest/';
@@ -55,7 +55,7 @@ class SearchTool extends React.Component<
 
   async search(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
-    this.props.setIsLoaded(false);
+    this.props.setIsLoading(true);
     const request = this.state.request;
     const requestArr = request.split(' ');
     const trimmedRequest = requestArr.map((element): string => {
@@ -65,7 +65,7 @@ class SearchTool extends React.Component<
     const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}&api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`;
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
-    this.props.setIsLoaded(true);
+    this.props.setIsLoading(false);
     this.props.getPhotos(responseObj);
     try {
       if (await responseObj.stat !== 'ok') {

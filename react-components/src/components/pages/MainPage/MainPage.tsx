@@ -10,7 +10,7 @@ class MainPage extends React.Component<
   {
     response: IResponse | {};
     modalContent: IModalContent | {};
-    isLoaded: boolean;
+    isLoading: boolean;
   }
 > {
   overlay: React.RefObject<ModalWindowOverlay>;
@@ -22,32 +22,30 @@ class MainPage extends React.Component<
     this.getModalContent = this.getModalContent.bind(this);
     this.openModalWindow = this.openModalWindow.bind(this);
     this.closeModalWindow = this.closeModalWindow.bind(this);
-    this.setIsLoaded = this.setIsLoaded.bind(this);
+    this.setIsLoading = this.setIsLoading.bind(this);
     this.overlay = React.createRef();
     this.modal = React.createRef();
     this.state = {
       response: {},
       modalContent: {},
-      isLoaded: true,
+      isLoading: false,
     };
   }
 
-  setIsLoaded(value: boolean) {
-    this.setState((prev) => {
+  setIsLoading(value: boolean) {
+    this.setState(() => {
       return {
         response: {},
-        modalContent: prev.modalContent,
-        isLoaded: value,
+        isLoading: value,
       };
     });
   }
 
   getPhotos = (response: IResponse): void => {
-    this.setState((prev) => {
+    this.setState(() => {
       return {
         response: response,
-        modalContent: prev.modalContent,
-        isLoaded: true,
+        isLoading: false,
       };
     });
   };
@@ -104,9 +102,14 @@ class MainPage extends React.Component<
         />
         <div className="main-page__bar">
           <h2>Main page</h2>
-          <SearchTool getPhotos={this.getPhotos} setIsLoaded={this.setIsLoaded} />
+          <SearchTool getPhotos={this.getPhotos} setIsLoading={this.setIsLoading} />
         </div>
-        {this.state.isLoaded ? (
+        {this.state.isLoading ? (
+          <div className="main-page__loading-screen">
+            <img src="./assets/gif/loading-screen.gif" alt="loading..." />
+          </div>
+        )
+        : (
           <SearchResult
             response={
               (
@@ -118,10 +121,6 @@ class MainPage extends React.Component<
             }
             getModalContent={this.getModalContent}
           />
-        ) : (
-          <div className="main-page__loading-screen">
-            <img src="./assets/gif/loading-screen.gif" alt="loading..." />
-          </div>
         )}
       </section>
     );
