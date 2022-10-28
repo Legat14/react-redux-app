@@ -1,4 +1,4 @@
-import isNotEmpty from 'helpers/isNotEmpty';
+import isEmpty from 'helpers/isEmpty';
 import React from 'react';
 import { IModalContent } from 'types';
 
@@ -13,43 +13,10 @@ function ModalWindow(props: {
     modalWindowClass = 'modal-window';
   }
 
-  return isNotEmpty(props.modalContent) ? (
-    <div
-      className={modalWindowClass}
-      onClick={(event): void => {
-        event.stopPropagation();
-      }}
-      data-testid={'modal-window'}
-    >
-      <img
-        src={(props.modalContent as IModalContent).src}
-        alt={(props.modalContent as IModalContent).title}
-      />
-      <div className="modal-window__description">
-        <h3>{(props.modalContent as IModalContent).title}</h3>
-        <p>
-          <span>id: </span>
-          {(props.modalContent as IModalContent).id}
-        </p>
-        <p>
-          <span>owner: </span>
-          {(props.modalContent as IModalContent).owner}
-        </p>
-        <p>
-          <span>server: </span>
-          {(props.modalContent as IModalContent).server}
-        </p>
-      </div>
-      <button
-        className="modal-window__colse-btn"
-        type="button"
-        onClick={() => props.setIsOpened(false)}
-      >
-        {'>X<'}
-      </button>
-    </div>
-  ) : (
-    <div
+  const fillModal = (): JSX.Element => {
+    if(isEmpty(props.modalContent)) {
+      return (
+        <div
       className={modalWindowClass}
       onClick={(event): void => {
         event.stopPropagation();
@@ -57,7 +24,49 @@ function ModalWindow(props: {
     >
       <h2>Modal is Empty by now</h2>
     </div>
-  );
+      )
+    }
+    return (
+      (
+        <div
+          className={modalWindowClass}
+          onClick={(event): void => {
+            event.stopPropagation();
+          }}
+          data-testid={'modal-window'}
+        >
+          <img
+            src={(props.modalContent as IModalContent).src}
+            alt={(props.modalContent as IModalContent).title}
+          />
+          <div className="modal-window__description">
+            <h3>{(props.modalContent as IModalContent).title}</h3>
+            <p>
+              <span>id: </span>
+              {(props.modalContent as IModalContent).id}
+            </p>
+            <p>
+              <span>owner: </span>
+              {(props.modalContent as IModalContent).owner}
+            </p>
+            <p>
+              <span>server: </span>
+              {(props.modalContent as IModalContent).server}
+            </p>
+          </div>
+          <button
+            className="modal-window__colse-btn"
+            type="button"
+            onClick={() => props.setIsOpened(false)}
+          >
+            {'>X<'}
+          </button>
+        </div>
+      )
+    )
+  }
+
+  return fillModal();
 }
 
 export default ModalWindow;
