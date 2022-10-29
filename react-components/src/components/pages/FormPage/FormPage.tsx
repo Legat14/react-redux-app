@@ -1,18 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
-import { IAccountCard, IAllInputsData, ICheckboxesData } from 'types';
+import { IAllInputsData, ICheckboxesData } from 'types';
 import AccountForm from './components/AccountForm';
 import createAccountCard from './functions/createAccountCard';
+import Context from 'model/Context';
 
 function FormPage(): JSX.Element {
-  const [accountCards, setAccountCards] = useState<IAccountCard[] | []>([]);
+  const state = useContext(Context).state;
+  const dispatch = useContext(Context).dispatch;
   const accountForm = useRef<HTMLElement>(null);
   const confirmation = useRef(null);
+  
+  console.log('Context: ', useContext(Context));
+
+  useEffect(() => {
+    console.log(state.accountCards);
+  });
 
   const getKey = (): number => {
-    return accountCards.length;
+    return state.accountCards.length;
   };
 
   const getConfirmation = (): HTMLDivElement | null => {
@@ -25,22 +33,40 @@ function FormPage(): JSX.Element {
 
   const handleSubmit = (inputsData: IAllInputsData, checkboxesData: ICheckboxesData): void => {
     const key = getKey();
-    const accountCard = createAccountCard(key, inputsData, checkboxesData);
-    const previousAccountCards = accountCards;
-    const newAccountCards = [...previousAccountCards, accountCard];
-    setAccountCards(newAccountCards as IAccountCard[]);
+    const newAccountCard = createAccountCard(key, inputsData, checkboxesData);
+    dispatch({
+      type: 'add-account-card',
+      newAccountCard,
+    });
     const confirmationDiv = getConfirmation();
-
     if (confirmationDiv) {
       showCreateCardConfirmation(confirmationDiv);
     }
   };
 
+  const handleReset = () => {
+    dispatch({
+      type: 'delete-all-account-cards',
+      newAccountCard: {
+        key: 0,
+        name: '',
+        birthDate: '',
+        gender: '',
+        avatarUrl: '',
+        country: '',
+        devices: '',
+      },
+    });
+  }
+
+  //TODO: Перенести кнопку Reset в форму
+
   return (
     <section className="form-page__section">
       <h2>React Forms</h2>
       <AccountForm handleSubmit={handleSubmit} ref={accountForm} />
-      <AccountCards cardData={accountCards} />
+      <button className='form-page__reset-btn' onClick={handleReset}>Reset</button>
+      <AccountCards cardData={state.accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>
   );
