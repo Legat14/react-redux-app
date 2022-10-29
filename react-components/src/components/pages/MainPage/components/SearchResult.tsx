@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IModalContent, IPhoto, IPhotos, IResponse } from 'types';
 import isEmpty from 'helpers/isEmpty';
 import RenderPhoto from './RenderPhoto';
+import Context from 'model/Context';
 
 function SearchResult(props: {
-  response: {} | IResponse;
   setModalContent: (modalContent: IModalContent) => void;
   setIsOpened: (isOpened: boolean) => void;
 }): JSX.Element {
 
+  const responseObj = useContext(Context).states.photoCardState.responseObj;
   const renderSearchResult = (): JSX.Element[] => {
     let photosArr: IPhoto[] = [];
 
-    if (isEmpty(props.response)) {
+    if (isEmpty(responseObj)) {
       photosArr = [];
-    } else if ((props.response as IResponse).photos) {
-      photosArr = ((props.response as IResponse).photos as IPhotos).photo.slice(0, 20);
+    } else if ((responseObj as IResponse).photos) {
+      photosArr = ((responseObj as IResponse).photos as IPhotos).photo.slice(0, 20);
     } else {
       console.error("Didn't get photos");
     }
@@ -29,8 +30,6 @@ function SearchResult(props: {
 
     return photoCardsArr;
   }
-
-    const photoCardsArr = renderSearchResult();
 
   return <div className="search-result">{renderSearchResult()}</div>;
 }

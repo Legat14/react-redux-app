@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import Context from 'model/Context';
 import { useForm } from 'react-hook-form';
-import { IResponse } from 'types';
 
 function SearchTool(props: {
-  setResponse: (response: IResponse) => void;
   setIsLoading: (value: boolean) => void;
 }): JSX.Element {
+  const dispatch = useContext(Context).dispatches.photoCardDispatch;
   const [request, setRequest] = useState('');
   const requestEndpoint = 'https://www.flickr.com/services/rest/';
   const requestMethod = 'flickr.photos.search';
@@ -36,7 +36,7 @@ function SearchTool(props: {
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
     props.setIsLoading(false);
-    props.setResponse(responseObj);
+    dispatch({type: 'render-photo-cards', responseObj})
 
     try {
       if ((await responseObj.stat) !== 'ok') {

@@ -1,15 +1,26 @@
-import { createContext } from 'react';
-import { IAccountCard } from 'types';
+import React, { createContext, Dispatch } from 'react';
+import { IAccountCard, IResponse } from 'types';
 
 const Context = createContext<{
-    state: { accountCards:IAccountCard[] },
-    dispatch: React.Dispatch<{
-        type: string;
-        newAccountCard: IAccountCard;
-    }>
+    states: { accountState: { accountCards: IAccountCard[] }, photoCardState: { responseObj: IResponse | {} } },
+    dispatches: {
+        accountDispatch:
+            Dispatch<{
+                type: string;
+                newAccountCard: IAccountCard;
+            }>,
+        photoCardDispatch:
+            Dispatch<{
+                type: string;
+                responseObj: IResponse;
+            }>,
+    }
 }>({
-    state: { accountCards: [] },
-    dispatch: ()=>{},
+    states: { accountState: { accountCards: [] }, photoCardState: { responseObj: {} } },
+    dispatches: {
+        accountDispatch: ()=>{},
+        photoCardDispatch: ()=>{},
+    },
 });
 
 export default Context;

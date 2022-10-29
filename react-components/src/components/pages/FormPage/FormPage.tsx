@@ -8,19 +8,13 @@ import createAccountCard from './functions/createAccountCard';
 import Context from 'model/Context';
 
 function FormPage(): JSX.Element {
-  const state = useContext(Context).state;
-  const dispatch = useContext(Context).dispatch;
+  const accountCards = useContext(Context).states.accountState.accountCards;
+  const dispatch = useContext(Context).dispatches.accountDispatch;
   const accountForm = useRef<HTMLElement>(null);
   const confirmation = useRef(null);
-  
-  console.log('Context: ', useContext(Context));
-
-  useEffect(() => {
-    console.log(state.accountCards);
-  });
 
   const getKey = (): number => {
-    return state.accountCards.length;
+    return accountCards.length;
   };
 
   const getConfirmation = (): HTMLDivElement | null => {
@@ -44,18 +38,20 @@ function FormPage(): JSX.Element {
     }
   };
 
+  const emptyAccountCard = {
+    key: 0,
+    name: '',
+    birthDate: '',
+    gender: '',
+    avatarUrl: '',
+    country: '',
+    devices: '',
+  }
+
   const handleReset = () => {
     dispatch({
       type: 'delete-all-account-cards',
-      newAccountCard: {
-        key: 0,
-        name: '',
-        birthDate: '',
-        gender: '',
-        avatarUrl: '',
-        country: '',
-        devices: '',
-      },
+      newAccountCard: emptyAccountCard,
     });
   }
 
@@ -66,7 +62,7 @@ function FormPage(): JSX.Element {
       <h2>React Forms</h2>
       <AccountForm handleSubmit={handleSubmit} ref={accountForm} />
       <button className='form-page__reset-btn' onClick={handleReset}>Reset</button>
-      <AccountCards cardData={state.accountCards} />
+      <AccountCards cardData={accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>
   );
