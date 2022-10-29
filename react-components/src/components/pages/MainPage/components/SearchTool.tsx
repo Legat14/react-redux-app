@@ -4,7 +4,7 @@ import { IResponse } from 'types';
 
 function SearchTool(props: {
   setResponse: (response: IResponse) => void;
-  setIsLoaded: (value: boolean) => void;
+  setIsLoading: (value: boolean) => void;
 }): JSX.Element {
   const [request, setRequest] = useState('');
   const requestEndpoint = 'https://www.flickr.com/services/rest/';
@@ -26,7 +26,7 @@ function SearchTool(props: {
   }, []);
 
   const search = async (data: { inputSearch: string }): Promise<void> => {
-    props.setIsLoaded(false);
+    props.setIsLoading(true);
     const requestArr = data.inputSearch.split(' ');
     const trimmedRequest = requestArr.map((element): string => {
       return element.trim();
@@ -35,7 +35,7 @@ function SearchTool(props: {
     const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}&format=${format}`;
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
-    props.setIsLoaded(true);
+    props.setIsLoading(false);
     props.setResponse(responseObj);
 
     try {
