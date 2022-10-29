@@ -1,10 +1,8 @@
-import isEmpty from 'helpers/isEmpty';
 import Context from 'model/Context';
 import React, { useReducer } from 'react';
 import { Outlet } from 'react-router-dom';
-import { IAccountCard, IPhoto, IPhotoCard, IPhotos, IResponse } from 'types';
+import { IAccountCard, IResponse, sortOptions } from 'types';
 import Header from './Header';
-import RenderPhoto from './pages/MainPage/components/RenderPhoto';
 
 const accountCardReducer = (state: { accountCards: IAccountCard[] }, action: { type: string, newAccountCard: IAccountCard }):
 { accountCards: IAccountCard[] | [] } => {
@@ -20,17 +18,23 @@ const accountCardReducer = (state: { accountCards: IAccountCard[] }, action: { t
     return state;
 }
 
-const photoCardReducer = (state: { responseObj: IResponse | {} }, action: { type: string, responseObj: IResponse }):
-{ responseObj: IResponse | {} } => { // TODO: Добавить возможность очистки страницы
+const photoCardReducer = (state: {
+  responseObj: IResponse | {},
+  inputSort: sortOptions,
+}, action: { type: string, responseObj: IResponse, inputSort: sortOptions }):
+{ responseObj: IResponse | {}, inputSort: sortOptions } => { // TODO: Добавить возможность очистки страницы
   if (action.type === 'render-photo-cards') {
     return {...state, responseObj: action.responseObj};
+  }
+  if (action.type === 'save-sort-option') {
+    return {...state, inputSort: action.inputSort};
   }
   return state;
 }
 
 function Layout(): JSX.Element {
   const [accountState, accountDispatch] = useReducer(accountCardReducer, { accountCards: [] });
-  const [photoCardState, photoCardDispatch] = useReducer(photoCardReducer, { responseObj: {} });
+  const [photoCardState, photoCardDispatch] = useReducer(photoCardReducer, { responseObj: {}, inputSort: sortOptions.None });
   return (
     <Context.Provider value={{
       states: {accountState, photoCardState},

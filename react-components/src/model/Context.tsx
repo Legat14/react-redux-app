@@ -1,8 +1,14 @@
 import React, { createContext, Dispatch } from 'react';
-import { IAccountCard, IResponse } from 'types';
+import { IAccountCard, IResponse, sortOptions } from 'types';
 
 const Context = createContext<{
-    states: { accountState: { accountCards: IAccountCard[] }, photoCardState: { responseObj: IResponse | {} } },
+    states: {
+        accountState: { accountCards: IAccountCard[] },
+        photoCardState: {
+            responseObj: IResponse | {},
+            inputSort: sortOptions,
+        }
+    },
     dispatches: {
         accountDispatch:
             Dispatch<{
@@ -13,10 +19,11 @@ const Context = createContext<{
             Dispatch<{
                 type: string;
                 responseObj: IResponse;
+                inputSort: sortOptions,
             }>,
     }
 }>({
-    states: { accountState: { accountCards: [] }, photoCardState: { responseObj: {} } },
+    states: { accountState: { accountCards: [] }, photoCardState: { responseObj: {}, inputSort: sortOptions.None } },
     dispatches: {
         accountDispatch: ()=>{},
         photoCardDispatch: ()=>{},
