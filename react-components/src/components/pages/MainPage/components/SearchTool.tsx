@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Context from 'model/Context';
 import { useForm } from 'react-hook-form';
+import { sortOptions } from 'types';
 
 function SearchTool(props: {
   setIsLoading: (value: boolean) => void;
@@ -11,7 +12,7 @@ function SearchTool(props: {
   const requestMethod = 'flickr.photos.search';
   const apiKey = '92c3ed46142b2191fc2baa90c9cc54b4'; // TODO: Заменить хардкод на переменную энвайромента
   const format = 'json&nojsoncallback=1';
-  const { register, handleSubmit, setValue, watch } = useForm<{ inputSearch: string }>();
+  const { register, handleSubmit, setValue, watch } = useForm<{ inputSearch: string, inputSort: sortOptions }>();
 
   useEffect((): (() => void) => {
     const localStorageValue = localStorage.getItem('searchInput');
@@ -25,14 +26,24 @@ function SearchTool(props: {
     };
   }, []);
 
-  const search = async (data: { inputSearch: string }): Promise<void> => {
+  const search = async (data: {
+    inputSearch: string,
+    inputSort: sortOptions,
+  }): Promise<void> => {
     props.setIsLoading(true);
     const requestArr = data.inputSearch.split(' ');
     const trimmedRequest = requestArr.map((element): string => {
       return element.trim();
     });
     const processedRequest = trimmedRequest.join('+');
-    const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}&format=${format}`;
+
+    let sortRequest = '';
+    if (data.inputSort !== sortOptions.None) {
+      sortRequest = `&sort=${data.inputSort}`;
+    }
+
+    const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}${sortRequest}&format=${format}`;
+    console.log(requestUrl);
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
     props.setIsLoading(false);
@@ -63,6 +74,20 @@ function SearchTool(props: {
         value={request}
         {...register('inputSearch', { required: true, onChange: (event) => handleChange(event) })}
       ></input>
+      <p>Sort by:</p>
+      <select
+        className="input-sort"
+        {...register('inputSort', { required: true })}
+      >
+        <option value={sortOptions.None}>None</option>
+        <option value={sortOptions.DatePostedAsc}>Date Posted ⇩</option>
+        <option value={sortOptions.DatePostedDesc}>Date Posted ⇧</option>
+        <option value={sortOptions.DateTakenAsc}>Date Taken ⇩</option>
+        <option value={sortOptions.DateTakendDesc}>Date Taken ⇧</option>
+        <option value={sortOptions.InterestingnessAsc}>Interestingness ⇩</option>
+        <option value={sortOptions.InterestingnessDesc}>Interestingness ⇧</option>
+        <option value={sortOptions.Relevance}>Relevance</option>
+      </select>
       <button className="search-btn" type="submit">
         Search
       </button>

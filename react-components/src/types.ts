@@ -71,3 +71,14 @@ export interface ICheckboxesData {
   XboxCheckbox: boolean;
   switchCheckbox: boolean;
 }
+
+export enum sortOptions {
+  None = 'none',
+  DatePostedAsc = 'date-posted-asc',
+  DatePostedDesc = 'date-posted-desc',
+  DateTakenAsc = 'date-taken-asc',
+  DateTakendDesc = 'date-taken-desc',
+  InterestingnessAsc = 'interestingness-asc',
+  InterestingnessDesc = 'interestingness-desc',
+  Relevance = 'relevance',
+}

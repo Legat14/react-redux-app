@@ -21,7 +21,7 @@ const accountCardReducer = (state: { accountCards: IAccountCard[] }, action: { t
 }
 
 const photoCardReducer = (state: { responseObj: IResponse | {} }, action: { type: string, responseObj: IResponse }):
-{ responseObj: IResponse | {} } => {
+{ responseObj: IResponse | {} } => { // TODO: Добавить возможность очистки страницы
   if (action.type === 'render-photo-cards') {
     return {...state, responseObj: action.responseObj};
   }
