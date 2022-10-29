@@ -8,7 +8,7 @@ function MainPage(): JSX.Element {
   const [response, setResponse] = useState({});
   const [modalContent, setModalContent] = useState({});
   const [isOpened, setIsOpened] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <section
@@ -21,18 +21,18 @@ function MainPage(): JSX.Element {
       <ModalWindow modalContent={modalContent} setIsOpened={setIsOpened} isOpened={isOpened} />
       <div className="main-page__bar">
         <h2>Main page</h2>
-        <SearchTool setResponse={setResponse} setIsLoaded={setIsLoaded} />
+        <SearchTool setResponse={setResponse} setIsLoading={setIsLoading} />
       </div>
-      {isLoaded ? (
+      {isLoading ? (
+        <div className="main-page__loading-screen">
+          <img src="./assets/gif/loading-screen.gif" alt="loading..." />
+        </div>
+      ) : (
         <SearchResult
           response={response}
           setModalContent={setModalContent}
           setIsOpened={setIsOpened}
         />
-      ) : (
-        <div className="main-page__loading-screen">
-          <img src="./assets/gif/loading-screen.gif" alt="loading..." />
-        </div>
       )}
     </section>
   );
