@@ -1,7 +1,7 @@
 import Context from 'model/Context';
 import React, { useReducer } from 'react';
 import { Outlet } from 'react-router-dom';
-import { IAccountCard, IPhotoCardDispatch, IPhotoCardState, IResponse, sortOptions } from 'types';
+import { IAccountCard, IDetailContent, IPhotoCardDispatch, IPhotoCardState, IResponse, sortOptions } from 'types';
 import Header from './Header';
 
 const accountCardReducer = (
@@ -41,6 +41,16 @@ const photoCardReducer = (state: IPhotoCardState, action: IPhotoCardDispatch): I
   return state;
 };
 
+const detailReducer = (state: IDetailContent, action: {
+  type: string;
+  newDetailState: IDetailContent;
+}): IDetailContent => {
+  if (action.type === 'save-detail-content') {
+    return action.newDetailState;
+  }
+  return state;
+};
+
 function Layout(): JSX.Element {
   const [accountState, accountDispatch] = useReducer(accountCardReducer, { accountCards: [] });
   const [photoCardState, photoCardDispatch] = useReducer(photoCardReducer, {
@@ -50,13 +60,21 @@ function Layout(): JSX.Element {
     inputPageNumber: 1,
     lastPage: 800,
   });
+  const [detailState, detailDispatch] = useReducer(detailReducer, {
+    src: 'none',
+    id: 'none',
+    owner: 'none',
+    server: 'none',
+    title: 'none'
+  });
   return (
     <Context.Provider
       value={{
-        states: { accountState, photoCardState },
+        states: { accountState, photoCardState, detailState },
         dispatches: {
           accountDispatch: accountDispatch,
           photoCardDispatch: photoCardDispatch,
+          detailDispatch: detailDispatch,
         },
       }}
     >

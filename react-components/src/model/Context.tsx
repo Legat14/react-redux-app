@@ -1,10 +1,11 @@
 import { createContext, Dispatch } from 'react';
-import { IAccountCard, IPhotoCardDispatch, IPhotoCardState, IResponse, sortOptions } from 'types';
+import { IAccountCard, IDetailContent, IPhotoCardDispatch, IPhotoCardState, IResponse, sortOptions } from 'types';
 
 const Context = createContext<{
   states: {
     accountState: { accountCards: IAccountCard[] };
     photoCardState: IPhotoCardState;
+    detailState: IDetailContent,
   };
   dispatches: {
     accountDispatch: Dispatch<{
@@ -12,6 +13,10 @@ const Context = createContext<{
       newAccountCard: IAccountCard;
     }>;
     photoCardDispatch: Dispatch<IPhotoCardDispatch>;
+    detailDispatch: Dispatch<{
+      type: string;
+      newDetailState: IDetailContent;
+    }>;
   };
 }>({
   states: {
@@ -23,10 +28,18 @@ const Context = createContext<{
       inputPageNumber: 1,
       lastPage: 800,
     },
+    detailState: {
+      src: 'none',
+      id: 'none',
+      owner: 'none',
+      server: 'none',
+      title: 'none'
+    },
   },
   dispatches: {
     accountDispatch: () => {},
     photoCardDispatch: () => {},
+    detailDispatch: () => {},
   },
 });
 

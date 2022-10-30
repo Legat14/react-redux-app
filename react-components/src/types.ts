@@ -45,7 +45,15 @@ export interface IPhotoCard {
   owner: string;
 }
 
-export interface IModalContent {
+export interface IModalContent { // TODO: Удалить после удаления модального окна
+  src: string;
+  id: string;
+  owner: string;
+  server: string;
+  title: string;
+}
+
+export interface IDetailContent {
   src: string;
   id: string;
   owner: string;
