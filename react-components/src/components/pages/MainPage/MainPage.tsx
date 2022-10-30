@@ -27,10 +27,7 @@ function MainPage(): JSX.Element {
           <img src="./assets/gif/loading-screen.gif" alt="loading..." />
         </div>
       ) : (
-        <SearchResult
-          setModalContent={setModalContent}
-          setIsOpened={setIsOpened}
-        />
+        <SearchResult setModalContent={setModalContent} setIsOpened={setIsOpened} />
       )}
     </section>
   );

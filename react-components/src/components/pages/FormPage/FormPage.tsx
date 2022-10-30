@@ -46,14 +46,14 @@ function FormPage(): JSX.Element {
     avatarUrl: '',
     country: '',
     devices: '',
-  }
+  };
 
   const handleReset = () => {
     dispatch({
       type: 'delete-all-account-cards',
       newAccountCard: emptyAccountCard,
     });
-  }
+  };
 
   //TODO: Перенести кнопку Reset в форму
 
@@ -61,7 +61,9 @@ function FormPage(): JSX.Element {
     <section className="form-page__section">
       <h2>React Forms</h2>
       <AccountForm handleSubmit={handleSubmit} ref={accountForm} />
-      <button className='form-page__reset-btn' onClick={handleReset}>Reset</button>
+      <button className="form-page__reset-btn" onClick={handleReset}>
+        Reset
+      </button>
       <AccountCards cardData={accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>

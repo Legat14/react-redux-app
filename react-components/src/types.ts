@@ -82,3 +82,18 @@ export enum sortOptions {
   InterestingnessDesc = 'interestingness-desc',
   Relevance = 'relevance',
 }
+
+export interface IPhotoCardState {
+  responseObj: IResponse | {};
+  inputSort: sortOptions;
+  inputPhotosPerPage: number;
+  lastPage: number;
+}
+
+export interface IPhotoCardDispatch {
+  type: string;
+  responseObj: IResponse;
+  inputSort: sortOptions;
+  inputPhotosPerPage: number;
+  lastPage: number;
+}
