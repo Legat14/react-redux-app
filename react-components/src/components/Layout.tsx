@@ -32,6 +32,9 @@ const photoCardReducer = (state: IPhotoCardState, action: IPhotoCardDispatch): I
   if (action.type === 'save-photo-per-page') {
     return { ...state, inputPhotosPerPage: action.inputPhotosPerPage };
   }
+  if (action.type === 'save-page-number') {
+    return { ...state, inputPageNumber: action.inputPageNumber };
+  }
   if (action.type === 'save-last-page') {
     return { ...state, lastPage: action.lastPage };
   }
@@ -44,7 +47,8 @@ function Layout(): JSX.Element {
     responseObj: {},
     inputSort: sortOptions.None,
     inputPhotosPerPage: 5,
-    lastPage: 1,
+    inputPageNumber: 1,
+    lastPage: 800,
   });
   return (
     <Context.Provider

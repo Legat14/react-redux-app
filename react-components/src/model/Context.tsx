@@ -20,7 +20,8 @@ const Context = createContext<{
       responseObj: {},
       inputSort: sortOptions.None,
       inputPhotosPerPage: 5,
-      lastPage: 1,
+      inputPageNumber: 1,
+      lastPage: 800,
     },
   },
   dispatches: {

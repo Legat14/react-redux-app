@@ -87,6 +87,7 @@ export interface IPhotoCardState {
   responseObj: IResponse | {};
   inputSort: sortOptions;
   inputPhotosPerPage: number;
+  inputPageNumber: number;
   lastPage: number;
 }
 
@@ -95,5 +96,6 @@ export interface IPhotoCardDispatch {
   responseObj: IResponse;
   inputSort: sortOptions;
   inputPhotosPerPage: number;
+  inputPageNumber: number;
   lastPage: number;
 }

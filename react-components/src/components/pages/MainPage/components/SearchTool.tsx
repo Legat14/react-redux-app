@@ -6,10 +6,12 @@ import { IResponse, sortOptions } from 'types';
 function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Element {
   const responseObjfromState = useContext(Context).states.photoCardState.responseObj;
   const inputSortFromState = useContext(Context).states.photoCardState.inputSort;
-  const inputPhotoPerPageFromState = useContext(Context).states.photoCardState.inputPhotosPerPage;
-  const lastPage = useContext(Context).states.photoCardState.lastPage;
-  const dispatch = useContext(Context).dispatches.photoCardDispatch;
+  const inputPhotosPerPageFromState = useContext(Context).states.photoCardState.inputPhotosPerPage;
+  const inputPageNumberFromState = useContext(Context).states.photoCardState.inputPageNumber;
+  let lastPage = useContext(Context).states.photoCardState.lastPage;
+  const photosPerResponse = 4000;
   const state = useContext(Context).states.photoCardState;
+  const dispatch = useContext(Context).dispatches.photoCardDispatch;
   const [request, setRequest] = useState('');
   const requestEndpoint = 'https://www.flickr.com/services/rest/';
   const requestMethod = 'flickr.photos.search';
@@ -19,11 +21,13 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     inputSearch: string;
     inputSort: sortOptions;
     inputPhotosPerPage: string;
+    inputPageNumber: string;
   }>();
 
   useEffect((): void => {
     setValue('inputSort', inputSortFromState);
-    setValue('inputPhotosPerPage', inputPhotoPerPageFromState.toString());
+    setValue('inputPhotosPerPage', inputPhotosPerPageFromState.toString());
+    setValue('inputPageNumber', inputPageNumberFromState.toString());
   }, []);
 
   useEffect((): (() => void) => {
@@ -32,7 +36,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
       setRequest(localStorageValue);
       setValue('inputSearch', localStorageValue);
     }
-
+    
     return (): void => {
       localStorage.setItem('searchInput', watch('inputSearch'));
     };
@@ -42,6 +46,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     inputSearch: string;
     inputSort: sortOptions;
     inputPhotosPerPage: string;
+    inputPageNumber: string;
   }): Promise<void> => {
     props.setIsLoading(true);
     const requestArr = data.inputSearch.split(' ');
@@ -55,7 +60,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
       sortRequest = `&sort=${data.inputSort}`;
     }
 
-    const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}${sortRequest}&per_page=${data.inputPhotosPerPage}&format=${format}`;
+    const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}${sortRequest}&per_page=${data.inputPhotosPerPage}&page=${data.inputPageNumber}&format=${format}`;
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
     props.setIsLoading(false);
@@ -63,19 +68,13 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
       type: 'render-photo-cards',
       responseObj,
       inputSort: watch('inputSort'),
-      inputPhotosPerPage: inputPhotoPerPageFromState,
+      inputPhotosPerPage: inputPhotosPerPageFromState,
+      inputPageNumber: inputPageNumberFromState,
       lastPage: lastPage,
     });
 
     try {
       if ((await responseObj.stat) === 'ok') {
-        dispatch({
-          type: 'save-last-page',
-          responseObj: responseObjfromState as IResponse,
-          inputSort: inputSortFromState,
-          inputPhotosPerPage: inputPhotoPerPageFromState,
-          lastPage: responseObj.photos.pages,
-        });
         // TODO: Добавить в state, чтобы обновлялся номер на странице
       } else {
         throw new Error('Something went wrong!');
@@ -96,7 +95,8 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
       type: 'save-sort-option',
       responseObj: responseObjfromState as IResponse,
       inputSort: watch('inputSort'),
-      inputPhotosPerPage: inputPhotoPerPageFromState,
+      inputPhotosPerPage: inputPhotosPerPageFromState,
+      inputPageNumber: inputPageNumberFromState,
       lastPage: lastPage,
     });
   };
@@ -108,6 +108,32 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
       responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: +watch('inputPhotosPerPage'),
+      inputPageNumber: inputPageNumberFromState,
+      lastPage: lastPage,
+    });
+      lastPage = calculateTotalPage();
+      dispatch({
+        type: 'save-last-page',
+        responseObj: responseObjfromState as IResponse,
+        inputSort: inputSortFromState,
+        inputPhotosPerPage: inputPhotosPerPageFromState,
+        inputPageNumber: inputPageNumberFromState,
+        lastPage: lastPage,
+      });
+  };
+
+  const calculateTotalPage = (): number => {
+    return Math.ceil(photosPerResponse / +watch('inputPhotosPerPage'));
+  }
+
+  const handlePageNumberInputChange = (): void => {
+    // TODO: Сделать чтобы при изменении страницы сразу происходил новый поиск
+    dispatch({
+      type: 'save-page-number',
+      responseObj: responseObjfromState as IResponse,
+      inputSort: inputSortFromState,
+      inputPhotosPerPage: inputPhotosPerPageFromState,
+      inputPageNumber: +watch('inputPageNumber'),
       lastPage: lastPage,
     });
   };
@@ -152,7 +178,18 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
         })}
       />
       <p>Page number:</p>
-      <input className="input-page-number" type="number" min={'1'} />
+      <input
+        className="input-page-number"
+        type="number"
+        min={'1'}
+        max={lastPage}
+        {...register('inputPageNumber', {
+          required: true,
+          min: 1,
+          max: lastPage,
+          onChange: handlePageNumberInputChange,
+        })}
+        />
       <p>Total pages: {lastPage}</p>
       <button className="search-btn" type="submit">
         Search
