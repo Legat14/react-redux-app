@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Context from 'model/Context';
+import { Link } from 'react-router-dom';
 
 function DetailPage(): JSX.Element {
 
@@ -8,6 +9,7 @@ function DetailPage(): JSX.Element {
   return (
     <section className='detail-page__section' data-testid={'detail-page'}>
       <h2>Details</h2>
+      <Link to="/">⇦ Back to main page</Link>
       <img
         src={detailContent.src}
         alt={detailContent.title}
