@@ -1,7 +1,13 @@
 import Context from 'model/Context';
 import React, { useReducer } from 'react';
 import { Outlet } from 'react-router-dom';
-import { IAccountCard, IDetailContent, IPhotoCardDispatch, IPhotoCardState, IResponse, sortOptions } from 'types';
+import {
+  IAccountCard,
+  IDetailContent,
+  IPhotoCardDispatch,
+  IPhotoCardState,
+  sortOptions,
+} from 'types';
 import Header from './Header';
 
 const accountCardReducer = (
@@ -41,10 +47,13 @@ const photoCardReducer = (state: IPhotoCardState, action: IPhotoCardDispatch): I
   return state;
 };
 
-const detailReducer = (state: IDetailContent, action: {
-  type: string;
-  newDetailState: IDetailContent;
-}): IDetailContent => {
+const detailReducer = (
+  state: IDetailContent,
+  action: {
+    type: string;
+    newDetailState: IDetailContent;
+  }
+): IDetailContent => {
   if (action.type === 'save-detail-content') {
     return action.newDetailState;
   }
@@ -65,7 +74,7 @@ function Layout(): JSX.Element {
     id: 'none',
     owner: 'none',
     server: 'none',
-    title: 'none'
+    title: 'none',
   });
   return (
     <Context.Provider

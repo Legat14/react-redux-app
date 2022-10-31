@@ -3,7 +3,6 @@ import SearchResult from './components/SearchResult';
 import SearchTool from './components/SearchTool';
 
 function MainPage(): JSX.Element {
-
   const [isLoading, setIsLoading] = useState(false);
 
   return (

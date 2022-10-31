@@ -36,7 +36,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
       setRequest(localStorageValue);
       setValue('inputSearch', localStorageValue);
     }
-    
+
     return (): void => {
       localStorage.setItem('searchInput', watch('inputSearch'));
     };
@@ -111,20 +111,20 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
       inputPageNumber: inputPageNumberFromState,
       lastPage: lastPage,
     });
-      lastPage = calculateTotalPage();
-      dispatch({
-        type: 'save-last-page',
-        responseObj: responseObjfromState as IResponse,
-        inputSort: inputSortFromState,
-        inputPhotosPerPage: inputPhotosPerPageFromState,
-        inputPageNumber: inputPageNumberFromState,
-        lastPage: lastPage,
-      });
+    lastPage = calculateTotalPage();
+    dispatch({
+      type: 'save-last-page',
+      responseObj: responseObjfromState as IResponse,
+      inputSort: inputSortFromState,
+      inputPhotosPerPage: inputPhotosPerPageFromState,
+      inputPageNumber: inputPageNumberFromState,
+      lastPage: lastPage,
+    });
   };
 
   const calculateTotalPage = (): number => {
     return Math.ceil(photosPerResponse / +watch('inputPhotosPerPage'));
-  }
+  };
 
   const handlePageNumberInputChange = (): void => {
     // TODO: Сделать чтобы при изменении страницы сразу происходил новый поиск
@@ -189,7 +189,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
           max: lastPage,
           onChange: handlePageNumberInputChange,
         })}
-        />
+      />
       <p>Total pages: {lastPage}</p>
       <button className="search-btn" type="submit">
         Search

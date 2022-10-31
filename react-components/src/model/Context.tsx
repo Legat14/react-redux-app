@@ -1,11 +1,17 @@
 import { createContext, Dispatch } from 'react';
-import { IAccountCard, IDetailContent, IPhotoCardDispatch, IPhotoCardState, IResponse, sortOptions } from 'types';
+import {
+  IAccountCard,
+  IDetailContent,
+  IPhotoCardDispatch,
+  IPhotoCardState,
+  sortOptions,
+} from 'types';
 
 const Context = createContext<{
   states: {
     accountState: { accountCards: IAccountCard[] };
     photoCardState: IPhotoCardState;
-    detailState: IDetailContent,
+    detailState: IDetailContent;
   };
   dispatches: {
     accountDispatch: Dispatch<{
@@ -33,7 +39,7 @@ const Context = createContext<{
       id: 'none',
       owner: 'none',
       server: 'none',
-      title: 'none'
+      title: 'none',
     },
   },
   dispatches: {
