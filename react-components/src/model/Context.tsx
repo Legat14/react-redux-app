@@ -24,6 +24,9 @@ const Context = createContext<{
       newDetailState: IDetailContent;
     }>;
   };
+  functions: {
+    highliteLink: (linkToHighlite: number, nav?: HTMLElement) => void;
+  };
 }>({
   states: {
     accountState: { accountCards: [] },
@@ -46,6 +49,9 @@ const Context = createContext<{
     accountDispatch: () => {},
     photoCardDispatch: () => {},
     detailDispatch: () => {},
+  },
+  functions: {
+    highliteLink: () => {},
   },
 });
 

@@ -1,29 +1,35 @@
 import Context from 'model/Context';
-import React, { MouseEvent, useContext } from 'react';
+import React, { forwardRef, MouseEvent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-function Header(): JSX.Element {
+function Header(props: {}, ref: React.ForwardedRef<HTMLElement>): JSX.Element {
   let detailLink = '/detail';
   const photoID = useContext(Context).states.detailState.id;
   if (photoID === 'none') {
     detailLink = '/';
   }
 
+  const highliteLink = useContext(Context).functions.highliteLink;
+  const detailedPhotoId = useContext(Context).states.detailState.id;
+
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     const target = event.target as HTMLElement;
     if (target.nodeName === 'A') {
-      const navArr = event.currentTarget.childNodes;
-      navArr.forEach((link: ChildNode) => {
-        (link as HTMLAnchorElement).classList.remove('header__link_active_page');
-      });
-      target.classList.add('header__link_active_page');
+      const nav = event.currentTarget;
+      const linksCol = nav.children;
+      const linksArr = Array.from(linksCol);
+      const targetNumber = linksArr.indexOf(target);
+      highliteLink(targetNumber);
+      if (detailedPhotoId === 'none' && targetNumber === 1) {
+        highliteLink(0);
+      }
     }
   };
 
   return (
     <header className="header">
       <h1>React hooks</h1>
-      <nav onClick={handleClick}>
+      <nav onClick={handleClick} ref={ref}>
         <Link className="header__link_active_page" to="/">
           Main page
         </Link>
@@ -35,4 +41,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default forwardRef(Header);

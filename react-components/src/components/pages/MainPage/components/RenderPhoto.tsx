@@ -9,12 +9,15 @@ function RenderPhoto(photo: IPhoto): JSX.Element {
   const srcLarge = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
   const dispatch = useContext(Context).dispatches.detailDispatch;
 
+  const highliteLink = useContext(Context).functions.highliteLink;
+
   return (
     <PhotoCard
       onClick={(event) => {
         event.stopPropagation();
         const detailContent = getDetailContent(photo, srcLarge);
         dispatch({ type: 'save-detail-content', newDetailState: detailContent });
+        highliteLink(1);
       }}
       key={+photo.id}
       src={srcMedium}

@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 function DetailPage(): JSX.Element {
   const detailContent = useContext(Context).states.detailState;
 
+  const highliteLink = useContext(Context).functions.highliteLink;
+
   return (
     <section className="detail-page__section" data-testid={'detail-page'}>
       <h2>Details</h2>
-      <Link to="/">⇦ Back to main page</Link>
+      <Link to="/" onClick={() => { highliteLink(0) }}>⇦ Back to main page</Link>
       <div className="detail-page__details">
         <img src={detailContent.src} alt={detailContent.title} />
         <div className="detail-page__description">

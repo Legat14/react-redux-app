@@ -73,7 +73,7 @@ describe('Get cards test', (): void => {
     expect(inputPageNumber).toBeInTheDocument();
     const searchBtn = screen.getByTestId('search-btn');
     expect(searchBtn).toBeInTheDocument();
-    
+
     fireEvent.input(searchInput, {
       target: {
         value: 'Dog',

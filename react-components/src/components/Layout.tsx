@@ -1,5 +1,5 @@
 import Context from 'model/Context';
-import React, { useReducer } from 'react';
+import React, { useReducer, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import {
   IAccountCard,
@@ -61,6 +61,21 @@ const detailReducer = (
 };
 
 function Layout(): JSX.Element {
+  const navRef = useRef<HTMLElement>(null);
+
+  const highliteLink = (
+    linkToHighlite: number,
+    nav: HTMLElement | null = navRef.current,
+  ): void => {
+    if (nav) {
+      const linksArr = nav.childNodes;
+      linksArr.forEach((link: ChildNode) => {
+        (link as HTMLElement).classList.remove('header__link_active_page');
+      });
+      (linksArr[linkToHighlite] as HTMLElement).classList.add('header__link_active_page');
+    }
+  };
+
   const [accountState, accountDispatch] = useReducer(accountCardReducer, { accountCards: [] });
   const [photoCardState, photoCardDispatch] = useReducer(photoCardReducer, {
     responseObj: {},
@@ -79,16 +94,23 @@ function Layout(): JSX.Element {
   return (
     <Context.Provider
       value={{
-        states: { accountState, photoCardState, detailState },
+        states: {
+          accountState,
+          photoCardState,
+          detailState,
+        },
         dispatches: {
-          accountDispatch: accountDispatch,
-          photoCardDispatch: photoCardDispatch,
-          detailDispatch: detailDispatch,
+          accountDispatch,
+          photoCardDispatch,
+          detailDispatch,
+        },
+        functions: {
+          highliteLink,
         },
       }}
     >
       <div className="app-conteiner">
-        <Header />
+        <Header ref={navRef} />
         <Outlet />
       </div>
     </Context.Provider>

@@ -194,11 +194,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
         data-testid="input-page-number"
       />
       <p>Total pages: {lastPage}</p>
-      <button
-        className="search-btn"
-        type="submit"
-        data-testid="search-btn"
-      >
+      <button className="search-btn" type="submit" data-testid="search-btn">
         Search
       </button>
     </form>
