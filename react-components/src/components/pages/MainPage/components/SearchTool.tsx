@@ -10,7 +10,6 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const inputPageNumberFromState = useContext(Context).states.photoCardState.inputPageNumber;
   let lastPage = useContext(Context).states.photoCardState.lastPage;
   const photosPerResponse = 4000;
-  const state = useContext(Context).states.photoCardState;
   const dispatch = useContext(Context).dispatches.photoCardDispatch;
   const [request, setRequest] = useState('');
   const requestEndpoint = 'https://www.flickr.com/services/rest/';
@@ -149,11 +148,13 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
           required: true,
           onChange: (event) => handleSearchInputChange(event),
         })}
+        data-testid="search-input"
       ></input>
       <p>Sort by:</p>
       <select
         className="input-sort"
         {...register('inputSort', { required: true, onChange: handleSortInputChange })}
+        data-testid="input-sort"
       >
         <option value={sortOptions.None}>None</option>
         <option value={sortOptions.DatePostedAsc}>Date Posted ⇩</option>
@@ -176,6 +177,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
           max: 50,
           onChange: handlePhotosPerPageInputChange,
         })}
+        data-testid="input-photos-per-page"
       />
       <p>Page number:</p>
       <input
@@ -189,9 +191,14 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
           max: lastPage,
           onChange: handlePageNumberInputChange,
         })}
+        data-testid="input-page-number"
       />
       <p>Total pages: {lastPage}</p>
-      <button className="search-btn" type="submit">
+      <button
+        className="search-btn"
+        type="submit"
+        data-testid="search-btn"
+      >
         Search
       </button>
     </form>
