@@ -93,7 +93,7 @@ export interface IPhotoCardState {
 }
 
 export interface IPhotoCardDispatch {
-  type: string;
+  // type: string;
   responseObj: IResponse;
   inputSort: sortOptions;
   inputPhotosPerPage: number;

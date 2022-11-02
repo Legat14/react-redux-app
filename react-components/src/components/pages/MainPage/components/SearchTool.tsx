@@ -1,16 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Context from 'model/Context';
 import { useForm } from 'react-hook-form';
-import { IResponse, sortOptions } from 'types';
+import { IPhotoCardState, IResponse, RootState, sortOptions } from 'types';
+import { useDispatch, useSelector } from 'react-redux';
+import { renderPhotoCard, saveLastPage, savePageNumber, savePhotoPerPage, saveSortOption } from 'model/slices/photoCardSlice';
 
 function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Element {
-  const responseObjfromState = useContext(Context).states.photoCardState.responseObj;
-  const inputSortFromState = useContext(Context).states.photoCardState.inputSort;
-  const inputPhotosPerPageFromState = useContext(Context).states.photoCardState.inputPhotosPerPage;
-  const inputPageNumberFromState = useContext(Context).states.photoCardState.inputPageNumber;
-  let lastPage = useContext(Context).states.photoCardState.lastPage;
+  const responseObjfromState = useSelector((state: RootState) => state.photoCard.responseObj);
+  const inputSortFromState = useSelector((state: RootState) => state.photoCard.inputSort);
+  const inputPhotosPerPageFromState = useSelector((state: RootState) => state.photoCard.inputPhotosPerPage);
+  const inputPageNumberFromState = useSelector((state: RootState) => state.photoCard.inputPageNumber);
+  let lastPage = useSelector((state: RootState) => state.photoCard.lastPage);
+  // const responseObjfromState = useContext(Context).states.photoCardState.responseObj;
+  // const inputSortFromState = useContext(Context).states.photoCardState.inputSort;
+  // const inputPhotosPerPageFromState = useContext(Context).states.photoCardState.inputPhotosPerPage;
+  // const inputPageNumberFromState = useContext(Context).states.photoCardState.inputPageNumber;
+  // let lastPage = useContext(Context).states.photoCardState.lastPage;
   const photosPerResponse = 4000;
-  const dispatch = useContext(Context).dispatches.photoCardDispatch;
+  const dispatch = useDispatch();
+  // const dispatch = useContext(Context).dispatches.photoCardDispatch;
   const [request, setRequest] = useState('');
   const requestEndpoint = 'https://www.flickr.com/services/rest/';
   const requestMethod = 'flickr.photos.search';
@@ -63,14 +71,13 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
     props.setIsLoading(false);
-    dispatch({
-      type: 'render-photo-cards',
+    dispatch(renderPhotoCard({
       responseObj,
-      inputSort: watch('inputSort'),
+      inputSort: inputSortFromState,
       inputPhotosPerPage: inputPhotosPerPageFromState,
       inputPageNumber: inputPageNumberFromState,
       lastPage: lastPage,
-    });
+    }));
 
     try {
       if ((await responseObj.stat) === 'ok') {
@@ -90,35 +97,32 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
 
   const handleSortInputChange = (): void => {
     // TODO: Сделать чтобы при изменении сортировки сразу происходил новый поиск
-    dispatch({
-      type: 'save-sort-option',
+    dispatch(saveSortOption({
       responseObj: responseObjfromState as IResponse,
       inputSort: watch('inputSort'),
       inputPhotosPerPage: inputPhotosPerPageFromState,
       inputPageNumber: inputPageNumberFromState,
       lastPage: lastPage,
-    });
+    }));
   };
 
   const handlePhotosPerPageInputChange = (): void => {
     // TODO: Сделать чтобы при изменении количества сразу происходил новый поиск
-    dispatch({
-      type: 'save-photo-per-page',
+    dispatch(savePhotoPerPage({
       responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: +watch('inputPhotosPerPage'),
       inputPageNumber: inputPageNumberFromState,
       lastPage: lastPage,
-    });
+    }));
     lastPage = calculateTotalPage();
-    dispatch({
-      type: 'save-last-page',
+    dispatch(saveLastPage({
       responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: inputPhotosPerPageFromState,
       inputPageNumber: inputPageNumberFromState,
       lastPage: lastPage,
-    });
+    }));
   };
 
   const calculateTotalPage = (): number => {
@@ -127,14 +131,13 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
 
   const handlePageNumberInputChange = (): void => {
     // TODO: Сделать чтобы при изменении страницы сразу происходил новый поиск
-    dispatch({
-      type: 'save-page-number',
+    dispatch(savePageNumber({
       responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: inputPhotosPerPageFromState,
       inputPageNumber: +watch('inputPageNumber'),
       lastPage: lastPage,
-    });
+    }));
   };
 
   return (
