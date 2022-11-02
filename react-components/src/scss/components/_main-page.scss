@@ -14,7 +14,9 @@
 
 .search-tool {
   display: flex;
-  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .main-page__bar {
@@ -31,7 +33,10 @@
   background-color: $bar-bg;
 
   .input-search,
-  .search-btn {
+  .search-btn,
+  .input-sort,
+  .input-photos-per-page,
+  .input-page-number {
     font-family: inherit;
     font-size: inherit;
   }
@@ -39,7 +44,19 @@
   .input-search {
     padding-left: 10px;
     font-weight: inherit;
+  }
+
+  .input-search,
+  .input-sort,
+  .input-photos-per-page,
+  .input-page-number {
     border-radius: 12px;
+  }
+
+  .input-photos-per-page,
+  .input-page-number {
+    width: 50px;
+    padding: 3px 0 3px 15px;
   }
 
   .search-btn {
