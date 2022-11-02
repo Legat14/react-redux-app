@@ -2,14 +2,18 @@ import React, { useRef, useEffect, useContext } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
-import { IAllInputsData, ICheckboxesData } from 'types';
+import { IAllInputsData, ICheckboxesData, RootState } from 'types';
 import AccountForm from './components/AccountForm';
 import createAccountCard from './functions/createAccountCard';
 import Context from 'model/Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAccountCard, deleteAllAccountCards } from 'model/slices/accountCardSlice';
 
 function FormPage(): JSX.Element {
-  const accountCards = useContext(Context).states.accountState.accountCards;
-  const dispatch = useContext(Context).dispatches.accountDispatch;
+  const accountCards = useSelector((state: RootState) => state.accountCard.accountCards);
+  const dispatch = useDispatch();
+  // const accountCards = useContext(Context).states.accountState.accountCards;
+  // const dispatch = useContext(Context).dispatches.accountDispatch;
   const accountForm = useRef<HTMLElement>(null);
   const confirmation = useRef(null);
 
@@ -28,31 +32,25 @@ function FormPage(): JSX.Element {
   const handleSubmit = (inputsData: IAllInputsData, checkboxesData: ICheckboxesData): void => {
     const key = getKey();
     const newAccountCard = createAccountCard(key, inputsData, checkboxesData);
-    dispatch({
-      type: 'add-account-card',
-      newAccountCard,
-    });
+    dispatch(addAccountCard({ newAccountCard }));
     const confirmationDiv = getConfirmation();
     if (confirmationDiv) {
       showCreateCardConfirmation(confirmationDiv);
     }
   };
 
-  const emptyAccountCard = {
-    key: 0,
-    name: '',
-    birthDate: '',
-    gender: '',
-    avatarUrl: '',
-    country: '',
-    devices: '',
-  };
+  // const emptyAccountCard = {
+  //   key: 0,
+  //   name: '',
+  //   birthDate: '',
+  //   gender: '',
+  //   avatarUrl: '',
+  //   country: '',
+  //   devices: '',
+  // };
 
   const handleReset = () => {
-    dispatch({
-      type: 'delete-all-account-cards',
-      newAccountCard: emptyAccountCard,
-    });
+    dispatch(deleteAllAccountCards());
   };
 
   //TODO: Перенести кнопку Reset в форму

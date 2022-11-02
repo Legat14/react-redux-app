@@ -4,7 +4,7 @@ import isEmpty from 'helpers/isEmpty';
 import RenderPhoto from './RenderPhoto';
 import Context from 'model/Context';
 
-function SearchResult(props: {}): JSX.Element {
+function SearchResult(): JSX.Element {
   const responseObj = useContext(Context).states.photoCardState.responseObj;
   const renderSearchResult = (): JSX.Element[] => {
     let photosArr: IPhoto[] = [];

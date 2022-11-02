@@ -9,6 +9,8 @@ import {
   sortOptions,
 } from 'types';
 import Header from './Header';
+import store from '../model/store';
+import { Provider } from 'react-redux';
 
 const accountCardReducer = (
   state: { accountCards: IAccountCard[] },
@@ -92,28 +94,29 @@ function Layout(): JSX.Element {
     title: 'none',
   });
   return (
-    <Context.Provider
-      value={{
-        states: {
-          accountState,
-          photoCardState,
-          detailState,
-        },
-        dispatches: {
-          accountDispatch,
-          photoCardDispatch,
-          detailDispatch,
-        },
-        functions: {
-          highliteLink,
-        },
-      }}
+    <Provider
+      store={store}
+      // value={{
+      //   states: {
+      //     accountState,
+      //     photoCardState,
+      //     detailState,
+      //   },
+      //   dispatches: {
+      //     accountDispatch,
+      //     photoCardDispatch,
+      //     detailDispatch,
+      //   },
+      //   functions: {
+      //     highliteLink,
+      //   },
+      // }}
     >
       <div className="app-conteiner">
         <Header ref={navRef} />
         <Outlet />
       </div>
-    </Context.Provider>
+    </Provider>
   );
 }
 

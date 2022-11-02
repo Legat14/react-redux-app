@@ -1,3 +1,4 @@
+import store from './model/store';
 import { MouseEventHandler } from 'react';
 
 export interface IAccountCard {
@@ -99,3 +100,8 @@ export interface IPhotoCardDispatch {
   inputPageNumber: number;
   lastPage: number;
 }
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
