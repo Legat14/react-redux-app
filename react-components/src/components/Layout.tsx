@@ -64,7 +64,7 @@ import { Provider } from 'react-redux';
 
 function Layout(): JSX.Element {
   const navRef = useRef<HTMLElement>(null);
-
+  
   const highliteLink = (
     linkToHighlite: number,
     nav: HTMLElement | null = navRef.current,
@@ -95,29 +95,37 @@ function Layout(): JSX.Element {
   // });
 
   return (
-    <Provider
-      store={store}
-      // value={{
-      //   states: {
-      //     accountState,
-      //     photoCardState,
-      //     detailState,
-      //   },
-      //   dispatches: {
-      //     accountDispatch,
-      //     photoCardDispatch,
-      //     detailDispatch,
-      //   },
-      //   functions: {
-      //     highliteLink,
-      //   },
-      // }}
+    <Context.Provider
+      value={{
+          functions: {
+            highliteLink,
+          },
+        }}
     >
-      <div className="app-conteiner">
-        <Header ref={navRef} />
-        <Outlet />
-      </div>
-    </Provider>
+      <Provider
+        store={store}
+        // value={{
+        //   states: {
+          //     accountState,
+        //     photoCardState,
+        //     detailState,
+        //   },
+        //   dispatches: {
+          //     accountDispatch,
+        //     photoCardDispatch,
+        //     detailDispatch,
+        //   },
+        //   functions: {
+        //     highliteLink,
+        //   },
+        // }}
+        >
+        <div className="app-conteiner">
+          <Header ref={navRef} />
+          <Outlet />
+        </div>
+      </Provider>
+    </Context.Provider>
   );
 }
 

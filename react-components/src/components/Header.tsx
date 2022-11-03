@@ -14,7 +14,7 @@ function Header(props: {}, ref: React.ForwardedRef<HTMLElement>): JSX.Element {
   }
 
   const highliteLink = useContext(Context).functions.highliteLink;
-  const detailedPhotoId = useContext(Context).states.detailState.id;
+  const detailedPhotoId = useSelector((state: RootState) => state.details.id);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     const target = event.target as HTMLElement;
