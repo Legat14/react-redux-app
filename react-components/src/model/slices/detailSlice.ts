@@ -1,23 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IAccountCard } from 'types'
+import { IDetailContent } from 'types';
 
-export interface AccountCardSlice { accountCards: IAccountCard[] }
+const initialState: IDetailContent = {
+  src: 'none',
+  id: 'none',
+  owner: 'none',
+  server: 'none',
+  title: 'none',
+}
 
-const initialState: AccountCardSlice = { accountCards: [] }
-
-export const accountCardSlice = createSlice({
-  name: 'accountCard',
+export const detailSlice = createSlice({
+  name: 'details',
   initialState,
   reducers: {
-    addAccountCard: (state, action: PayloadAction <{ newAccountCard: IAccountCard }>) => {
-      return { accountCards: [...state.accountCards, action.payload.newAccountCard] };
-    },
-    deleteAllAccountCards: () => {
-      return { accountCards: [] }
+    saveDetailContent: (state, action: PayloadAction <{ newDetailState: IDetailContent }>) => {
+      return { ...action.payload.newDetailState };
     },
   },
 });
 
-export const { addAccountCard, deleteAllAccountCards } = accountCardSlice.actions;
+export const { saveDetailContent } = detailSlice.actions;
 
-export default accountCardSlice.reducer
+export default detailSlice.reducer

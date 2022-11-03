@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import Context from 'model/Context';
 import { Link } from 'react-router-dom';
+import { RootState } from 'types';
+import { useSelector } from 'react-redux';
 
 function DetailPage(): JSX.Element {
-  const detailContent = useContext(Context).states.detailState;
+  const detailContent = useSelector((state: RootState) => state.details);
+  // const detailContent = useContext(Context).states.detailState;
 
   const highliteLink = useContext(Context).functions.highliteLink;
 

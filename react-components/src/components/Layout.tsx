@@ -49,18 +49,18 @@ import { Provider } from 'react-redux';
 //   return state;
 // };
 
-const detailReducer = (
-  state: IDetailContent,
-  action: {
-    type: string;
-    newDetailState: IDetailContent;
-  }
-): IDetailContent => {
-  if (action.type === 'save-detail-content') {
-    return action.newDetailState;
-  }
-  return state;
-};
+// const detailReducer = (
+//   state: IDetailContent,
+//   action: {
+//     type: string;
+//     newDetailState: IDetailContent;
+//   }
+// ): IDetailContent => {
+//   if (action.type === 'save-detail-content') {
+//     return action.newDetailState;
+//   }
+//   return state;
+// };
 
 function Layout(): JSX.Element {
   const navRef = useRef<HTMLElement>(null);
@@ -86,13 +86,14 @@ function Layout(): JSX.Element {
   //   inputPageNumber: 1,
   //   lastPage: 800,
   // });
-  const [detailState, detailDispatch] = useReducer(detailReducer, {
-    src: 'none',
-    id: 'none',
-    owner: 'none',
-    server: 'none',
-    title: 'none',
-  });
+  // const [detailState, detailDispatch] = useReducer(detailReducer, {
+  //   src: 'none',
+  //   id: 'none',
+  //   owner: 'none',
+  //   server: 'none',
+  //   title: 'none',
+  // });
+
   return (
     <Provider
       store={store}

@@ -1,10 +1,14 @@
 import Context from 'model/Context';
 import React, { forwardRef, MouseEvent, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { RootState } from 'types';
 
 function Header(props: {}, ref: React.ForwardedRef<HTMLElement>): JSX.Element {
+
   let detailLink = '/detail';
-  const photoID = useContext(Context).states.detailState.id;
+  const photoID = useSelector((state: RootState) => state.details.id);
+  // const photoID = useContext(Context).states.detailState.id;
   if (photoID === 'none') {
     detailLink = '/';
   }
