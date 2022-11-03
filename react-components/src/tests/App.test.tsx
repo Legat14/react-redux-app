@@ -3,13 +3,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import MainPage from 'components/pages/MainPage/MainPage';
 import Header from 'components/Header';
-import SearchResult from '../components/pages/MainPage/components/SearchResult';
+import { Provider } from 'react-redux';
+import store from 'model/store';
+import Layout from 'components/Layout';
 
 describe('Components', (): void => {
   it('renders React components text in App component', (): void => {
     render(
       <BrowserRouter>
-        <Header />
+        <Provider store={store}>
+          <Header />
+        </Provider>
       </BrowserRouter>
     );
     const reactCompText = screen.getByText(/React hooks/i);
@@ -18,7 +22,9 @@ describe('Components', (): void => {
   it('renders search input in App component', (): void => {
     render(
       <BrowserRouter>
-        <MainPage />
+        <Provider store={store}>
+          <MainPage />
+        </Provider>
       </BrowserRouter>
     );
     const searchInput = screen.getByRole('searchbox');
@@ -27,7 +33,9 @@ describe('Components', (): void => {
   it('renders search button in App component', (): void => {
     render(
       <BrowserRouter>
-        <MainPage />
+        <Provider store={store}>
+          <MainPage />
+        </Provider>
       </BrowserRouter>
     );
     const searchBtn = screen.getByRole('button');
@@ -39,7 +47,9 @@ describe('Get cards test', (): void => {
   it('renders load screen', async (): Promise<void> => {
     render(
       <BrowserRouter>
-        <MainPage />
+        <Provider store={store}>
+          <MainPage />
+        </Provider>
       </BrowserRouter>
     );
     const searchInput = screen.getByRole('searchbox');
@@ -59,7 +69,10 @@ describe('Get cards test', (): void => {
   it('gets and renders cards', async (): Promise<void> => {
     render(
       <BrowserRouter>
-        <MainPage />
+        <Provider store={store}>
+          <Layout />
+          <MainPage />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -79,23 +92,7 @@ describe('Get cards test', (): void => {
         value: 'Dog',
       },
     });
-    fireEvent.input(inputPhotosPerPage, {
-      target: {
-        value: '10',
-      },
-    });
-    fireEvent.input(inputSort, {
-      target: {
-        value: 'none',
-      },
-    });
-    fireEvent.input(inputPageNumber, {
-      target: {
-        value: '1',
-      },
-    });
     fireEvent.click(searchBtn);
-    screen.debug();
     const cards = await screen.findAllByTestId('photo-card');
     expect(cards[0]).toBeInTheDocument();
     fireEvent.click(cards[0]);
