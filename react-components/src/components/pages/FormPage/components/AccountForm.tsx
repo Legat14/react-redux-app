@@ -15,6 +15,7 @@ import { disableSubmit, enableSubmit } from '../functions/toggleSubmitFunctions'
 function AccountForm(
   props: {
     handleSubmit: (inputsData: IAllInputsData, checkboxesData: ICheckboxesData) => void;
+    handleReset: () => void;
   },
   ref: ForwardedRef<HTMLElement>
 ): JSX.Element {
@@ -175,6 +176,9 @@ function AccountForm(
       />
       <DevicesInput ref={devicesInputComp} />
       <SubmitInput ref={submitInput} />
+      <button className="form__reset-btn" type="button" onClick={props.handleReset}>
+        Delete all cards
+      </button>
     </form>
   );
 }

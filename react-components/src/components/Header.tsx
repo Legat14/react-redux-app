@@ -8,7 +8,6 @@ function Header(props: {}, ref: React.ForwardedRef<HTMLElement>): JSX.Element {
 
   let detailLink = '/detail';
   const photoID = useSelector((state: RootState) => state.details.id);
-  // const photoID = useContext(Context).states.detailState.id;
   if (photoID === 'none') {
     detailLink = '/';
   }

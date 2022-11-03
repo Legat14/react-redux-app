@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Context from 'model/Context';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { IPhotoCardState, IResponse, RootState, sortOptions } from 'types';
+import { IResponse, RootState, sortOptions } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
 import { renderPhotoCard, saveLastPage, savePageNumber, savePhotoPerPage, saveSortOption } from 'model/slices/photoCardSlice';
 
@@ -11,14 +10,8 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const inputPhotosPerPageFromState = useSelector((state: RootState) => state.photoCard.inputPhotosPerPage);
   const inputPageNumberFromState = useSelector((state: RootState) => state.photoCard.inputPageNumber);
   let lastPage = useSelector((state: RootState) => state.photoCard.lastPage);
-  // const responseObjfromState = useContext(Context).states.photoCardState.responseObj;
-  // const inputSortFromState = useContext(Context).states.photoCardState.inputSort;
-  // const inputPhotosPerPageFromState = useContext(Context).states.photoCardState.inputPhotosPerPage;
-  // const inputPageNumberFromState = useContext(Context).states.photoCardState.inputPageNumber;
-  // let lastPage = useContext(Context).states.photoCardState.lastPage;
   const photosPerResponse = 4000;
   const dispatch = useDispatch();
-  // const dispatch = useContext(Context).dispatches.photoCardDispatch;
   const [request, setRequest] = useState('');
   const requestEndpoint = 'https://www.flickr.com/services/rest/';
   const requestMethod = 'flickr.photos.search';
