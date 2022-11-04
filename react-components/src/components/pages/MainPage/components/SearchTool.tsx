@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveLastPage, savePageNumber, savePhotoPerPage, saveSortOption } from 'model/slices/photoCardSlice';
 import { fetchPhotosThunk, renderPhotoCard } from 'model/slices/photosSlice';
 import store from 'model/store';
+import isEmpty from 'helpers/isEmpty';
 
 function SearchTool(): JSX.Element {
   const inputSortFromState = useSelector((state: RootState) => state.photoCard.inputSort);
@@ -70,11 +71,17 @@ function SearchTool(): JSX.Element {
     }));
 
     try {
-      if ((responseObj.stat) === 'ok') { // TODO: Добавить проверку на то, что объект не пустой
+      if (!state.photos.error || isEmpty(responseObj)) {
+        if ((responseObj.stat) === 'ok') {
+        } else {
+          throw new Error('Bad response!');
+        }
       } else {
-        throw new Error('Something went wrong!');
+        throw new Error(state.photos.error);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPhoto, IPhotoCard, IPhotos, IResponse, RootState } from 'types';
+import { IPhoto, IPhotos, IResponse, RootState } from 'types';
 import isEmpty from 'helpers/isEmpty';
 import RenderPhoto from './RenderPhoto';
 import { useSelector } from 'react-redux';

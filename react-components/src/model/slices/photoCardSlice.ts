@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IPhotoCardDispatch, IPhotoCardState, IResponse, sortOptions } from 'types';
+import { IPhotoCardDispatch, IPhotoCardState, sortOptions } from 'types';
 
 const initialState: IPhotoCardState = {
   inputSort: sortOptions.None,

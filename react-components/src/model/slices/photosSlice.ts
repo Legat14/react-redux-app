@@ -32,9 +32,8 @@ const photosSlice = createSlice({
       state.response = action.payload;
     });
     builder.addCase(fetchPhotosThunk.rejected, (state: IPhotosState) => {
-      console.error('Something went wrong!');
       state.isLoading = false;
-      console.log(state.error);
+      state.error = 'Request was rejected!';
     });
     builder.addCase(fetchPhotosThunk.pending, (state: IPhotosState) => {
       state.isLoading = true;
