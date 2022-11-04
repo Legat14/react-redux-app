@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux';
 import accountCardReducer from './slices/accountCardSlice';
 import detailReducer from './slices/detailSlice';
 import photoCardReducer from './slices/photoCardSlice';
@@ -13,8 +12,5 @@ const store = configureStore({
     photos: photosReducer,
   },
 });
-
-export const AppDispatch = typeof store.dispatch;
-export const useAppDispatch = () => useDispatch;
 
 export default store;

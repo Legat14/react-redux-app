@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { AppDispatch, IResponse, RootState, sortOptions } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
-import { renderPhotoCard, saveLastPage, savePageNumber, savePhotoPerPage, saveSortOption } from 'model/slices/photoCardSlice';
-import { fetchPhotos, fetchPhotosThunk } from 'model/slices/photosSlice';
+import { saveLastPage, savePageNumber, savePhotoPerPage, saveSortOption } from 'model/slices/photoCardSlice';
+import { fetchPhotosThunk, renderPhotoCard } from 'model/slices/photosSlice';
+import store from 'model/store';
 
 function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Element {
-  const responseObjfromState = useSelector((state: RootState) => state.photoCard.responseObj);
   const inputSortFromState = useSelector((state: RootState) => state.photoCard.inputSort);
   const inputPhotosPerPageFromState = useSelector((state: RootState) => state.photoCard.inputPhotosPerPage);
   const inputPageNumberFromState = useSelector((state: RootState) => state.photoCard.inputPageNumber);
@@ -62,25 +62,21 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     }
 
     const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}${sortRequest}&per_page=${data.inputPhotosPerPage}&page=${data.inputPageNumber}&format=${format}`;
-    const response = await fetch(requestUrl);
-    const responseObj = await response.json();
     props.setIsLoading(false);
+    await dispatch(fetchPhotosThunk(requestUrl));
+    const state = store.getState();
+    const responseObj = state.photos.response as IResponse & Response;
     dispatch(renderPhotoCard({
-      responseObj,
-      inputSort: inputSortFromState,
-      inputPhotosPerPage: inputPhotosPerPageFromState,
-      inputPageNumber: inputPageNumberFromState,
-      lastPage: lastPage,
+      ...state.photos,
+      response: responseObj
     }));
 
     try {
-      if ((await responseObj.stat) === 'ok') {
-        // TODO: Добавить в state, чтобы обновлялся номер на странице
+      if ((responseObj.stat) === 'ok') { // TODO: Добавить проверку на то, что объект не пустой
       } else {
         throw new Error('Something went wrong!');
       }
     } catch (error) {}
-    dispatch(fetchPhotosThunk(requestUrl));
   };
 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -93,7 +89,6 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const handleSortInputChange = (): void => {
     // TODO: Сделать чтобы при изменении сортировки сразу происходил новый поиск
     dispatch(saveSortOption({
-      responseObj: responseObjfromState as IResponse,
       inputSort: watch('inputSort'),
       inputPhotosPerPage: inputPhotosPerPageFromState,
       inputPageNumber: inputPageNumberFromState,
@@ -104,7 +99,6 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const handlePhotosPerPageInputChange = (): void => {
     // TODO: Сделать чтобы при изменении количества сразу происходил новый поиск
     dispatch(savePhotoPerPage({
-      responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: +watch('inputPhotosPerPage'),
       inputPageNumber: inputPageNumberFromState,
@@ -112,7 +106,6 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     }));
     lastPage = calculateTotalPage();
     dispatch(saveLastPage({
-      responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: inputPhotosPerPageFromState,
       inputPageNumber: inputPageNumberFromState,
@@ -127,7 +120,6 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const handlePageNumberInputChange = (): void => {
     // TODO: Сделать чтобы при изменении страницы сразу происходил новый поиск
     dispatch(savePageNumber({
-      responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: inputPhotosPerPageFromState,
       inputPageNumber: +watch('inputPageNumber'),

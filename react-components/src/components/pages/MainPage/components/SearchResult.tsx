@@ -1,11 +1,11 @@
 import React from 'react';
-import { IPhoto, IPhotos, IResponse, RootState } from 'types';
+import { IPhoto, IPhotoCard, IPhotos, IResponse, RootState } from 'types';
 import isEmpty from 'helpers/isEmpty';
 import RenderPhoto from './RenderPhoto';
 import { useSelector } from 'react-redux';
 
 function SearchResult(): JSX.Element {
-  const responseObj = useSelector((state: RootState) => state.photoCard.responseObj);
+  const responseObj = useSelector((state: RootState): IResponse | {} => state.photos.response);
   const renderSearchResult = (): JSX.Element[] => {
     let photosArr: IPhoto[] = [];
 

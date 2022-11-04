@@ -85,7 +85,6 @@ export enum sortOptions {
 }
 
 export interface IPhotoCardState {
-  responseObj: IResponse | {};
   inputSort: sortOptions;
   inputPhotosPerPage: number;
   inputPageNumber: number;
@@ -93,11 +92,16 @@ export interface IPhotoCardState {
 }
 
 export interface IPhotoCardDispatch {
-  responseObj: IResponse;
   inputSort: sortOptions;
   inputPhotosPerPage: number;
   inputPageNumber: number;
   lastPage: number;
+}
+
+export interface IPhotosState {
+  response: Response;
+  isLoading: boolean;
+  error: string;
 }
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
