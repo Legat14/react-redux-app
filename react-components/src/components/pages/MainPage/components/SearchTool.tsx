@@ -6,7 +6,7 @@ import { saveLastPage, savePageNumber, savePhotoPerPage, saveSortOption } from '
 import { fetchPhotosThunk, renderPhotoCard } from 'model/slices/photosSlice';
 import store from 'model/store';
 
-function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Element {
+function SearchTool(): JSX.Element {
   const inputSortFromState = useSelector((state: RootState) => state.photoCard.inputSort);
   const inputPhotosPerPageFromState = useSelector((state: RootState) => state.photoCard.inputPhotosPerPage);
   const inputPageNumberFromState = useSelector((state: RootState) => state.photoCard.inputPageNumber);
@@ -49,7 +49,6 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     inputPhotosPerPage: string;
     inputPageNumber: string;
   }): Promise<void> => {
-    props.setIsLoading(true);
     const requestArr = data.inputSearch.split(' ');
     const trimmedRequest = requestArr.map((element): string => {
       return element.trim();
@@ -62,7 +61,6 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     }
 
     const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}${sortRequest}&per_page=${data.inputPhotosPerPage}&page=${data.inputPageNumber}&format=${format}`;
-    props.setIsLoading(false);
     await dispatch(fetchPhotosThunk(requestUrl));
     const state = store.getState();
     const responseObj = state.photos.response as IResponse & Response;

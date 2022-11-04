@@ -10,7 +10,6 @@ export const fetchPhotosThunk = createAsyncThunk(
   }
 )
 
-
 const initialState = {
   response: {},
   isLoading: false,
@@ -39,7 +38,6 @@ const photosSlice = createSlice({
     });
     builder.addCase(fetchPhotosThunk.pending, (state: IPhotosState) => {
       state.isLoading = true;
-      console.log('Loading...');
     });
   },
 });
