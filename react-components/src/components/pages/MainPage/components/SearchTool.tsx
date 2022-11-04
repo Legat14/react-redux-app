@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { IResponse, RootState, sortOptions } from 'types';
+import { AppDispatch, IResponse, RootState, sortOptions } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
 import { renderPhotoCard, saveLastPage, savePageNumber, savePhotoPerPage, saveSortOption } from 'model/slices/photoCardSlice';
+import { fetchPhotos, fetchPhotosThunk } from 'model/slices/photosSlice';
 
 function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Element {
   const responseObjfromState = useSelector((state: RootState) => state.photoCard.responseObj);
@@ -11,7 +12,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const inputPageNumberFromState = useSelector((state: RootState) => state.photoCard.inputPageNumber);
   let lastPage = useSelector((state: RootState) => state.photoCard.lastPage);
   const photosPerResponse = 4000;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [request, setRequest] = useState('');
   const requestEndpoint = 'https://www.flickr.com/services/rest/';
   const requestMethod = 'flickr.photos.search';
@@ -79,6 +80,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
         throw new Error('Something went wrong!');
       }
     } catch (error) {}
+    dispatch(fetchPhotosThunk(requestUrl));
   };
 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
