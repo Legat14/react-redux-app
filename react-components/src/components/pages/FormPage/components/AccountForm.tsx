@@ -172,7 +172,9 @@ function AccountForm(
         onBlur={countryInputReg.onBlur}
         ref={countryInputReg.ref}
       />
-      <DevicesInput ref={devicesInputComp} />
+      <DevicesInput
+      isSubmited={isSubmitted}
+      ref={devicesInputComp} />
       <SubmitInput ref={submitInput} />
     </form>
   );
