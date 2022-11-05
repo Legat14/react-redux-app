@@ -173,7 +173,7 @@ function AccountForm(
         ref={countryInputReg.ref}
       />
       <DevicesInput
-      isSubmited={isSubmitted}
+      isSubmitted={isSubmitted}
       ref={devicesInputComp} />
       <SubmitInput ref={submitInput} />
     </form>
