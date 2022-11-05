@@ -10,7 +10,6 @@ import Context from 'model/Context';
 function FormPage(): JSX.Element {
   const accountCards = useContext(Context).states.accountState.accountCards;
   const dispatch = useContext(Context).dispatches.accountDispatch;
-  const accountForm = useRef<HTMLElement>(null);
   const confirmation = useRef(null);
 
   const getKey = (): number => {
@@ -60,7 +59,7 @@ function FormPage(): JSX.Element {
   return (
     <section className="form-page__section">
       <h2>React Forms</h2>
-      <AccountForm handleSubmit={handleSubmit} ref={accountForm} />
+      <AccountForm handleSubmit={handleSubmit} />
       <button className="form-page__reset-btn" onClick={handleReset}>
         Reset
       </button>

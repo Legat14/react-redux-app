@@ -39,7 +39,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     return (): void => {
       localStorage.setItem('searchInput', watch('inputSearch'));
     };
-  }, []);
+  }, [setRequest, setValue, watch]);
 
   const search = async (data: {
     inputSearch: string;
