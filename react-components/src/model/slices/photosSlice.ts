@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { IPhotosState } from 'types';
 
 export const fetchPhotosThunk = createAsyncThunk(
@@ -8,7 +8,7 @@ export const fetchPhotosThunk = createAsyncThunk(
     const responseObj = await response.json();
     return responseObj;
   }
-)
+);
 
 const initialState = {
   response: {},
@@ -20,15 +20,13 @@ const photosSlice = createSlice({
   name: 'photos',
   initialState,
   reducers: {
-    renderPhotoCard: (state: IPhotosState, action: PayloadAction <IPhotosState>) => {
+    renderPhotoCard: (state: IPhotosState, action: PayloadAction<IPhotosState>) => {
       return { ...state, response: action.payload.response };
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchPhotosThunk.fulfilled, (
-      state: IPhotosState,
-      action): void => {
-        state.isLoading = false;
+    builder.addCase(fetchPhotosThunk.fulfilled, (state: IPhotosState, action): void => {
+      state.isLoading = false;
       state.response = action.payload;
     });
     builder.addCase(fetchPhotosThunk.rejected, (state: IPhotosState) => {

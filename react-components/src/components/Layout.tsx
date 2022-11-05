@@ -7,11 +7,8 @@ import { Provider } from 'react-redux';
 
 function Layout(): JSX.Element {
   const navRef = useRef<HTMLElement>(null);
-  
-  const highliteLink = (
-    linkToHighlite: number,
-    nav: HTMLElement | null = navRef.current,
-  ): void => {
+
+  const highliteLink = (linkToHighlite: number, nav: HTMLElement | null = navRef.current): void => {
     if (nav) {
       const linksArr = nav.childNodes;
       linksArr.forEach((link: ChildNode) => {
@@ -24,14 +21,12 @@ function Layout(): JSX.Element {
   return (
     <Context.Provider
       value={{
-          functions: {
-            highliteLink,
-          },
-        }}
+        functions: {
+          highliteLink,
+        },
+      }}
     >
-      <Provider
-        store={store}
-        >
+      <Provider store={store}>
         <div className="app-conteiner">
           <Header ref={navRef} />
           <Outlet />

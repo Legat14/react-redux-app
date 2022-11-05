@@ -18,7 +18,7 @@ function RenderPhoto(photo: IPhoto): JSX.Element {
       onClick={(event) => {
         event.stopPropagation();
         const detailContent = getDetailContent(photo, srcLarge);
-        dispatch( saveDetailContent({ newDetailState: detailContent }) );
+        dispatch(saveDetailContent({ newDetailState: detailContent }));
         highliteLink(1);
       }}
       key={+photo.id}

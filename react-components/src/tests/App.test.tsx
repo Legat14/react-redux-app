@@ -95,6 +95,5 @@ describe('Get cards test', (): void => {
     fireEvent.click(searchBtn);
     const cards = await screen.findAllByTestId('photo-card');
     expect(cards[0]).toBeInTheDocument();
-    fireEvent.click(cards[0]);
   });
 });

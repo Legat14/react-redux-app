@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDetailContent } from 'types';
 
 const initialState: IDetailContent = {
@@ -7,13 +7,13 @@ const initialState: IDetailContent = {
   owner: 'none',
   server: 'none',
   title: 'none',
-}
+};
 
 export const detailSlice = createSlice({
   name: 'details',
   initialState,
   reducers: {
-    saveDetailContent: (state, action: PayloadAction <{ newDetailState: IDetailContent }>) => {
+    saveDetailContent: (state, action: PayloadAction<{ newDetailState: IDetailContent }>) => {
       return { ...action.payload.newDetailState };
     },
   },
@@ -21,4 +21,4 @@ export const detailSlice = createSlice({
 
 export const { saveDetailContent } = detailSlice.actions;
 
-export default detailSlice.reducer
+export default detailSlice.reducer;

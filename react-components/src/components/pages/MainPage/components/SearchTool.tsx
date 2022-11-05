@@ -2,15 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { AppDispatch, IResponse, RootState, sortOptions } from 'types';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveLastPage, savePageNumber, savePhotoPerPage, saveSortOption } from 'model/slices/photoCardSlice';
+import {
+  saveLastPage,
+  savePageNumber,
+  savePhotoPerPage,
+  saveSortOption,
+} from 'model/slices/photoCardSlice';
 import { fetchPhotosThunk, renderPhotoCard } from 'model/slices/photosSlice';
 import store from 'model/store';
 import isEmpty from 'helpers/isEmpty';
 
 function SearchTool(): JSX.Element {
   const inputSortFromState = useSelector((state: RootState) => state.photoCard.inputSort);
-  const inputPhotosPerPageFromState = useSelector((state: RootState) => state.photoCard.inputPhotosPerPage);
-  const inputPageNumberFromState = useSelector((state: RootState) => state.photoCard.inputPageNumber);
+  const inputPhotosPerPageFromState = useSelector(
+    (state: RootState) => state.photoCard.inputPhotosPerPage
+  );
+  const inputPageNumberFromState = useSelector(
+    (state: RootState) => state.photoCard.inputPageNumber
+  );
   let lastPage = useSelector((state: RootState) => state.photoCard.lastPage);
   const photosPerResponse = 4000;
   const dispatch = useDispatch<AppDispatch>();
@@ -65,14 +74,16 @@ function SearchTool(): JSX.Element {
     await dispatch(fetchPhotosThunk(requestUrl));
     const state = store.getState();
     const responseObj = state.photos.response as IResponse & Response;
-    dispatch(renderPhotoCard({
-      ...state.photos,
-      response: responseObj
-    }));
+    dispatch(
+      renderPhotoCard({
+        ...state.photos,
+        response: responseObj,
+      })
+    );
 
     try {
       if (!state.photos.error || isEmpty(responseObj)) {
-        if ((responseObj.stat) === 'ok') {
+        if (responseObj.stat === 'ok') {
         } else {
           throw new Error('Bad response!');
         }
@@ -93,29 +104,35 @@ function SearchTool(): JSX.Element {
 
   const handleSortInputChange = (): void => {
     // TODO: Сделать чтобы при изменении сортировки сразу происходил новый поиск
-    dispatch(saveSortOption({
-      inputSort: watch('inputSort'),
-      inputPhotosPerPage: inputPhotosPerPageFromState,
-      inputPageNumber: inputPageNumberFromState,
-      lastPage: lastPage,
-    }));
+    dispatch(
+      saveSortOption({
+        inputSort: watch('inputSort'),
+        inputPhotosPerPage: inputPhotosPerPageFromState,
+        inputPageNumber: inputPageNumberFromState,
+        lastPage: lastPage,
+      })
+    );
   };
 
   const handlePhotosPerPageInputChange = (): void => {
     // TODO: Сделать чтобы при изменении количества сразу происходил новый поиск
-    dispatch(savePhotoPerPage({
-      inputSort: inputSortFromState,
-      inputPhotosPerPage: +watch('inputPhotosPerPage'),
-      inputPageNumber: inputPageNumberFromState,
-      lastPage: lastPage,
-    }));
+    dispatch(
+      savePhotoPerPage({
+        inputSort: inputSortFromState,
+        inputPhotosPerPage: +watch('inputPhotosPerPage'),
+        inputPageNumber: inputPageNumberFromState,
+        lastPage: lastPage,
+      })
+    );
     lastPage = calculateTotalPage();
-    dispatch(saveLastPage({
-      inputSort: inputSortFromState,
-      inputPhotosPerPage: inputPhotosPerPageFromState,
-      inputPageNumber: inputPageNumberFromState,
-      lastPage: lastPage,
-    }));
+    dispatch(
+      saveLastPage({
+        inputSort: inputSortFromState,
+        inputPhotosPerPage: inputPhotosPerPageFromState,
+        inputPageNumber: inputPageNumberFromState,
+        lastPage: lastPage,
+      })
+    );
   };
 
   const calculateTotalPage = (): number => {
@@ -124,12 +141,14 @@ function SearchTool(): JSX.Element {
 
   const handlePageNumberInputChange = (): void => {
     // TODO: Сделать чтобы при изменении страницы сразу происходил новый поиск
-    dispatch(savePageNumber({
-      inputSort: inputSortFromState,
-      inputPhotosPerPage: inputPhotosPerPageFromState,
-      inputPageNumber: +watch('inputPageNumber'),
-      lastPage: lastPage,
-    }));
+    dispatch(
+      savePageNumber({
+        inputSort: inputSortFromState,
+        inputPhotosPerPage: inputPhotosPerPageFromState,
+        inputPageNumber: +watch('inputPageNumber'),
+        lastPage: lastPage,
+      })
+    );
   };
 
   return (

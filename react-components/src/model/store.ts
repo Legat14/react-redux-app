@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
 import accountCardReducer from './slices/accountCardSlice';
 import detailReducer from './slices/detailSlice';
 import photoCardReducer from './slices/photoCardSlice';

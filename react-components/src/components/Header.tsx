@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { RootState } from 'types';
 
 function Header(props: {}, ref: React.ForwardedRef<HTMLElement>): JSX.Element {
-
   let detailLink = '/detail';
   const photoID = useSelector((state: RootState) => state.details.id);
   if (photoID === 'none') {

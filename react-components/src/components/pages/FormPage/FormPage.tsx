@@ -43,10 +43,7 @@ function FormPage(): JSX.Element {
   return (
     <section className="form-page__section">
       <h2>React Forms</h2>
-      <AccountForm
-        handleSubmit={handleSubmit}
-        handleReset={handleReset}
-        ref={accountForm} />
+      <AccountForm handleSubmit={handleSubmit} handleReset={handleReset} ref={accountForm} />
       <AccountCards cardData={accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>
