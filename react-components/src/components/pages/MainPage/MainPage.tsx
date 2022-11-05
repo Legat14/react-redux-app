@@ -1,6 +1,6 @@
 import SearchResult from './components/SearchResult';
 import SearchTool from './components/SearchTool';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import ModalWindowOverlay from './components/ModalWindowOverlay';
 import ModalWindow from './components/ModalWindow';
 
@@ -9,13 +9,16 @@ function MainPage(): JSX.Element {
   const [modalContent, setModalContent] = useState({});
   const [isOpened, setIsOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const handleClick = useCallback(() => {
+      setIsOpened(false);
+    },
+    [setIsOpened]
+  );
 
   return (
     <section
       className="main-page__section"
-      onClick={() => {
-        setIsOpened(false);
-      }}
+      onClick={handleClick}
     >
       <ModalWindowOverlay isOpened={isOpened} />
       <ModalWindow modalContent={modalContent} setIsOpened={setIsOpened} isOpened={isOpened} />

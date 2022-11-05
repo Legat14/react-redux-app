@@ -1,5 +1,5 @@
 import isEmpty from 'helpers/isEmpty';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { IModalContent } from 'types';
 
 function ModalWindow(props: {
@@ -12,6 +12,11 @@ function ModalWindow(props: {
   if (props.isOpened) {
     modalWindowClass = 'modal-window';
   }
+
+  const handleClick = useCallback(
+    () => props.setIsOpened(false),
+    [props.setIsOpened]
+  )
 
   const fillModal = (): JSX.Element => {
     if(isEmpty(props.modalContent)) {
@@ -57,7 +62,7 @@ function ModalWindow(props: {
           <button
             className="modal-window__colse-btn"
             type="button"
-            onClick={() => props.setIsOpened(false)}
+            onClick={handleClick}
           >
             {'>X<'}
           </button>
