@@ -8,7 +8,6 @@ import createAccountCard from './functions/createAccountCard';
 
 function FormPage(): JSX.Element {
   const [accountCards, setAccountCards] = useState<IAccountCard[] | []>([]);
-  const accountForm = useRef<HTMLElement>(null);
   const confirmation = useRef(null);
 
   const getKey = (): number => {
@@ -39,7 +38,7 @@ function FormPage(): JSX.Element {
   return (
     <section className="form-page__section">
       <h2>React Forms</h2>
-      <AccountForm handleSubmit={handleSubmit} ref={accountForm} />
+      <AccountForm handleSubmit={handleSubmit} />
       <AccountCards cardData={accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>

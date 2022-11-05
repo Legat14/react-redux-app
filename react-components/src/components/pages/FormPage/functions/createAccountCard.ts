@@ -7,7 +7,7 @@ export default function createAccountCard(
   checkboxesData: ICheckboxesData
 ): IAccountCard {
   let gender = 'Male';
-  if (inputsData.genderInput === true) {
+  if (inputsData.genderInput) {
     gender = 'Female';
   }
 

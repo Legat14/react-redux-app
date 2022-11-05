@@ -15,8 +15,7 @@ import { disableSubmit, enableSubmit } from '../functions/toggleSubmitFunctions'
 function AccountForm(
   props: {
     handleSubmit: (inputsData: IAllInputsData, checkboxesData: ICheckboxesData) => void;
-  },
-  ref: ForwardedRef<HTMLElement>
+  }
 ): JSX.Element {
   const {
     register,
@@ -26,15 +25,15 @@ function AccountForm(
     formState: { errors },
   } = useForm();
 
-  const [isSubmited, setIsSubmited] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect((): void => {
-    if (isSubmited === true) {
+    if (isSubmitted) {
       reset();
       if (submitInput.current) {
         disableSubmit(submitInput.current);
       }
-      setIsSubmited(false);
+      setIsSubmitted(false);
     }
   });
 
@@ -97,7 +96,7 @@ function AccountForm(
     if (devicesInputComp.current) {
       const checkboxesData = devicesInputComp.current.getCheckboxesData();
       props.handleSubmit(inputsData as IAllInputsData, checkboxesData);
-      setIsSubmited(true);
+      setIsSubmitted(true);
     }
   };
 
@@ -179,4 +178,4 @@ function AccountForm(
   );
 }
 
-export default forwardRef(AccountForm);
+export default AccountForm;
