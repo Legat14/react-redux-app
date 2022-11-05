@@ -1,4 +1,4 @@
-import React, { ForwardedRef, useRef, forwardRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import NameInput from '../inputs/NameInput';
 import BirthDateInput from '../inputs/BirthDateInput';
@@ -35,7 +35,7 @@ function AccountForm(
       }
       setIsSubmitted(false);
     }
-  });
+  }, [isSubmitted, reset, setIsSubmitted]);
 
   const devicesInputComp = useRef<IDevicesInputRefs>(null);
   const submitInput = useRef<HTMLInputElement>(null);

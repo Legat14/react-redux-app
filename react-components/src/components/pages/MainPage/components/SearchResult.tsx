@@ -30,8 +30,6 @@ function SearchResult(props: {
     return photoCardsArr;
   }
 
-    const photoCardsArr = renderSearchResult();
-
   return <div className="search-result">{renderSearchResult()}</div>;
 }
 
