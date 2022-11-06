@@ -1,9 +1,15 @@
-import React, { ForwardedRef, forwardRef, useImperativeHandle } from 'react';
+import React, { ForwardedRef, forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
 import { ICheckboxesData, IDevicesInputRefs } from 'types';
 
-function DevicesInput(props: {}, ref: ForwardedRef<IDevicesInputRefs>): JSX.Element {
-  const { register, watch } = useForm();
+function DevicesInput(props: { isSubmitted: boolean }, ref: ForwardedRef<IDevicesInputRefs>): JSX.Element {
+  const { register, watch, reset } = useForm();
+
+  useEffect(() => {
+    if (props.isSubmitted) {
+      reset();
+    }
+  }, [reset, props.isSubmitted]);
 
   useImperativeHandle(ref, () => {
     return {

@@ -42,7 +42,7 @@ function SearchTool(): JSX.Element {
     return (): void => {
       localStorage.setItem('searchInput', watch('inputSearch'));
     };
-  }, []);
+  }, [setRequest, setValue, watch]);
 
   const search = async (data: {
     inputSearch: string;
