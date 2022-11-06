@@ -30,7 +30,7 @@ function SearchTool(): JSX.Element {
     setValue('inputSort', inputSortFromState);
     setValue('inputPhotosPerPage', inputPhotosPerPageFromState.toString());
     setValue('inputPageNumber', inputPageNumberFromState.toString());
-  }, []);
+  }, [inputPageNumberFromState, inputPhotosPerPageFromState, inputSortFromState, setValue]);
 
   useEffect((): (() => void) => {
     const localStorageValue = localStorage.getItem('searchInput');
