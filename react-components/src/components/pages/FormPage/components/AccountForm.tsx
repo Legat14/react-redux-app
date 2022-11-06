@@ -1,4 +1,4 @@
-import React, { ForwardedRef, useRef, forwardRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import NameInput from '../inputs/NameInput';
 import BirthDateInput from '../inputs/BirthDateInput';
@@ -16,8 +16,7 @@ function AccountForm(
   props: {
     handleSubmit: (inputsData: IAllInputsData, checkboxesData: ICheckboxesData) => void;
     handleReset: () => void;
-  },
-  ref: ForwardedRef<HTMLElement>
+  }
 ): JSX.Element {
   const {
     register,
@@ -27,17 +26,17 @@ function AccountForm(
     formState: { errors },
   } = useForm();
 
-  const [isSubmited, setIsSubmited] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect((): void => {
-    if (isSubmited === true) {
+    if (isSubmitted) {
       reset();
       if (submitInput.current) {
         disableSubmit(submitInput.current);
       }
-      setIsSubmited(false);
+      setIsSubmitted(false);
     }
-  });
+  }, [isSubmitted, reset, setIsSubmitted]);
 
   const devicesInputComp = useRef<IDevicesInputRefs>(null);
   const submitInput = useRef<HTMLInputElement>(null);
@@ -98,7 +97,7 @@ function AccountForm(
     if (devicesInputComp.current) {
       const checkboxesData = devicesInputComp.current.getCheckboxesData();
       props.handleSubmit(inputsData as IAllInputsData, checkboxesData);
-      setIsSubmited(true);
+      setIsSubmitted(true);
     }
   };
 
@@ -174,7 +173,9 @@ function AccountForm(
         onBlur={countryInputReg.onBlur}
         ref={countryInputReg.ref}
       />
-      <DevicesInput ref={devicesInputComp} />
+      <DevicesInput
+      isSubmitted={isSubmitted}
+      ref={devicesInputComp} />
       <SubmitInput ref={submitInput} />
       <button className="form__reset-btn" type="button" onClick={props.handleReset}>
         Delete all cards
@@ -183,4 +184,4 @@ function AccountForm(
   );
 }
 
-export default forwardRef(AccountForm);
+export default AccountForm;

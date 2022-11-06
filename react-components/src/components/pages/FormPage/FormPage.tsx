@@ -11,7 +11,6 @@ import { addAccountCard, deleteAllAccountCards } from 'model/slices/accountCardS
 function FormPage(): JSX.Element {
   const accountCards = useSelector((state: RootState) => state.accountCard.accountCards);
   const dispatch = useDispatch();
-  const accountForm = useRef<HTMLElement>(null);
   const confirmation = useRef(null);
 
   const getKey = (): number => {
@@ -43,7 +42,10 @@ function FormPage(): JSX.Element {
   return (
     <section className="form-page__section">
       <h2>React Forms</h2>
-      <AccountForm handleSubmit={handleSubmit} handleReset={handleReset} ref={accountForm} />
+      <AccountForm
+        handleSubmit={handleSubmit}
+        handleReset={handleReset}
+      />
       <AccountCards cardData={accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>
