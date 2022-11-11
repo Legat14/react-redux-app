@@ -2,7 +2,7 @@ import React, { useRef, useContext } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
-import { IAllInputsData, ICheckboxesData } from 'types';
+import { AccountCardActionType, IAllInputsData, ICheckboxesData } from 'types';
 import AccountForm from './components/AccountForm';
 import createAccountCard from './functions/createAccountCard';
 import Context from 'store/Context';
@@ -28,7 +28,7 @@ function FormPage(): JSX.Element {
     const key = getKey();
     const newAccountCard = createAccountCard(key, inputsData, checkboxesData);
     dispatch({
-      type: 'add-account-card',
+      type: AccountCardActionType.AddAccountCard,
       newAccountCard,
     });
     const confirmationDiv = getConfirmation();
@@ -49,7 +49,7 @@ function FormPage(): JSX.Element {
 
   const handleReset = () => {
     dispatch({
-      type: 'delete-all-account-cards',
+      type: AccountCardActionType.DeleteAccountCard,
       newAccountCard: emptyAccountCard,
     });
   };

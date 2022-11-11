@@ -92,10 +92,27 @@ export interface IPhotoCardState {
 }
 
 export interface IPhotoCardDispatch {
-  type: string;
+  type: PhotoCardActionType;
   responseObj: IResponse;
   inputSort: sortOptions;
   inputPhotosPerPage: number;
   inputPageNumber: number;
   lastPage: number;
+}
+
+export enum AccountCardActionType {
+  AddAccountCard = 'add-account-card',
+  DeleteAccountCard = 'delete-all-account-cards',
+}
+
+export enum PhotoCardActionType {
+  RenderPhotoCards = 'render-photo-cards',
+  SaveSortOption = 'save-sort-option',
+  SavePhotoPerPage = 'save-photo-per-page',
+  SavePageNumber = 'save-page-number',
+  SaveLastPage = 'save-last-page',
+}
+
+export enum DetailType {
+  SaveDetailContent = 'save-detail-content',
 }

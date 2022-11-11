@@ -1,5 +1,7 @@
 import { createContext, Dispatch } from 'react';
 import {
+  AccountCardActionType,
+  DetailType,
   IAccountCard,
   IDetailContent,
   IPhotoCardDispatch,
@@ -15,12 +17,12 @@ const Context = createContext<{
   };
   dispatches: {
     accountDispatch: Dispatch<{
-      type: string;
+      type: AccountCardActionType;
       newAccountCard: IAccountCard;
     }>;
     photoCardDispatch: Dispatch<IPhotoCardDispatch>;
     detailDispatch: Dispatch<{
-      type: string;
+      type: DetailType;
       newDetailState: IDetailContent;
     }>;
   };

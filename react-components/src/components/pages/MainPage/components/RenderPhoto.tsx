@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PhotoCard from './PhotoCard';
-import { IPhoto } from 'types';
+import { DetailType, IPhoto } from 'types';
 import getDetailContent from '../functions/getDeteilContent';
 import Context from 'store/Context';
 
@@ -16,7 +16,7 @@ function RenderPhoto(photo: IPhoto): JSX.Element {
       onClick={(event) => {
         event.stopPropagation();
         const detailContent = getDetailContent(photo, srcLarge);
-        dispatch({ type: 'save-detail-content', newDetailState: detailContent });
+        dispatch({ type: DetailType.SaveDetailContent, newDetailState: detailContent });
         highliteLink(1);
       }}
       key={+photo.id}

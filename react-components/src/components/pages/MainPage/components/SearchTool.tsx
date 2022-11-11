@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Context from 'store/Context';
 import { useForm } from 'react-hook-form';
-import { IResponse, sortOptions } from 'types';
+import { IResponse, PhotoCardActionType, sortOptions } from 'types';
 
 function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Element {
   const responseObjfromState = useContext(Context).states.photoCardState.responseObj;
@@ -64,7 +64,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     const responseObj = await response.json();
     props.setIsLoading(false);
     dispatch({
-      type: 'render-photo-cards',
+      type: PhotoCardActionType.RenderPhotoCards,
       responseObj,
       inputSort: watch('inputSort'),
       inputPhotosPerPage: inputPhotosPerPageFromState,
@@ -91,7 +91,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const handleSortInputChange = (): void => {
     // TODO: Сделать чтобы при изменении сортировки сразу происходил новый поиск
     dispatch({
-      type: 'save-sort-option',
+      type: PhotoCardActionType.SaveSortOption,
       responseObj: responseObjfromState as IResponse,
       inputSort: watch('inputSort'),
       inputPhotosPerPage: inputPhotosPerPageFromState,
@@ -103,7 +103,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const handlePhotosPerPageInputChange = (): void => {
     // TODO: Сделать чтобы при изменении количества сразу происходил новый поиск
     dispatch({
-      type: 'save-photo-per-page',
+      type: PhotoCardActionType.SavePhotoPerPage,
       responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: +watch('inputPhotosPerPage'),
@@ -112,7 +112,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     });
     lastPage = calculateTotalPage();
     dispatch({
-      type: 'save-last-page',
+      type: PhotoCardActionType.SaveLastPage,
       responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: inputPhotosPerPageFromState,
@@ -128,7 +128,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
   const handlePageNumberInputChange = (): void => {
     // TODO: Сделать чтобы при изменении страницы сразу происходил новый поиск
     dispatch({
-      type: 'save-page-number',
+      type: PhotoCardActionType.SavePageNumber,
       responseObj: responseObjfromState as IResponse,
       inputSort: inputSortFromState,
       inputPhotosPerPage: inputPhotosPerPageFromState,
