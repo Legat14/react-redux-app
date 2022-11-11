@@ -7,7 +7,6 @@ function DevicesInput(props: { isSubmitted: boolean }, ref: ForwardedRef<IDevice
 
   useEffect(() => {
     if (props.isSubmitted) {
-      console.log('reset');
       reset();
     }
   }, [reset, props.isSubmitted]);

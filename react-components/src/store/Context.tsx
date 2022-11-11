@@ -18,7 +18,7 @@ const Context = createContext<{
   dispatches: {
     accountDispatch: Dispatch<{
       type: AccountCardActionType;
-      newAccountCard: IAccountCard;
+      newAccountCard?: IAccountCard;
     }>;
     photoCardDispatch: Dispatch<IPhotoCardDispatch>;
     detailDispatch: Dispatch<{

@@ -2,7 +2,7 @@ import { AccountCardActionType, DetailType, IAccountCard, IDetailContent, IPhoto
 
 export const accountCardReducer = (
   state: { accountCards: IAccountCard[] },
-  action: { type: AccountCardActionType; newAccountCard: IAccountCard }
+  action: { type: AccountCardActionType; newAccountCard?: IAccountCard }
 ): { accountCards: IAccountCard[] | [] } => {
   let newState = state;
   switch (action.type) {

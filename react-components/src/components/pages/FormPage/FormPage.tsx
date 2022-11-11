@@ -37,20 +37,9 @@ function FormPage(): JSX.Element {
     }
   };
 
-  const emptyAccountCard = {
-    key: 0,
-    name: '',
-    birthDate: '',
-    gender: '',
-    avatarUrl: '',
-    country: '',
-    devices: '',
-  };
-
   const handleReset = () => {
     dispatch({
       type: AccountCardActionType.DeleteAccountCard,
-      newAccountCard: emptyAccountCard,
     });
   };
 
