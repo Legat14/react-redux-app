@@ -4,37 +4,32 @@ export const accountCardReducer = (
   state: { accountCards: IAccountCard[] },
   action: { type: string; newAccountCard: IAccountCard }
 ): { accountCards: IAccountCard[] | [] } => {
-  if (action.type === 'add-account-card') {
-    // TODO: Создать enum для возможных команд
-    if (action.newAccountCard) {
-      const newAccountCards = [...state.accountCards, action.newAccountCard];
-      return { ...state, accountCards: newAccountCards as IAccountCard[] };
-    }
+  let newState = state;
+  switch (action.type) {
+    case 'add-account-card':
+      // TODO: Создать enum для возможных команд
+      if (action.newAccountCard) {
+        const newAccountCards = [...state.accountCards, action.newAccountCard];
+        newState = { ...state, accountCards: newAccountCards as IAccountCard[] };
+      }
+      break;
+    case 'delete-all-account-cards':
+      newState = { ...state, accountCards: [] };
+      break;
   }
-  if (action.type === 'delete-all-account-cards') {
-    return { ...state, accountCards: [] };
-  }
-  return state;
+  return newState;
 };
 
 export const photoCardReducer = (state: IPhotoCardState, action: IPhotoCardDispatch): IPhotoCardState => {
   // TODO: Добавить возможность очистки страницы
-  if (action.type === 'render-photo-cards') {
-    return { ...state, responseObj: action.responseObj };
+  switch (action.type) {
+    case 'render-photo-cards': return { ...state, responseObj: action.responseObj };
+    case 'save-sort-option': return { ...state, inputSort: action.inputSort };
+    case 'save-photo-per-page': return { ...state, inputPhotosPerPage: action.inputPhotosPerPage };
+    case 'save-page-number': return { ...state, inputPageNumber: action.inputPageNumber };
+    case 'save-last-page': return { ...state, lastPage: action.lastPage };
+    default: return state;
   }
-  if (action.type === 'save-sort-option') {
-    return { ...state, inputSort: action.inputSort };
-  }
-  if (action.type === 'save-photo-per-page') {
-    return { ...state, inputPhotosPerPage: action.inputPhotosPerPage };
-  }
-  if (action.type === 'save-page-number') {
-    return { ...state, inputPageNumber: action.inputPageNumber };
-  }
-  if (action.type === 'save-last-page') {
-    return { ...state, lastPage: action.lastPage };
-  }
-  return state;
 };
 
 export const detailReducer = (
