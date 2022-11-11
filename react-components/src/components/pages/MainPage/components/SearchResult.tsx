@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { IPhoto, IPhotos, IResponse } from 'types';
 import isEmpty from 'helpers/isEmpty';
 import RenderPhoto from './RenderPhoto';
-import Context from 'model/Context';
+import Context from 'store/Context';
 
 function SearchResult(props: {}): JSX.Element {
   const responseObj = useContext(Context).states.photoCardState.responseObj;

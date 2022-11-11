@@ -5,7 +5,7 @@ import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
 import { IAllInputsData, ICheckboxesData } from 'types';
 import AccountForm from './components/AccountForm';
 import createAccountCard from './functions/createAccountCard';
-import Context from 'model/Context';
+import Context from 'store/Context';
 
 function FormPage(): JSX.Element {
   const accountCards = useContext(Context).states.accountState.accountCards;

@@ -1,4 +1,4 @@
-import Context from 'model/Context';
+import Context from 'store/Context';
 import React, { forwardRef, MouseEvent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 

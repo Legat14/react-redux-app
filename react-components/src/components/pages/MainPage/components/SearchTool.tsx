@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Context from 'model/Context';
+import Context from 'store/Context';
 import { useForm } from 'react-hook-form';
 import { IResponse, sortOptions } from 'types';
 

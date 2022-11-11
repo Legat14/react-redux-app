@@ -1,64 +1,9 @@
-import Context from 'model/Context';
+import Context from 'store/Context';
 import React, { useReducer, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
-import {
-  IAccountCard,
-  IDetailContent,
-  IPhotoCardDispatch,
-  IPhotoCardState,
-  sortOptions,
-} from 'types';
+import { sortOptions } from 'types';
 import Header from './Header';
-
-const accountCardReducer = (
-  state: { accountCards: IAccountCard[] },
-  action: { type: string; newAccountCard: IAccountCard }
-): { accountCards: IAccountCard[] | [] } => {
-  if (action.type === 'add-account-card') {
-    // TODO: Создать enum для возможных команд
-    if (action.newAccountCard) {
-      const newAccountCards = [...state.accountCards, action.newAccountCard];
-      return { ...state, accountCards: newAccountCards as IAccountCard[] };
-    }
-  }
-  if (action.type === 'delete-all-account-cards') {
-    return { ...state, accountCards: [] };
-  }
-  return state;
-};
-
-const photoCardReducer = (state: IPhotoCardState, action: IPhotoCardDispatch): IPhotoCardState => {
-  // TODO: Добавить возможность очистки страницы
-  if (action.type === 'render-photo-cards') {
-    return { ...state, responseObj: action.responseObj };
-  }
-  if (action.type === 'save-sort-option') {
-    return { ...state, inputSort: action.inputSort };
-  }
-  if (action.type === 'save-photo-per-page') {
-    return { ...state, inputPhotosPerPage: action.inputPhotosPerPage };
-  }
-  if (action.type === 'save-page-number') {
-    return { ...state, inputPageNumber: action.inputPageNumber };
-  }
-  if (action.type === 'save-last-page') {
-    return { ...state, lastPage: action.lastPage };
-  }
-  return state;
-};
-
-const detailReducer = (
-  state: IDetailContent,
-  action: {
-    type: string;
-    newDetailState: IDetailContent;
-  }
-): IDetailContent => {
-  if (action.type === 'save-detail-content') {
-    return action.newDetailState;
-  }
-  return state;
-};
+import { accountCardReducer, detailReducer, photoCardReducer } from 'store/reducer';
 
 function Layout(): JSX.Element {
   const navRef = useRef<HTMLElement>(null);
@@ -91,6 +36,7 @@ function Layout(): JSX.Element {
     server: 'none',
     title: 'none',
   });
+
   return (
     <Context.Provider
       value={{

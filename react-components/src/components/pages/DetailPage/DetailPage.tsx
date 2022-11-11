@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Context from 'model/Context';
+import Context from 'store/Context';
 import { Link } from 'react-router-dom';
 
 function DetailPage(): JSX.Element {

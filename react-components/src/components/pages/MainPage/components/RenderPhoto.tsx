@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PhotoCard from './PhotoCard';
 import { IPhoto } from 'types';
 import getDetailContent from '../functions/getDeteilContent';
-import Context from 'model/Context';
+import Context from 'store/Context';
 
 function RenderPhoto(photo: IPhoto): JSX.Element {
   const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
