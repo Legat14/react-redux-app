@@ -26,9 +26,6 @@ const Context = createContext<{
       newDetailState: IDetailContent;
     }>;
   };
-  elements: {
-    nav: HTMLElement | null;
-  };
 }>({
   states: {
     accountState: { accountCards: [] },
@@ -51,9 +48,6 @@ const Context = createContext<{
     accountDispatch: () => {},
     photoCardDispatch: () => {},
     detailDispatch: () => {},
-  },
-  elements: {
-    nav: null,
   },
 });
 

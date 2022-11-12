@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 function DetailPage(): JSX.Element {
   const detailContent = useContext(Context).states.detailState;
-  const nav = useContext(Context).elements.nav;
 
   return (
     <section className="detail-page__section" data-testid={'detail-page'}>

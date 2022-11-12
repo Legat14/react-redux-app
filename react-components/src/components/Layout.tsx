@@ -1,12 +1,11 @@
 import Context from 'store/Context';
-import React, { useReducer, useRef } from 'react';
+import React, { useReducer } from 'react';
 import { Outlet } from 'react-router-dom';
 import { sortOptions } from 'types';
 import Header from './Header';
 import { accountCardReducer, detailReducer, photoCardReducer } from 'store/reducer';
 
 function Layout(): JSX.Element {
-  const navRef = useRef<HTMLElement>(null);
 
   const [accountState, accountDispatch] = useReducer(accountCardReducer, { accountCards: [] });
   const [photoCardState, photoCardDispatch] = useReducer(photoCardReducer, {
@@ -37,13 +36,10 @@ function Layout(): JSX.Element {
           photoCardDispatch,
           detailDispatch,
         },
-        elements: {
-          nav: navRef.current,
-        },
       }}
     >
       <div className="app-conteiner">
-        <Header ref={navRef} />
+        <Header />
         <Outlet />
       </div>
     </Context.Provider>

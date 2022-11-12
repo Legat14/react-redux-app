@@ -1,8 +1,8 @@
 import Context from 'store/Context';
-import React, { forwardRef, useContext } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
-function Header(props: {}, ref: React.ForwardedRef<HTMLElement>): JSX.Element {
+function Header(): JSX.Element {
   let detailLink = '/detail';
   const photoID = useContext(Context).states.detailState.id;
   if (photoID === 'none') {
@@ -14,7 +14,7 @@ function Header(props: {}, ref: React.ForwardedRef<HTMLElement>): JSX.Element {
   return (
     <header className="header">
       <h1>React hooks</h1>
-      <nav ref={ref}>
+      <nav>
         <NavLink
           to="/"
           className={({isActive}) => isActive ? activeClassName : undefined}
@@ -41,4 +41,4 @@ function Header(props: {}, ref: React.ForwardedRef<HTMLElement>): JSX.Element {
   );
 }
 
-export default forwardRef(Header);
+export default Header;

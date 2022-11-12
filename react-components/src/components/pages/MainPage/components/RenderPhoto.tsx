@@ -8,7 +8,6 @@ function RenderPhoto(photo: IPhoto): JSX.Element {
   const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
   const srcLarge = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
   const dispatch = useContext(Context).dispatches.detailDispatch;
-  const nav = useContext(Context).elements.nav;
 
   return (
     <PhotoCard
