@@ -26,8 +26,8 @@ const Context = createContext<{
       newDetailState: IDetailContent;
     }>;
   };
-  functions: {
-    highliteLink: (linkToHighlite: number, nav?: HTMLElement) => void;
+  elements: {
+    nav: HTMLElement | null;
   };
 }>({
   states: {
@@ -52,8 +52,8 @@ const Context = createContext<{
     photoCardDispatch: () => {},
     detailDispatch: () => {},
   },
-  functions: {
-    highliteLink: () => {},
+  elements: {
+    nav: null,
   },
 });
 

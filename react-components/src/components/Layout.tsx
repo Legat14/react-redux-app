@@ -8,19 +8,6 @@ import { accountCardReducer, detailReducer, photoCardReducer } from 'store/reduc
 function Layout(): JSX.Element {
   const navRef = useRef<HTMLElement>(null);
 
-  const highliteLink = (
-    linkToHighlite: number,
-    nav: HTMLElement | null = navRef.current,
-  ): void => {
-    if (nav) {
-      const linksArr = nav.childNodes;
-      linksArr.forEach((link: ChildNode) => {
-        (link as HTMLElement).classList.remove('header__link_active_page');
-      });
-      (linksArr[linkToHighlite] as HTMLElement).classList.add('header__link_active_page');
-    }
-  };
-
   const [accountState, accountDispatch] = useReducer(accountCardReducer, { accountCards: [] });
   const [photoCardState, photoCardDispatch] = useReducer(photoCardReducer, {
     responseObj: {},
@@ -50,8 +37,8 @@ function Layout(): JSX.Element {
           photoCardDispatch,
           detailDispatch,
         },
-        functions: {
-          highliteLink,
+        elements: {
+          nav: navRef.current,
         },
       }}
     >
