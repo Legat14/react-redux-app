@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import Context from 'store/Context';
 import { Link } from 'react-router-dom';
-import { highliteLink } from '../MainPage/functions/highliteLink';
 
 function DetailPage(): JSX.Element {
   const detailContent = useContext(Context).states.detailState;
@@ -10,7 +9,7 @@ function DetailPage(): JSX.Element {
   return (
     <section className="detail-page__section" data-testid={'detail-page'}>
       <h2>Details</h2>
-      <Link to="/" onClick={() => { highliteLink(0, nav) }}>⇦ Back to main page</Link>
+      <Link to="/">⇦ Back to main page</Link>
       <div className="detail-page__details">
         <img src={detailContent.src} alt={detailContent.title} />
         <div className="detail-page__description">
