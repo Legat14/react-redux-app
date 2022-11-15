@@ -1,25 +1,31 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { RootState } from 'types';
+import { NavLink } from 'react-router-dom';
 
 function Header(): JSX.Element {
-  let detailLink = '/detail';
-  const photoID = useSelector((state: RootState) => state.details.id);
-  if (photoID === 'none') {
-    detailLink = '/';
-  }
-
   return (
     <header className="header">
       <h1>React hooks</h1>
       <nav>
-        <Link className="header__link_active_page" to="/">
+        <NavLink
+        className={({isActive}) => isActive ? "header__link_active_page" : undefined}
+         to="/"
+         end>
           Main page
-        </Link>
-        <Link to={detailLink}>Details</Link>
-        <Link to="/about">About us</Link>
-        <Link to="/form">React forms</Link>
+        </NavLink>
+        <NavLink
+          to="/about"
+          end
+          className={({isActive}) => isActive ? "header__link_active_page" : undefined}
+        >
+          About us
+        </NavLink>
+        <NavLink
+          to="/form"
+          end
+          className={({isActive}) => isActive ? "header__link_active_page" : undefined}
+        >
+          React forms
+        </NavLink>
       </nav>
     </header>
   );
