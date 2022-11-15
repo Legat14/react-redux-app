@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import FormPage from 'components/pages/FormPage/FormPage';
 import { Provider } from 'react-redux';
-import store from 'model/store';
+import store from 'store/store';
 
 describe('Forms', (): void => {
   it('renders all form components', (): void => {

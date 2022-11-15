@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import PhotoCard from './PhotoCard';
 import { IPhoto } from 'types';
 import getDetailContent from '../functions/getDeteilContent';
-import Context from 'model/Context';
+import Context from 'store/Context';
 import { useDispatch } from 'react-redux';
-import { saveDetailContent } from 'model/slices/detailSlice';
+import { saveDetailContent } from 'store/slices/detailSlice';
 
 function RenderPhoto(photo: IPhoto): JSX.Element {
   const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;

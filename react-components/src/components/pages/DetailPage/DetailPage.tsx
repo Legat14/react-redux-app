@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Context from 'model/Context';
+import Context from 'store/Context';
 import { Link } from 'react-router-dom';
 import { RootState } from 'types';
 import { useSelector } from 'react-redux';

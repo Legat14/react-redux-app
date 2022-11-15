@@ -1,4 +1,4 @@
-import store from './model/store';
+import store from './store/store';
 import { MouseEventHandler } from 'react';
 
 export interface IAccountCard {

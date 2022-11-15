@@ -7,9 +7,9 @@ import {
   savePageNumber,
   savePhotoPerPage,
   saveSortOption,
-} from 'model/slices/photoCardSlice';
-import { fetchPhotosThunk, renderPhotoCard } from 'model/slices/photosSlice';
-import store from 'model/store';
+} from 'store/slices/photoCardSlice';
+import { fetchPhotosThunk, renderPhotoCard } from 'store/slices/photosSlice';
+import store from 'store/store';
 import isEmpty from 'helpers/isEmpty';
 
 function SearchTool(): JSX.Element {

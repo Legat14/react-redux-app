@@ -1,8 +1,8 @@
-import Context from 'model/Context';
+import Context from 'store/Context';
 import React, { useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
-import store from '../model/store';
+import store from '../store/store';
 import { Provider } from 'react-redux';
 
 function Layout(): JSX.Element {

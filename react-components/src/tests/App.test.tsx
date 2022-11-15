@@ -4,7 +4,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import MainPage from 'components/pages/MainPage/MainPage';
 import Header from 'components/Header';
 import { Provider } from 'react-redux';
-import store from 'model/store';
+import store from 'store/store';
 import Layout from 'components/Layout';
 
 describe('Components', (): void => {

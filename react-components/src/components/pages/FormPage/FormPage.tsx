@@ -6,7 +6,7 @@ import { IAllInputsData, ICheckboxesData, RootState } from 'types';
 import AccountForm from './components/AccountForm';
 import createAccountCard from './functions/createAccountCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { addAccountCard, deleteAllAccountCards } from 'model/slices/accountCardSlice';
+import { addAccountCard, deleteAllAccountCards } from 'store/slices/accountCardSlice';
 
 function FormPage(): JSX.Element {
   const accountCards = useSelector((state: RootState) => state.accountCard.accountCards);
