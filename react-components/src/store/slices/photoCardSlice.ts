@@ -13,16 +13,16 @@ export const photoCardSlice = createSlice({
   initialState,
   reducers: {
     saveSortOption: (state: IPhotoCardState, action: PayloadAction<IPhotoCardDispatch>) => {
-      return { ...state, inputSort: action.payload.inputSort };
+      state.inputSort = action.payload.inputSort;
     },
     savePhotoPerPage: (state: IPhotoCardState, action: PayloadAction<IPhotoCardDispatch>) => {
-      return { ...state, inputPhotosPerPage: action.payload.inputPhotosPerPage };
+      state.inputPhotosPerPage = action.payload.inputPhotosPerPage;
     },
     savePageNumber: (state: IPhotoCardState, action: PayloadAction<IPhotoCardDispatch>) => {
-      return { ...state, inputPageNumber: action.payload.inputPageNumber };
+      state.inputPageNumber = action.payload.inputPageNumber;
     },
     saveLastPage: (state: IPhotoCardState, action: PayloadAction<IPhotoCardDispatch>) => {
-      return { ...state, lastPage: action.payload.lastPage };
+      state.lastPage = action.payload.lastPage;
     },
   },
 });

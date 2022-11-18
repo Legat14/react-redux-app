@@ -12,10 +12,10 @@ export const accountCardSlice = createSlice({
   initialState,
   reducers: {
     addAccountCard: (state, action: PayloadAction<{ newAccountCard: IAccountCard }>) => {
-      return { accountCards: [...state.accountCards, action.payload.newAccountCard] };
+      state.accountCards.push(action.payload.newAccountCard);
     },
-    deleteAllAccountCards: () => {
-      return { accountCards: [] };
+    deleteAllAccountCards: (state) => {
+      state.accountCards = [];
     },
   },
 });

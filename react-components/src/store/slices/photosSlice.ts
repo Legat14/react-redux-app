@@ -21,7 +21,7 @@ const photosSlice = createSlice({
   initialState,
   reducers: {
     renderPhotoCard: (state: IPhotosState, action: PayloadAction<IPhotosState>) => {
-      return { ...state, response: action.payload.response };
+      state.response = action.payload.response;
     },
   },
   extraReducers: (builder) => {

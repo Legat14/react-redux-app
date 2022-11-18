@@ -14,7 +14,11 @@ export const detailSlice = createSlice({
   initialState,
   reducers: {
     saveDetailContent: (state, action: PayloadAction<{ newDetailState: IDetailContent }>) => {
-      return { ...action.payload.newDetailState };
+      state.id = action.payload.newDetailState.id;
+      state.owner = action.payload.newDetailState.owner;
+      state.server = action.payload.newDetailState.server;
+      state.src = action.payload.newDetailState.src;
+      state.title = action.payload.newDetailState.title;
     },
   },
 });
