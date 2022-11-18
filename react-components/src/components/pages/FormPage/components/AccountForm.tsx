@@ -12,12 +12,10 @@ import { ErrorMessage } from '@hookform/error-message';
 import { validateDate } from '../functions/validateDate';
 import { disableSubmit, enableSubmit } from '../functions/toggleSubmitFunctions';
 
-function AccountForm(
-  props: {
-    handleSubmit: (inputsData: IAllInputsData, checkboxesData: ICheckboxesData) => void;
-    handleReset: () => void;
-  }
-): JSX.Element {
+function AccountForm(props: {
+  handleSubmit: (inputsData: IAllInputsData, checkboxesData: ICheckboxesData) => void;
+  handleReset: () => void;
+}): JSX.Element {
   const {
     register,
     handleSubmit,
@@ -173,9 +171,7 @@ function AccountForm(
         onBlur={countryInputReg.onBlur}
         ref={countryInputReg.ref}
       />
-      <DevicesInput
-      isSubmitted={isSubmitted}
-      ref={devicesInputComp} />
+      <DevicesInput isSubmitted={isSubmitted} ref={devicesInputComp} />
       <SubmitInput ref={submitInput} />
       <button className="form__reset-btn" type="button" onClick={props.handleReset}>
         Delete all cards

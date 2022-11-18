@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
@@ -12,10 +12,25 @@ function FormPage(): JSX.Element {
   const accountCards = useSelector((state: RootState) => state.accountCard.accountCards);
   const dispatch = useDispatch();
   const confirmation = useRef(null);
+  const handleResetCallback = useCallback((): void => {
+    dispatch(deleteAllAccountCards());
+  }, [dispatch]);
 
-  const getKey = (): number => {
-    return accountCards.length;
-  };
+  const handleSubmitCallback = useCallback(
+    (inputsData: IAllInputsData, checkboxesData: ICheckboxesData): void => {
+      const getKey = (): number => {
+        return accountCards.length;
+      };
+      const key = getKey();
+      const newAccountCard = createAccountCard(key, inputsData, checkboxesData);
+      dispatch(addAccountCard({ newAccountCard }));
+      const confirmationDiv = getConfirmation();
+      if (confirmationDiv) {
+        showCreateCardConfirmation(confirmationDiv);
+      }
+    },
+    [dispatch, accountCards.length]
+  );
 
   const getConfirmation = (): HTMLDivElement | null => {
     let confirmationElement = null;
@@ -25,27 +40,10 @@ function FormPage(): JSX.Element {
     return confirmationElement;
   };
 
-  const handleSubmit = (inputsData: IAllInputsData, checkboxesData: ICheckboxesData): void => {
-    const key = getKey();
-    const newAccountCard = createAccountCard(key, inputsData, checkboxesData);
-    dispatch(addAccountCard({ newAccountCard }));
-    const confirmationDiv = getConfirmation();
-    if (confirmationDiv) {
-      showCreateCardConfirmation(confirmationDiv);
-    }
-  };
-
-  const handleReset = () => {
-    dispatch(deleteAllAccountCards());
-  };
-
   return (
     <section className="form-page__section">
       <h2>React Forms</h2>
-      <AccountForm
-        handleSubmit={handleSubmit}
-        handleReset={handleReset}
-      />
+      <AccountForm handleSubmit={handleSubmitCallback} handleReset={handleResetCallback} />
       <AccountCards cardData={accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>

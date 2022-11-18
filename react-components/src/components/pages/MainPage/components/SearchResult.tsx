@@ -23,7 +23,6 @@ function SearchResult(): JSX.Element {
     let photoCardsArr: Array<JSX.Element> = [];
     if (photosArr.length > 0) {
       photoCardsArr = photosArr.map((photo: IPhoto): JSX.Element => {
-
         const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
         const srcLarge = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
 
