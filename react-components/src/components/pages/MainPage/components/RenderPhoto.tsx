@@ -1,23 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PhotoCard from './PhotoCard';
-import { IModalContent, IPhoto } from 'types';
-import getModalContent from '../functions/getModalContent';
+import { DetailType, IPhoto } from 'types';
+import getDetailContent from '../functions/getDeteilContent';
+import Context from 'store/Context';
 
-function RenderPhoto(
-  photo: IPhoto,
-  setModalContent: (modalContent: IModalContent) => void,
-  setIsOpened: (value: boolean) => void
-): JSX.Element {
+function RenderPhoto(photo: IPhoto): JSX.Element {
   const srcMedium = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_z.jpg`;
   const srcLarge = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
+  const dispatch = useContext(Context).dispatches.detailDispatch;
 
   return (
     <PhotoCard
       onClick={(event) => {
         event.stopPropagation();
-        const modalContent = getModalContent(photo, srcLarge);
-        setModalContent(modalContent);
-        setIsOpened(true);
+        const detailContent = getDetailContent(photo, srcLarge);
+        dispatch({ type: DetailType.SaveDetailContent, newDetailState: detailContent });
       }}
       key={+photo.id}
       src={srcMedium}

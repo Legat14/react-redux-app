@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import MainPage from 'components/pages/MainPage/MainPage';
 import Header from 'components/Header';
-import SearchResult from '../components/pages/MainPage/components/SearchResult';
 
 describe('Components', (): void => {
   it('renders React components text in App component', (): void => {
@@ -12,7 +11,7 @@ describe('Components', (): void => {
         <Header />
       </BrowserRouter>
     );
-    const reactCompText = screen.getByText(/React components/i);
+    const reactCompText = screen.getByText(/React hooks/i);
     expect(reactCompText).toBeInTheDocument();
   });
   it('renders search input in App component', (): void => {
@@ -62,21 +61,42 @@ describe('Get cards test', (): void => {
         <MainPage />
       </BrowserRouter>
     );
-    const searchInput = screen.getByRole('searchbox');
-    const searchBtn = screen.getByRole('button');
+
+    const searchInput = screen.getByTestId('search-input');
+    expect(searchInput).toBeInTheDocument();
+    const inputSort = screen.getByTestId('input-sort');
+    expect(inputSort).toBeInTheDocument();
+    const inputPhotosPerPage = screen.getByTestId('input-photos-per-page');
+    expect(inputPhotosPerPage).toBeInTheDocument();
+    const inputPageNumber = screen.getByTestId('input-page-number');
+    expect(inputPageNumber).toBeInTheDocument();
+    const searchBtn = screen.getByTestId('search-btn');
+    expect(searchBtn).toBeInTheDocument();
+
     fireEvent.input(searchInput, {
       target: {
         value: 'Dog',
       },
     });
-    let modal = screen.queryByTestId('modal-window');
-    expect(modal).toBeNull();
+    fireEvent.input(inputPhotosPerPage, {
+      target: {
+        value: '10',
+      },
+    });
+    fireEvent.input(inputSort, {
+      target: {
+        value: 'none',
+      },
+    });
+    fireEvent.input(inputPageNumber, {
+      target: {
+        value: '1',
+      },
+    });
     fireEvent.click(searchBtn);
     screen.debug();
     const cards = await screen.findAllByTestId('photo-card');
     expect(cards[0]).toBeInTheDocument();
     fireEvent.click(cards[0]);
-    modal = screen.getByTestId('modal-window');
-    expect(modal).toBeInTheDocument();
   });
 });

@@ -45,7 +45,7 @@ export interface IPhotoCard {
   owner: string;
 }
 
-export interface IModalContent {
+export interface IDetailContent {
   src: string;
   id: string;
   owner: string;
@@ -70,4 +70,49 @@ export interface ICheckboxesData {
   ps5Checkbox: boolean;
   XboxCheckbox: boolean;
   switchCheckbox: boolean;
+}
+
+export enum sortOptions {
+  None = 'none',
+  DatePostedAsc = 'date-posted-asc',
+  DatePostedDesc = 'date-posted-desc',
+  DateTakenAsc = 'date-taken-asc',
+  DateTakendDesc = 'date-taken-desc',
+  InterestingnessAsc = 'interestingness-asc',
+  InterestingnessDesc = 'interestingness-desc',
+  Relevance = 'relevance',
+}
+
+export interface IPhotoCardState {
+  responseObj: IResponse | {};
+  inputSort: sortOptions;
+  inputPhotosPerPage: number;
+  inputPageNumber: number;
+  lastPage: number;
+}
+
+export interface IPhotoCardDispatch {
+  type: PhotoCardActionType;
+  responseObj: IResponse;
+  inputSort: sortOptions;
+  inputPhotosPerPage: number;
+  inputPageNumber: number;
+  lastPage: number;
+}
+
+export enum AccountCardActionType {
+  AddAccountCard = 'add-account-card',
+  DeleteAccountCard = 'delete-all-account-cards',
+}
+
+export enum PhotoCardActionType {
+  RenderPhotoCards = 'render-photo-cards',
+  SaveSortOption = 'save-sort-option',
+  SavePhotoPerPage = 'save-photo-per-page',
+  SavePageNumber = 'save-page-number',
+  SaveLastPage = 'save-last-page',
+}
+
+export enum DetailType {
+  SaveDetailContent = 'save-detail-content',
 }
