@@ -1,11 +1,4 @@
-export interface IGameCard {
-  key: number;
-  title: string;
-  price: string;
-  platform: string;
-  release: string;
-  img: string;
-}
+import { MouseEventHandler } from 'react';
 
 export interface IAccountCard {
   key: number;
@@ -16,6 +9,49 @@ export interface IAccountCard {
   avatarUrl: string;
   country: string;
   devices: string;
+}
+
+export interface IPhoto {
+  farm: number;
+  id: string;
+  isfamily: number;
+  isfreind: number;
+  ispublic: number;
+  owner: string;
+  secret: string;
+  server: string;
+  title: string;
+}
+
+export interface IPhotos {
+  page: number;
+  pages: number;
+  perpage: number;
+  photo: Array<IPhoto>;
+  total: number;
+}
+
+export interface IResponse {
+  stat: string;
+  photos?: IPhotos;
+  code?: number;
+  message?: string;
+}
+
+export interface IPhotoCard {
+  onClick: MouseEventHandler<HTMLDivElement>;
+  key: number;
+  src: string;
+  title: string;
+  owner: string;
+}
+
+export interface IModalContent {
+  src: string;
+  id: string;
+  owner: string;
+  server: string;
+  title: string;
 }
 
 export interface IAccountFormInputs {

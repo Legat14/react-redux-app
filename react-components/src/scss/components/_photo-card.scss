@@ -1,0 +1,67 @@
+.photo-card {
+  position: relative;
+  width: 640px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 7px 10px #000000;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+  }
+
+  h3,
+  h4 {
+    font-family: $heading-font;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 25px;
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+}
+
+.photo-card__small-info {
+  max-width: 620px;
+  position: absolute;
+  right: 0;
+  padding: 20px 30px;
+  margin-left: 20px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 15px;
+  font-family: $common-text-font;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  background: linear-gradient(to left, $description-bg1, $description-bg2);
+  border-radius: 20px 0 0 20px;
+
+  strong {
+    font-family: $common-text-font;
+    font-weight: 700;
+    color: $title-highlight;
+  }
+}
+
+.photo-card:hover > .photo-card__small-info {
+  display: flex;
+  animation: appearance 0.5s;
+}
+
+@keyframes appearance {
+  from {
+    right: -620px;
+  }
+  to {
+    right: 0;
+  }
+}

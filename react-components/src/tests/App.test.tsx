@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import MainPage from 'components/pages/MainPage/MainPage';
 import Header from 'components/Header';
 import SearchResult from '../components/pages/MainPage/components/SearchResult';
@@ -35,55 +35,45 @@ describe('Components', (): void => {
   });
 });
 
-describe('Cards quantity', (): void => {
-  it('renders all cards', (): void => {
-    render(<SearchResult />);
-    const cards = screen.getAllByText(/Platform:/i);
-    expect(cards.length).toBeGreaterThanOrEqual(6);
+describe('Get cards test', (): void => {
+  it('renders load screen', async (): Promise<void> => {
+    render(
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    );
+    const searchInput = screen.getByRole('searchbox');
+    const searchBtn = screen.getByRole('button');
+    fireEvent.input(searchInput, {
+      target: {
+        value: 'Dog',
+      },
+    });
+    fireEvent.click(searchBtn);
+    const loadingScreen = await screen.findByAltText('loading...');
+    expect(loadingScreen).toBeInTheDocument();
   });
-});
 
-describe('Card content', (): void => {
-  it('renders all card content', (): void => {
-    render(<SearchResult />);
-    let isTruthy = true;
-    const headings = screen.getAllByRole('heading');
-    headings.forEach((heading) => {
-      if (!heading.innerHTML.replace(' ₽', '')) {
-        isTruthy = false;
-      }
+  it('gets and renders cards', async (): Promise<void> => {
+    render(
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    );
+    const searchInput = screen.getByRole('searchbox');
+    const searchBtn = screen.getByRole('button');
+    fireEvent.input(searchInput, {
+      target: {
+        value: 'Dog',
+      },
     });
-
-    const img = screen.getAllByRole('img');
-    img.forEach((img) => {
-      if (!img.getAttribute('src')) {
-        isTruthy = false;
-      }
-    });
-
-    const platform = screen.getAllByText(/Platform:/i);
-    platform.forEach((cardPlatform) => {
-      const currentCardPlatform = cardPlatform.nextElementSibling;
-      if (!currentCardPlatform) {
-        isTruthy = false;
-      }
-      const currentCardPlatformContent = currentCardPlatform?.innerHTML;
-      if (!currentCardPlatformContent) {
-        isTruthy = false;
-      }
-    });
-
-    const release = screen.getAllByText(/Release date:/i);
-    release.forEach((cardRelease) => {
-      const currentCardRelease = cardRelease.nextElementSibling;
-      if (!currentCardRelease) {
-        isTruthy = false;
-      }
-      const currentCardReleaseContent = currentCardRelease?.innerHTML;
-      if (!currentCardReleaseContent) {
-        isTruthy = false;
-      }
-    });
-    expect(isTruthy).toBeTruthy();
+    let modal = screen.queryByTestId('modal-window');
+    expect(modal).toBeNull();
+    fireEvent.click(searchBtn);
+    const cards = await screen.findAllByTestId('photo-card');
+    expect(cards[0]).toBeInTheDocument();
+    fireEvent.click(cards[0]);
+    modal = screen.getByTestId('modal-window');
+    expect(modal).toBeInTheDocument();
   });
 });
