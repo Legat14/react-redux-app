@@ -5,7 +5,6 @@ export interface IAccountCard {
   name: string;
   birthDate: string;
   gender: string;
-  avatar: string;
   avatarUrl: string;
   country: string;
   devices: string;
@@ -54,15 +53,21 @@ export interface IModalContent {
   title: string;
 }
 
-export interface IAccountFormInputs {
-  'name-input': HTMLInputElement,
-  'date-input': HTMLInputElement,
-  'gender-input': HTMLInputElement,
-  'avatar-input': HTMLInputElement,
-  'country-input': HTMLSelectElement,
-  'pc': HTMLInputElement,
-  'ps5': HTMLInputElement,
-  'Xbox': HTMLInputElement,
-  'switch': HTMLInputElement,
-  'submit-input': HTMLInputElement,
+export interface IAllInputsData {
+  nameInput: string;
+  birthDateInput: string;
+  genderInput: boolean;
+  avatarInput: FileList;
+  countryInput: string;
+}
+
+export interface IDevicesInputRefs {
+  getCheckboxesData: () => ICheckboxesData;
+}
+
+export interface ICheckboxesData {
+  pcCheckbox: boolean;
+  ps5Checkbox: boolean;
+  XboxCheckbox: boolean;
+  switchCheckbox: boolean;
 }

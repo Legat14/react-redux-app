@@ -50,7 +50,9 @@ describe('Get cards test', (): void => {
       },
     });
     fireEvent.click(searchBtn);
+    screen.debug();
     const loadingScreen = await screen.findByAltText('loading...');
+
     expect(loadingScreen).toBeInTheDocument();
   });
 
@@ -70,6 +72,7 @@ describe('Get cards test', (): void => {
     let modal = screen.queryByTestId('modal-window');
     expect(modal).toBeNull();
     fireEvent.click(searchBtn);
+    screen.debug();
     const cards = await screen.findAllByTestId('photo-card');
     expect(cards[0]).toBeInTheDocument();
     fireEvent.click(cards[0]);

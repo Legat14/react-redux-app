@@ -2,7 +2,7 @@ import React from 'react';
 import { IAccountCard } from 'types';
 import AccountCard from './AccountCard';
 
-function AccountCards(props: {cardData: IAccountCard[]}): JSX.Element {
+function AccountCards(props: { cardData: IAccountCard[] }): JSX.Element {
   const cardsArr = props.cardData.map((element): JSX.Element => {
     return (
       <AccountCard
@@ -10,7 +10,6 @@ function AccountCards(props: {cardData: IAccountCard[]}): JSX.Element {
         name={element.name}
         birthDate={element.birthDate}
         gender={element.gender}
-        avatar={element.avatar}
         avatarUrl={element.avatarUrl}
         country={element.country}
         devices={element.devices}

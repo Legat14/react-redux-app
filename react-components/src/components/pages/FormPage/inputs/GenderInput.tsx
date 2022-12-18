@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
+import { ChangeHandler } from 'react-hook-form';
 
-class SwitcherInput extends React.Component {
-  public switcher: React.RefObject<HTMLInputElement>;
-
-  constructor(props: {}) {
-    super(props);
-    this.switcher = React.createRef();
-  }
-
-  render(): JSX.Element {
+const GenderInput = forwardRef(
+  (
+    props: { onChange: ChangeHandler; onBlur: ChangeHandler; name: string },
+    ref: ForwardedRef<HTMLInputElement>
+  ): JSX.Element => {
     return (
       <div className="gender__div">
         <h4>Choose youre gender</h4>
@@ -16,9 +13,11 @@ class SwitcherInput extends React.Component {
           <span>Male</span>
           <input
             className="gender__input"
-            name="gender-input"
             type="checkbox"
-            ref={this.switcher}
+            name={props.name}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+            ref={ref}
             data-testid="gender-input"
           />
           <div className="gender__control"></div>
@@ -27,6 +26,6 @@ class SwitcherInput extends React.Component {
       </div>
     );
   }
-}
+);
 
-export default SwitcherInput;
+export default GenderInput;

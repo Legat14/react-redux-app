@@ -1,105 +1,73 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { IResponse } from 'types';
 
-class SearchTool extends React.Component<
-  {
-    getPhotos: (response: IResponse) => void;
-    setIsLoading: (value: boolean) => void;
-  },
-  { request: string }
-> {
-  requestEndpoint: string;
-  requestMethod: string;
-  apiKey: string;
-  format: string;
+function SearchTool(props: {
+  setResponse: (response: IResponse) => void;
+  setIsLoading: (value: boolean) => void;
+}): JSX.Element {
+  const [request, setRequest] = useState('');
+  const requestEndpoint = 'https://www.flickr.com/services/rest/';
+  const requestMethod = 'flickr.photos.search';
+  const apiKey = '92c3ed46142b2191fc2baa90c9cc54b4'; // TODO: Заменить хардкод на переменную энвайромента
+  const format = 'json&nojsoncallback=1';
+  const { register, handleSubmit, setValue, watch } = useForm<{ inputSearch: string }>();
 
-  constructor(props: {
-    getPhotos: (response: IResponse) => void;
-    setIsLoading: (value: boolean) => void;
-  }) {
-    super(props);
-    this.requestEndpoint = 'https://www.flickr.com/services/rest/';
-    this.requestMethod = 'flickr.photos.search';
-    this.apiKey = '92c3ed46142b2191fc2baa90c9cc54b4'; // TODO: Заменить хардкод на переменную энвайромента
-    this.format = 'json&nojsoncallback=1';
-    this.search = this.search.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    const searchInput = localStorage.getItem('searchInput');
-    if (searchInput) {
-      this.state = {
-        request: searchInput,
-      };
-      this.setValue(searchInput as string);
-    } else {
-      this.state = {
-        request: '',
-      };
+  useEffect((): (() => void) => {
+    const localStorageValue = localStorage.getItem('searchInput');
+    if (localStorageValue || localStorageValue === '') {
+      setRequest(localStorageValue);
+      setValue('inputSearch', localStorageValue);
     }
-  }
 
-  setValue(searchValue: string): void {
-    this.setState(() => {
-      return {
-        request: searchValue,
-      }
-    });
-  }
+    return (): void => {
+      localStorage.setItem('searchInput', watch('inputSearch'));
+    };
+  }, []);
 
-  componentWillUnmount(): void {
-    const searchInput = this.state.request;
-    if (searchInput || searchInput === '') {
-      localStorage.setItem('searchInput', searchInput);
-    }
-  }
-
-  async search(event: React.FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault();
-    this.props.setIsLoading(true);
-    const request = this.state.request;
-    const requestArr = request.split(' ');
+  const search = async (data: { inputSearch: string }): Promise<void> => {
+    props.setIsLoading(true);
+    const requestArr = data.inputSearch.split(' ');
     const trimmedRequest = requestArr.map((element): string => {
       return element.trim();
     });
     const processedRequest = trimmedRequest.join('+');
-    const requestUrl = `${this.requestEndpoint}?method=${this.requestMethod}&api_key=${this.apiKey}&text=${processedRequest}&format=${this.format}`;
+    const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}&format=${format}`;
     const response = await fetch(requestUrl);
     const responseObj = await response.json();
-    this.props.setIsLoading(false);
-    this.props.getPhotos(responseObj);
+    props.setIsLoading(false);
+    props.setResponse(responseObj);
+
     try {
-      if (await responseObj.stat !== 'ok') {
+      if ((await responseObj.stat) !== 'ok') {
         throw new Error('Something went wrong!');
       }
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (event.target) {
-      const value = event.target.value;
-      this.setState({
-        request: value,
-      });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.currentTarget) {
+      const value = event.currentTarget.value;
+      setRequest(value);
     }
-  }
+  };
 
-  render(): JSX.Element {
-    return (
-      <form className="search-tool" onSubmit={this.search}>
-        <input
-          className="input-search"
-          type="search"
-          placeholder="Enter request here"
-          value={this.state.request}
-          onChange={this.handleChange}
-        ></input>
-        <button className="search-btn" type="submit">
-          Search
-        </button>
-      </form>
-    );
-  }
+  return (
+    <form className="search-tool" onSubmit={handleSubmit(search)}>
+      <input
+        className="input-search"
+        type="search"
+        placeholder="Enter request here"
+        value={request}
+        {...register('inputSearch', { required: true, onChange: (event) => handleChange(event) })}
+      ></input>
+      <button className="search-btn" type="submit">
+        Search
+      </button>
+    </form>
+  );
 }
 
 export default SearchTool;

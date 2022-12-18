@@ -1,21 +1,20 @@
-import React from 'react';
+import React, { forwardRef, ForwardedRef } from 'react';
+import { ChangeHandler } from 'react-hook-form';
 
-class CountryInput extends React.Component {
-  public countryInput: React.RefObject<HTMLSelectElement>;
-
-  constructor(props: {}) {
-    super(props);
-    this.countryInput = React.createRef();
-  }
-
-  render(): JSX.Element {
+const CountryInput = forwardRef(
+  (
+    props: { onChange: ChangeHandler; onBlur: ChangeHandler; name: string },
+    ref: ForwardedRef<HTMLSelectElement>
+  ): JSX.Element => {
     return (
       <label className="country__label">
         <h4>Choose your country:</h4>
         <select
           className="country__input"
-          name="country-input"
-          ref={this.countryInput}
+          name={props.name}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
+          ref={ref}
           data-testid="country-input"
         >
           <option value={'Russia'}>Russia</option>
@@ -27,6 +26,6 @@ class CountryInput extends React.Component {
       </label>
     );
   }
-}
+);
 
 export default CountryInput;

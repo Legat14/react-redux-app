@@ -1,33 +1,38 @@
-import React from 'react';
+import React, { useRef, forwardRef, ForwardedRef } from 'react';
+import { ChangeHandler } from 'react-hook-form';
 
-class AvatarInput extends React.Component {
-  public avatarInput: React.RefObject<HTMLInputElement>;
-  public avatarInputBtn: React.RefObject<HTMLButtonElement>;
+const AvatarInput = forwardRef(
+  (
+    props: { onChange: ChangeHandler; onBlur: ChangeHandler; name: string },
+    ref: ForwardedRef<HTMLInputElement>
+  ): JSX.Element => {
+    const avatarLabel = useRef<HTMLLabelElement | null>(null);
 
-  constructor(props: {}) {
-    super(props);
-    this.avatarInput = React.createRef();
-    this.avatarInputBtn = React.createRef();
-  }
+    const clickAvatarInput = () => {
+      if (avatarLabel.current) {
+        avatarLabel.current.click();
+      }
+    };
 
-  render(): JSX.Element {
     return (
-      <label className="avatar__label">
+      <label className="avatar__label" ref={avatarLabel}>
         <h4>Load your avatar:</h4>
         <input
           className="avatar__input"
-          name="avatar-input"
           type="file"
           accept="image/*"
-          ref={this.avatarInput}
+          name={props.name}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
+          ref={ref}
           data-testid="avatar-input"
         />
-        <button className="avatar__button" type="button" ref={this.avatarInputBtn}>
+        <button onClick={clickAvatarInput} className="avatar__button" type="button">
           Choose image file
         </button>
       </label>
     );
   }
-}
+);
 
 export default AvatarInput;

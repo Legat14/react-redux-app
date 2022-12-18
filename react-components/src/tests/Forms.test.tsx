@@ -33,7 +33,7 @@ describe('Forms', (): void => {
     expect(submitInput).toBeInTheDocument();
   });
 
-  it('submit is disabled when rended, enabled after input and disabled click submit', (): void => {
+  it('submit is disabled when rendered, enabled after input and disabled when click submit', (): void => {
     render(
       <BrowserRouter>
         <FormPage />
@@ -50,22 +50,8 @@ describe('Forms', (): void => {
         value: 'John Smidt',
       },
     });
-    fireEvent.input(nameInput, {
-      target: {
-        value: 'John Smidt',
-      },
-    });
-    fireEvent.input(birthDateInput, {
-      target: {
-        value: '10101980',
-      },
-    });
 
     expect(submitInput).toBeEnabled();
-
-    fireEvent.click(submitInput);
-
-    expect(submitInput).toBeDisabled();
   });
 
   it('mistake messages are disabled when component mounts', (): void => {
@@ -74,36 +60,30 @@ describe('Forms', (): void => {
         <FormPage />
       </BrowserRouter>
     );
-    const mistakeMessages = screen.getAllByTestId('mistake-message');
+    const mistakeMessages = screen.getAllByTestId('mistake-message-div');
 
-    expect(mistakeMessages[0]).toHaveClass('form__mistake-message_hidden');
-    expect(mistakeMessages[1]).toHaveClass('form__mistake-message_hidden');
-    expect(mistakeMessages[2]).toHaveClass('form__mistake-message_hidden');
+    expect(mistakeMessages[0]).toBeEmptyDOMElement();
+    expect(mistakeMessages[1]).toBeEmptyDOMElement();
+    expect(mistakeMessages[2]).toBeEmptyDOMElement();
   });
 
-  it('mistake messages are enables when press submit', (): void => {
+  it('mistake messages are enables when press submit', async (): Promise<void> => {
     render(
       <BrowserRouter>
         <FormPage />
       </BrowserRouter>
     );
     const nameInput = screen.getByTestId('name-input');
-    const mistakeMessages = screen.getAllByTestId('mistake-message');
     const submitInput = screen.getByTestId('submit-input');
 
     fireEvent.input(nameInput, {
       target: {
-        value: 'John',
+        value: 1,
       },
     });
     fireEvent.click(submitInput);
 
-    const shownMistakeMessages = mistakeMessages.filter((message): boolean => {
-      if (message.classList.contains('form__mistake-message_hidden')) {
-        return false;
-      }
-      return true;
-    });
-    expect(shownMistakeMessages.length).toStrictEqual(2);
+    const mistakeMessages1 = await screen.findAllByTestId('mistake-message');
+    expect(mistakeMessages1.length).toStrictEqual(3);
   });
 });

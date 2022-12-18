@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
+import { ChangeHandler } from 'react-hook-form';
 
-class NameInput extends React.Component {
-  public nameInput: React.RefObject<HTMLInputElement>;
-
-  constructor(props: {}) {
-    super(props);
-    this.nameInput = React.createRef();
-  }
-
-  render(): JSX.Element {
+const NameInput = forwardRef(
+  (
+    props: { onChange: ChangeHandler; onBlur: ChangeHandler; name: string },
+    ref: ForwardedRef<HTMLInputElement>
+  ): JSX.Element => {
     return (
       <label className="name__label">
         <h4>Type your name:</h4>
         <input
           className="name__input"
-          name="name-input"
           type="input"
-          ref={this.nameInput}
+          name={props.name}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
+          ref={ref}
           data-testid="name-input"
         />
       </label>
     );
   }
-}
+);
 
 export default NameInput;
