@@ -1,0 +1,31 @@
+.game-card {
+  width: 700px;
+  height: 300px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 7px 10px #000000;
+  
+  h2,
+  h3 {
+    font-family: $heading-font;
+    font-size: 22px;
+    font-weight: 600;
+  }
+}
+
+.game-card__description {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-family: $common-text-font;
+  font-weight: 400;
+  font-size: 20px;
+  color: #ffffff;
+  background: linear-gradient(to left, $description-bg1, $description-bg2);
+
+  strong {
+    font-weight: 700;
+  }
+}
