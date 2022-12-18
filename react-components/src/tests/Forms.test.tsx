@@ -2,12 +2,16 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import FormPage from 'components/pages/FormPage/FormPage';
+import { Provider } from 'react-redux';
+import store from 'store/store';
 
 describe('Forms', (): void => {
   it('renders all form components', (): void => {
     render(
       <BrowserRouter>
-        <FormPage />
+        <Provider store={store}>
+          <FormPage />
+        </Provider>
       </BrowserRouter>
     );
     const form = screen.getByTestId('form');
@@ -36,7 +40,9 @@ describe('Forms', (): void => {
   it('submit is disabled when rendered, enabled after input and disabled when click submit', (): void => {
     render(
       <BrowserRouter>
-        <FormPage />
+        <Provider store={store}>
+          <FormPage />
+        </Provider>
       </BrowserRouter>
     );
     const nameInput = screen.getByTestId('name-input');
@@ -57,7 +63,9 @@ describe('Forms', (): void => {
   it('mistake messages are disabled when component mounts', (): void => {
     render(
       <BrowserRouter>
-        <FormPage />
+        <Provider store={store}>
+          <FormPage />
+        </Provider>
       </BrowserRouter>
     );
     const mistakeMessages = screen.getAllByTestId('mistake-message-div');
@@ -70,7 +78,9 @@ describe('Forms', (): void => {
   it('mistake messages are enables when press submit', async (): Promise<void> => {
     render(
       <BrowserRouter>
-        <FormPage />
+        <Provider store={store}>
+          <FormPage />
+        </Provider>
       </BrowserRouter>
     );
     const nameInput = screen.getByTestId('name-input');

@@ -1,16 +1,28 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Context from 'store/Context';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { IResponse, PhotoCardActionType, sortOptions } from 'types';
+import { AppDispatch, IResponse, RootState, sortOptions } from 'types';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  saveLastPage,
+  savePageNumber,
+  savePhotoPerPage,
+  saveSortOption,
+} from 'store/slices/photoCardSlice';
+import { fetchPhotosThunk, renderPhotoCard } from 'store/slices/photosSlice';
+import store from 'store/store';
+import isEmpty from 'helpers/isEmpty';
 
-function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Element {
-  const responseObjfromState = useContext(Context).states.photoCardState.responseObj;
-  const inputSortFromState = useContext(Context).states.photoCardState.inputSort;
-  const inputPhotosPerPageFromState = useContext(Context).states.photoCardState.inputPhotosPerPage;
-  const inputPageNumberFromState = useContext(Context).states.photoCardState.inputPageNumber;
-  let lastPage = useContext(Context).states.photoCardState.lastPage;
+function SearchTool(): JSX.Element {
+  const inputSortFromState = useSelector((state: RootState) => state.photoCard.inputSort);
+  const inputPhotosPerPageFromState = useSelector(
+    (state: RootState) => state.photoCard.inputPhotosPerPage
+  );
+  const inputPageNumberFromState = useSelector(
+    (state: RootState) => state.photoCard.inputPageNumber
+  );
+  let lastPage = useSelector((state: RootState) => state.photoCard.lastPage);
   const photosPerResponse = 4000;
-  const dispatch = useContext(Context).dispatches.photoCardDispatch;
+  const dispatch = useDispatch<AppDispatch>();
   const [request, setRequest] = useState('');
   const requestEndpoint = 'https://www.flickr.com/services/rest/';
   const requestMethod = 'flickr.photos.search';
@@ -27,7 +39,7 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     setValue('inputSort', inputSortFromState);
     setValue('inputPhotosPerPage', inputPhotosPerPageFromState.toString());
     setValue('inputPageNumber', inputPageNumberFromState.toString());
-  }, []);
+  }, [inputPageNumberFromState, inputPhotosPerPageFromState, inputSortFromState, setValue]);
 
   useEffect((): (() => void) => {
     const localStorageValue = localStorage.getItem('searchInput');
@@ -47,7 +59,6 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     inputPhotosPerPage: string;
     inputPageNumber: string;
   }): Promise<void> => {
-    props.setIsLoading(true);
     const requestArr = data.inputSearch.split(' ');
     const trimmedRequest = requestArr.map((element): string => {
       return element.trim();
@@ -60,25 +71,28 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
     }
 
     const requestUrl = `${requestEndpoint}?method=${requestMethod}&api_key=${apiKey}&text=${processedRequest}${sortRequest}&per_page=${data.inputPhotosPerPage}&page=${data.inputPageNumber}&format=${format}`;
-    const response = await fetch(requestUrl);
-    const responseObj = await response.json();
-    props.setIsLoading(false);
-    dispatch({
-      type: PhotoCardActionType.RenderPhotoCards,
-      responseObj,
-      inputSort: watch('inputSort'),
-      inputPhotosPerPage: inputPhotosPerPageFromState,
-      inputPageNumber: inputPageNumberFromState,
-      lastPage: lastPage,
-    });
+    await dispatch(fetchPhotosThunk(requestUrl));
+    const state = store.getState();
+    const responseObj = state.photos.response as IResponse & Response;
+    dispatch(
+      renderPhotoCard({
+        ...state.photos,
+        response: responseObj,
+      })
+    );
 
     try {
-      if ((await responseObj.stat) === 'ok') {
-        // TODO: Добавить в state, чтобы обновлялся номер на странице
+      if (!state.photos.error || isEmpty(responseObj)) {
+        if (responseObj.stat === 'ok') {
+        } else {
+          throw new Error('Bad response!');
+        }
       } else {
-        throw new Error('Something went wrong!');
+        throw new Error(state.photos.error);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -90,35 +104,35 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
 
   const handleSortInputChange = (): void => {
     // TODO: Сделать чтобы при изменении сортировки сразу происходил новый поиск
-    dispatch({
-      type: PhotoCardActionType.SaveSortOption,
-      responseObj: responseObjfromState as IResponse,
-      inputSort: watch('inputSort'),
-      inputPhotosPerPage: inputPhotosPerPageFromState,
-      inputPageNumber: inputPageNumberFromState,
-      lastPage: lastPage,
-    });
+    dispatch(
+      saveSortOption({
+        inputSort: watch('inputSort'),
+        inputPhotosPerPage: inputPhotosPerPageFromState,
+        inputPageNumber: inputPageNumberFromState,
+        lastPage: lastPage,
+      })
+    );
   };
 
   const handlePhotosPerPageInputChange = (): void => {
     // TODO: Сделать чтобы при изменении количества сразу происходил новый поиск
-    dispatch({
-      type: PhotoCardActionType.SavePhotoPerPage,
-      responseObj: responseObjfromState as IResponse,
-      inputSort: inputSortFromState,
-      inputPhotosPerPage: +watch('inputPhotosPerPage'),
-      inputPageNumber: inputPageNumberFromState,
-      lastPage: lastPage,
-    });
+    dispatch(
+      savePhotoPerPage({
+        inputSort: inputSortFromState,
+        inputPhotosPerPage: +watch('inputPhotosPerPage'),
+        inputPageNumber: inputPageNumberFromState,
+        lastPage: lastPage,
+      })
+    );
     lastPage = calculateTotalPage();
-    dispatch({
-      type: PhotoCardActionType.SaveLastPage,
-      responseObj: responseObjfromState as IResponse,
-      inputSort: inputSortFromState,
-      inputPhotosPerPage: inputPhotosPerPageFromState,
-      inputPageNumber: inputPageNumberFromState,
-      lastPage: lastPage,
-    });
+    dispatch(
+      saveLastPage({
+        inputSort: inputSortFromState,
+        inputPhotosPerPage: inputPhotosPerPageFromState,
+        inputPageNumber: inputPageNumberFromState,
+        lastPage: lastPage,
+      })
+    );
   };
 
   const calculateTotalPage = (): number => {
@@ -127,14 +141,14 @@ function SearchTool(props: { setIsLoading: (value: boolean) => void }): JSX.Elem
 
   const handlePageNumberInputChange = (): void => {
     // TODO: Сделать чтобы при изменении страницы сразу происходил новый поиск
-    dispatch({
-      type: PhotoCardActionType.SavePageNumber,
-      responseObj: responseObjfromState as IResponse,
-      inputSort: inputSortFromState,
-      inputPhotosPerPage: inputPhotosPerPageFromState,
-      inputPageNumber: +watch('inputPageNumber'),
-      lastPage: lastPage,
-    });
+    dispatch(
+      savePageNumber({
+        inputSort: inputSortFromState,
+        inputPhotosPerPage: inputPhotosPerPageFromState,
+        inputPageNumber: +watch('inputPageNumber'),
+        lastPage: lastPage,
+      })
+    );
   };
 
   return (

@@ -124,7 +124,8 @@
 }
 
 .submit__input,
-.avatar__button {
+.avatar__button,
+.form__reset-btn {
   width: 200px;
   height: 30px;
   color: #ffffff;
@@ -137,13 +138,15 @@
 }
 
 .submit__input:hover,
-.avatar__button:hover {
+.avatar__button:hover,
+.form__reset-btn:hover {
   transform: scale(103%);
   background: linear-gradient($search-button-bg1, $search-button-bg2 43%, $search-button-bg1);
 }
 
 .submit__input:active,
-.avatar__button:active {
+.avatar__button:active,
+.form__reset-btn:active {
   color: $search-button-active-color;
   transform: scale(97%);
   background: linear-gradient($search-button-bg1, $search-button-bg2 50%, $search-button-bg1);

@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'types';
 import SearchResult from './components/SearchResult';
 import SearchTool from './components/SearchTool';
 
 function MainPage(): JSX.Element {
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector((state: RootState): boolean => state.photos.isLoading);
 
   return (
     <section className="main-page__section">
       <div className="main-page__bar">
         <h2>Main page</h2>
-        <SearchTool setIsLoading={setIsLoading} />
+        <SearchTool />
       </div>
       {isLoading ? (
         <div className="main-page__loading-screen">

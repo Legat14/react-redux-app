@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
-import Context from 'store/Context';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { RootState } from 'types';
+import { useSelector } from 'react-redux';
 
 function DetailPage(): JSX.Element {
-  const detailContent = useContext(Context).states.detailState;
+  const detailContent = useSelector((state: RootState) => state.details);
 
   return (
     <section className="detail-page__section" data-testid={'detail-page'}>

@@ -1,20 +1,36 @@
-import React, { useRef, useContext } from 'react';
+import React, { useCallback, useRef } from 'react';
 import AccountCards from './components/AccountCards';
 import ConfirmationWindow from './components/ConfirmationWindow';
 import showCreateCardConfirmation from './functions/showCreateCardConfirmation';
-import { AccountCardActionType, IAllInputsData, ICheckboxesData } from 'types';
+import { IAllInputsData, ICheckboxesData, RootState } from 'types';
 import AccountForm from './components/AccountForm';
 import createAccountCard from './functions/createAccountCard';
-import Context from 'store/Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAccountCard, deleteAllAccountCards } from 'store/slices/accountCardSlice';
 
 function FormPage(): JSX.Element {
-  const accountCards = useContext(Context).states.accountState.accountCards;
-  const dispatch = useContext(Context).dispatches.accountDispatch;
+  const accountCards = useSelector((state: RootState) => state.accountCard.accountCards);
+  const dispatch = useDispatch();
   const confirmation = useRef(null);
+  const handleResetCallback = useCallback((): void => {
+    dispatch(deleteAllAccountCards());
+  }, [dispatch]);
 
-  const getKey = (): number => {
-    return accountCards.length;
-  };
+  const handleSubmitCallback = useCallback(
+    (inputsData: IAllInputsData, checkboxesData: ICheckboxesData): void => {
+      const getKey = (): number => {
+        return accountCards.length;
+      };
+      const key = getKey();
+      const newAccountCard = createAccountCard(key, inputsData, checkboxesData);
+      dispatch(addAccountCard({ newAccountCard }));
+      const confirmationDiv = getConfirmation();
+      if (confirmationDiv) {
+        showCreateCardConfirmation(confirmationDiv);
+      }
+    },
+    [dispatch, accountCards.length]
+  );
 
   const getConfirmation = (): HTMLDivElement | null => {
     let confirmationElement = null;
@@ -24,34 +40,10 @@ function FormPage(): JSX.Element {
     return confirmationElement;
   };
 
-  const handleSubmit = (inputsData: IAllInputsData, checkboxesData: ICheckboxesData): void => {
-    const key = getKey();
-    const newAccountCard = createAccountCard(key, inputsData, checkboxesData);
-    dispatch({
-      type: AccountCardActionType.AddAccountCard,
-      newAccountCard,
-    });
-    const confirmationDiv = getConfirmation();
-    if (confirmationDiv) {
-      showCreateCardConfirmation(confirmationDiv);
-    }
-  };
-
-  const handleReset = () => {
-    dispatch({
-      type: AccountCardActionType.DeleteAccountCard,
-    });
-  };
-
-  //TODO: Перенести кнопку Reset в форму
-
   return (
     <section className="form-page__section">
       <h2>React Forms</h2>
-      <AccountForm handleSubmit={handleSubmit} />
-      <button className="form-page__reset-btn" onClick={handleReset}>
-        Reset
-      </button>
+      <AccountForm handleSubmit={handleSubmitCallback} handleReset={handleResetCallback} />
       <AccountCards cardData={accountCards} />
       <ConfirmationWindow ref={confirmation} />
     </section>

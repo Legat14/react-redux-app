@@ -1,3 +1,4 @@
+import store from './store/store';
 import { MouseEventHandler } from 'react';
 
 export interface IAccountCard {
@@ -84,7 +85,6 @@ export enum sortOptions {
 }
 
 export interface IPhotoCardState {
-  responseObj: IResponse | {};
   inputSort: sortOptions;
   inputPhotosPerPage: number;
   inputPageNumber: number;
@@ -92,27 +92,19 @@ export interface IPhotoCardState {
 }
 
 export interface IPhotoCardDispatch {
-  type: PhotoCardActionType;
-  responseObj: IResponse;
   inputSort: sortOptions;
   inputPhotosPerPage: number;
   inputPageNumber: number;
   lastPage: number;
 }
 
-export enum AccountCardActionType {
-  AddAccountCard = 'add-account-card',
-  DeleteAccountCard = 'delete-all-account-cards',
+export interface IPhotosState {
+  response: Response;
+  isLoading: boolean;
+  error: string;
 }
 
-export enum PhotoCardActionType {
-  RenderPhotoCards = 'render-photo-cards',
-  SaveSortOption = 'save-sort-option',
-  SavePhotoPerPage = 'save-photo-per-page',
-  SavePageNumber = 'save-page-number',
-  SaveLastPage = 'save-last-page',
-}
-
-export enum DetailType {
-  SaveDetailContent = 'save-detail-content',
-}
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
