@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import MainPage from 'components/pages/Main-page';
+import MainPage from 'components/pages/MainPage/MainPage';
 import Header from 'components/Header';
-import SearchResult from 'components/Search-result';
+import SearchResult from '../components/pages/MainPage/components/SearchResult';
 
-describe ('Components', (): void => {
+describe('Components', (): void => {
   it('renders React components text in App component', (): void => {
     render(
       <BrowserRouter>
@@ -35,34 +35,34 @@ describe ('Components', (): void => {
   });
 });
 
-describe ('Cards quantity', (): void => {
+describe('Cards quantity', (): void => {
   it('renders all cards', (): void => {
-    render(<SearchResult />)
+    render(<SearchResult />);
     const cards = screen.getAllByText(/Platform:/i);
     expect(cards.length).toBeGreaterThanOrEqual(6);
   });
 });
 
-describe ('Card content', (): void => {
+describe('Card content', (): void => {
   it('renders all card content', (): void => {
-    render(<SearchResult />)
+    render(<SearchResult />);
     let isTruthy = true;
     const headings = screen.getAllByRole('heading');
-    headings.forEach(heading => {
+    headings.forEach((heading) => {
       if (!heading.innerHTML.replace(' ₽', '')) {
         isTruthy = false;
       }
     });
 
     const img = screen.getAllByRole('img');
-    img.forEach(img => {
+    img.forEach((img) => {
       if (!img.getAttribute('src')) {
         isTruthy = false;
       }
     });
 
     const platform = screen.getAllByText(/Platform:/i);
-    platform.forEach(cardPlatform => {
+    platform.forEach((cardPlatform) => {
       const currentCardPlatform = cardPlatform.nextElementSibling;
       if (!currentCardPlatform) {
         isTruthy = false;
@@ -74,7 +74,7 @@ describe ('Card content', (): void => {
     });
 
     const release = screen.getAllByText(/Release date:/i);
-    release.forEach(cardRelease => {
+    release.forEach((cardRelease) => {
       const currentCardRelease = cardRelease.nextElementSibling;
       if (!currentCardRelease) {
         isTruthy = false;

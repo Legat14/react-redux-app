@@ -1,5 +1,5 @@
-import SearchResult from 'components/Search-result';
-import SearchTool from 'components/Search-tool';
+import SearchResult from './components/SearchResult';
+import SearchTool from './components/SearchTool';
 import React from 'react';
 
 function MainPage(): JSX.Element {

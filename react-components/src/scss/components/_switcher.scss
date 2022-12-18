@@ -1,0 +1,62 @@
+.gender__div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  font-family: $common-text-font;
+  font-weight: 400;
+  font-size: 20px;
+
+  h4 {
+    font-family: $heading-font;
+    font-weight: 700;
+    font-size: 23px;
+  }
+}
+
+.gender__label {
+  position: relative;
+  display: flex;
+  gap: 90px;
+  cursor: pointer;
+}
+
+.gender__input {
+  display: none;
+}
+
+.gender__control {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 22px;
+  left: 62px;
+  border-radius: 7px;
+  outline: 1px solid #000000;
+  outline-offset: 2px;
+  background-color: $switcer-false-color;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.gender__input:checked ~ .gender__control {
+  background-color: $switcer-true-color;
+}
+
+.gender__control::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 25px;
+  height: 16px;
+  background: linear-gradient($switcer-control-color, #ffffff 40%, $switcer-control-color);
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.gender__input:checked ~ .gender__control::after {
+  left: 33px;
+  background: linear-gradient($switcer-control-color, #ffffff 47%, $switcer-control-color);
+}

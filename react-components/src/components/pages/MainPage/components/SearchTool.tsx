@@ -13,12 +13,12 @@ class SearchTool extends React.Component {
     const input = this.inputRef.current;
     let searchInput = null;
     if (input) {
-      searchInput = input.value
+      searchInput = input.value;
     }
     return searchInput;
   }
 
-  setValue(searchValue: string): void{
+  setValue(searchValue: string): void {
     const input = this.inputRef.current;
     if (input) {
       input.value = searchValue;
@@ -39,8 +39,9 @@ class SearchTool extends React.Component {
     }
   }
 
-  search(): void { // Это метод-заглушка. Познее нужно его расширить до полноценного поиска.
-    const input = this.inputRef.current
+  search(): void {
+    // Это метод-заглушка. Познее нужно его расширить до полноценного поиска.
+    const input = this.inputRef.current;
     if (input) {
       console.log('Search: ', input.value);
     }
@@ -48,9 +49,16 @@ class SearchTool extends React.Component {
 
   render(): JSX.Element {
     return (
-      <form className='search-tool'>
-        <input className="input-search" type='search' placeholder='Enter request here' ref={this.inputRef as LegacyRef<HTMLInputElement>}></input>
-        <button className="search-btn" type='button' onClick={this.search}>Search</button>
+      <form className="search-tool">
+        <input
+          className="input-search"
+          type="search"
+          placeholder="Enter request here"
+          ref={this.inputRef as LegacyRef<HTMLInputElement>}
+        ></input>
+        <button className="search-btn" type="button" onClick={this.search}>
+          Search
+        </button>
       </form>
     );
   }

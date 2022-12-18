@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
-describe ('LocalStorage', (): void => {
+describe('LocalStorage', (): void => {
   it('gets data from Local Storage', (): void => {
     render(
       <BrowserRouter>
@@ -18,12 +18,10 @@ describe ('LocalStorage', (): void => {
     const aboutUsLink = navBar.lastElementChild;
 
     if (searchInput) {
-      fireEvent.input(
-        searchInput,
-        {
-          target: {
-            value: 'test'
-          }
+      fireEvent.input(searchInput, {
+        target: {
+          value: 'test',
+        },
       });
     }
     if (aboutUsLink) {
@@ -31,6 +29,5 @@ describe ('LocalStorage', (): void => {
     }
     const localStorageSearchInputAfter = localStorage.getItem('searchInput');
     expect(localStorageSearchInputAfter).toBe('test');
-
   });
 });
